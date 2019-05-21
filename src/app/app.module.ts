@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MaterialModule } from './material/material.module';
+import { NavbarModule } from './navbar/navbar.module';
 import { reducers, metaReducers } from './reducers';
 
 @NgModule({
@@ -17,7 +18,8 @@ import { reducers, metaReducers } from './reducers';
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    MaterialModule
+    MaterialModule,
+    NavbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

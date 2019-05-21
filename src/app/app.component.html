@@ -1,1 +1,14 @@
 <router-outlet></router-outlet>
+<mat-sidenav-container fullscreen>
+  <app-sidenav [open]="showSidenav$ | async" (closeSidenav)="closeSidenav()">
+    <app-nav-item (navigate)="closeSidenav()" routerLink="/" icon="home" desc="Go to the home page">
+      Home
+    </app-nav-item>
+  </app-sidenav>
+  <app-toolbar (openSidenav)="openSidenav()">
+    Medical office
+  </app-toolbar>
+  <div class="app__container">
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>
