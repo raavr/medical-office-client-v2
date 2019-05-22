@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { MaterialModule } from './material/material.module';
 import { NavbarModule } from './navbar/navbar.module';
 import { reducers, metaReducers } from './reducers';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -15,10 +16,11 @@ import { reducers, metaReducers } from './reducers';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     MaterialModule,
+    CoreModule,
+    AppRoutingModule,
     NavbarModule
   ],
   providers: [],

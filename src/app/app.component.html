@@ -1,14 +1,28 @@
-<router-outlet></router-outlet>
-<mat-sidenav-container fullscreen>
-  <app-sidenav [open]="showSidenav$ | async" (closeSidenav)="closeSidenav()">
-    <app-nav-item (navigate)="closeSidenav()" routerLink="/" icon="home" desc="Go to the home page">
-      Home
-    </app-nav-item>
-  </app-sidenav>
-  <app-toolbar (openSidenav)="openSidenav()">
-    Medical office
-  </app-toolbar>
-  <div class="app__container">
+<app-toolbar
+  [opened]="showSidenav$ | async"
+  (openSidenav)="openSidenav()"
+  (closeSidenav)="closeSidenav()"
+>
+  Medical office
+</app-toolbar>
+<mat-sidenav-container (backdropClick)="closeSidenav()">
+  <mat-sidenav
+    #sidenav
+    [opened]="showSidenav$ | async"
+    (keydown.escape)="sidenav.close(); closeSidenav()"
+  >
+    <mat-nav-list>
+      <app-nav-item
+        (navigate)="closeSidenav()"
+        routerLink="/"
+        icon="home"
+        desc="Go to the home page"
+      >
+        Home
+      </app-nav-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
     <router-outlet></router-outlet>
-  </div>
+  </mat-sidenav-content>
 </mat-sidenav-container>
