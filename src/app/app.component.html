@@ -1,28 +1,38 @@
-<app-toolbar
-  [opened]="showSidenav$ | async"
-  (openSidenav)="openSidenav()"
-  (closeSidenav)="closeSidenav()"
->
-  Medical office
-</app-toolbar>
-<mat-sidenav-container (backdropClick)="closeSidenav()">
-  <mat-sidenav
-    #sidenav
+<div class="app__container">
+  <app-toolbar
     [opened]="showSidenav$ | async"
-    (keydown.escape)="sidenav.close(); closeSidenav()"
+    (openSidenav)="openSidenav()"
+    (closeSidenav)="closeSidenav()"
+    [showMenu]="(media$ | async)[XSmall]"
   >
-    <mat-nav-list>
-      <app-nav-item
-        (navigate)="closeSidenav()"
-        routerLink="/"
-        icon="home"
-        desc="Go to the home page"
-      >
-        Home
-      </app-nav-item>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    <app-menu *ngIf="loggedIn$ | async">
+      <button mat-menu-item>Moje konto</button>
+      <button mat-menu-item (click)="logout()">Wyloguj</button>
+    </app-menu>
+  </app-toolbar>
+  <mat-sidenav-container
+    (backdropClick)="closeSidenav()"
+    class="sidenav__container"
+  >
+    <mat-sidenav
+      #sidenav
+      [opened]="showSidenav$ | async"
+      [position]="'start'"
+      (keydown.escape)="sidenav.close(); closeSidenav()"
+    >
+      <mat-nav-list>
+        <app-nav-item
+          (navigate)="closeSidenav()"
+          routerLink="/"
+          icon="home"
+          desc="Go to the home page"
+        >
+          Home
+        </app-nav-item>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

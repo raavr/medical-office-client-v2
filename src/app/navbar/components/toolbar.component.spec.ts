@@ -20,12 +20,15 @@ describe('ToolbarComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
+  
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
+  
   it('should emit an event if the button was clicked', () => {
+    component.showMenu = true;
+    fixture.detectChanges();
+    
     spyOn(component.openSidenav, 'emit');
     const compiled = fixture.debugElement.nativeElement;
     const button = compiled.querySelector('button');

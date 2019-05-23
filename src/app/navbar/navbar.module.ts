@@ -6,11 +6,13 @@ import { NavItemComponent } from './components/nav-item.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers';
 import { RouterModule } from '@angular/router';
+import { MenuComponent } from './components/menu.component';
 
 @NgModule({
   declarations: [
     ToolbarComponent,
-    NavItemComponent
+    NavItemComponent,
+    MenuComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     ToolbarComponent,
-    NavItemComponent
+    NavItemComponent,
+    MenuComponent
   ]
 })
 export class NavbarModule { }

@@ -3,7 +3,7 @@ import {
   createSelector,
   createFeatureSelector,
 } from '@ngrx/store';
-import * as fromRoot from '../../reducers';
+import * as fromRoot from '../../core/reducers';
 import * as fromNavbar from './navbar.reducers';
 
 export interface NavbarState {
