@@ -1,4 +1,5 @@
 @import '~@angular/material/prebuilt-themes/purple-green.css';
+@import 'app/app.theme.scss';
 
 *, *::after, *::before {
   box-sizing: border-box;
@@ -19,4 +20,13 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   font-size: 1.6rem;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.link-router {
+  color: $light-primary-text;
+  text-decoration: none;
 }

@@ -8,17 +8,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
         <button *ngIf="showMenu" mat-icon-button (click)="toggleSidenav()">
           <mat-icon>menu</mat-icon>
         </button>
-        eGabinet
+        <a class="link-router" routerLink="/">eGabinet</a>
         <span class="toolbar-spacer"></span>
         <ng-content></ng-content>
       </mat-toolbar-row>
     </mat-toolbar>
   `,
-  styles: [`
-    .toolbar-spacer {
-      flex: 1 1 auto;
-    }
-  `]
+  styles: []
 })
 export class ToolbarComponent {
   @Input() opened: Boolean;
