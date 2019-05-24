@@ -16,7 +16,6 @@ export class LoginFormComponent {
       : this.form.enable()
     this._pending = isPending;
   }
-  @Input() errorMessage: string | null;
   @Output() submitForm = new EventEmitter<Credentials>();
 
   form = this.fb.group({

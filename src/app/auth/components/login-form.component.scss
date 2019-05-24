@@ -26,13 +26,6 @@ mat-card-content {
 }
 
 .form {
-  &__error {
-    padding: 16px;
-    width: 300px;
-    color: white;
-    background-color: red;
-  }
-
   &__btn {
     display: flex;
     flex-direction: row;

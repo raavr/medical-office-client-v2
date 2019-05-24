@@ -1,0 +1,29 @@
+@import '~@angular/material/theming';
+@import '../../../app.variables.scss';
+
+$warn: map-get($theme, warn);
+$accent: map-get($theme, accent);
+.alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  line-height: 20px;
+  opacity: 1;
+  font-size: 1.4rem;
+  
+  &__action {
+    flex-shrink: 0;
+    margin: -8px -8px -8px 8px;
+  }
+
+  &--warn {
+    background-color: mat-color($warn);
+    color: $light-primary-text;
+  }
+
+  &--success {
+    background-color: mat-color($accent);
+    color: $light-primary-text;
+  }
+}

@@ -49,14 +49,6 @@ describe('LoginFormComponent', () => {
     expect(compiled.querySelector('mat-spinner')).not.toBeNull();
   });
 
-  it('should display an error message if provided', () => {
-    component.errorMessage = 'Invalid credentials';
-    const compiled = fixture.debugElement.nativeElement;
-    fixture.detectChanges();
-
-    expect(compiled.querySelector('.form__error').textContent.trim()).toBe('Invalid credentials');
-  });
-
   it('should emit an event if the form is valid when submitted', () => {
     const credentials = {
       email: 'test@example.com',
