@@ -1,0 +1,86 @@
+@import '../../../app.variables.scss';
+
+.form-container {
+  margin: 10px 0;
+  width: 100%;
+}
+
+.form-profile {
+  display: flex;
+  flex-direction: column;
+  
+  @media ($small-width) {
+    & {
+      flex-direction: row;
+    }
+  }
+}
+
+.form-col {
+  width: 200px;
+  margin-right: 20px;
+}
+
+.account-avatar {
+  margin-bottom: 10px;
+  display: block;
+  border-radius: 5px;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.card-container {
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px;
+  position: relative;
+  
+  @media ($small-width) {
+    & {
+      width: 80%;
+    }
+  }
+
+  @media ($middle-width) {
+    & {
+      width: 60%;
+    }
+  }
+
+  @media ($large-width) {
+    & {
+      width: 50%;
+    }
+  }
+}
+
+.card-loading {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.card-button {
+  margin: 0 10px;
+
+  &:last-child {
+    margin: 0;
+  }
+}
+
+.router-page {
+  display: flex;
+  justify-content: center;
+}

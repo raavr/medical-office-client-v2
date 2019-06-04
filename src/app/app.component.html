@@ -6,7 +6,7 @@
     [showMenu]="(media$ | async)[XSmall]"
   >
     <app-menu *ngIf="loggedIn$ | async">
-      <button mat-menu-item>Moje konto</button>
+      <button mat-menu-item routerLink="/account">Moje konto</button>
       <button mat-menu-item (click)="logout()">Wyloguj</button>
     </app-menu>
   </app-toolbar>
@@ -31,7 +31,7 @@
         </app-nav-item>
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content class="main-content">
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

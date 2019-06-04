@@ -1,0 +1,99 @@
+<h2>Moje konto</h2>
+<mat-divider></mat-divider>
+<div class="router-page">
+  <mat-card class="card-container">
+    <form [formGroup]="form" novalidate (ngSubmit)="saveProfile()">
+      <mat-card-content class="form-profile">
+        <div class="form-col">
+          <img
+            *ngIf="profile && profile.avatar; else avatarDefault"
+            src="{{ profile.avatar }}"
+            alt="avatar"
+            class="account-avatar"
+          />
+          <ng-template #avatarDefault>
+            <img
+              src="../../../../assets/images/avatar-default.png"
+              alt="avatar"
+              class="account-avatar"
+            />
+          </ng-template>
+          <button
+            type="button"
+            mat-raised-button
+            color="accent"
+            (click)="fileInput.click()"
+          >
+            Wybierz plik obrazu
+          </button>
+          <input
+            hidden
+            (change)="onFileSelected()"
+            #fileInput
+            type="file"
+            id="file"
+          />
+        </div>
+        <div>
+          <mat-form-field class="form-container">
+            <input matInput placeholder="Imię" formControlName="name" />
+            <mat-error
+              *ngIf="
+                form.get('name').hasError('required') &&
+                form.get('name').touched
+              "
+            >
+              Imię jest wymagane
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-container">
+            <input matInput placeholder="Nazwisko" formControlName="surname" />
+            <mat-error
+              *ngIf="
+                form.get('surname').hasError('required') &&
+                form.get('surname').touched
+              "
+            >
+              Nazwisko jest wymagane
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-container">
+            <input matInput placeholder="Email" formControlName="email" />
+            <mat-error
+              *ngIf="
+                form.get('email').hasError('email') &&
+                !form.get('email').hasError('required') &&
+                form.get('email').touched
+              "
+            >
+              Wprowadź poprawny adres email
+            </mat-error>
+            <mat-error
+              *ngIf="
+                form.get('email').hasError('required') &&
+                form.get('email').touched
+              "
+            >
+              Email jest wymagany
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-footer class="card-footer">
+        <button mat-button class="card-button">Anuluj</button>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          class="card-button"
+          [disabled]="form.$error"
+        >
+          Zapisz
+        </button>
+      </mat-card-footer>
+    </form>
+    <div *ngIf="pending" class="card-loading">
+      <mat-spinner></mat-spinner>
+    </div>
+  </mat-card>
+</div>

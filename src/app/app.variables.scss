@@ -3,3 +3,15 @@
 $primary: mat-palette($mat-purple);
 $accent:  mat-palette($mat-green, A200, A100, A400);
 $theme: mat-dark-theme($primary, $accent);
+
+$sizes: (
+  "xsmall": "500px",
+  "small": "768px",
+  "middle": "960px",
+  "large": "1200px"
+);
+
+$xsmall-width: 'min-width: #{map-get($sizes, "xsmall")}';
+$small-width: 'min-width: #{map-get($sizes, "small")}';
+$middle-width: 'min-width: #{map-get($sizes, "middle")}';
+$large-width: 'min-width: #{map-get($sizes, "large")}';
