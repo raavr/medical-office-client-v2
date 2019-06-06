@@ -10,7 +10,9 @@ export enum ALERT_TYPE {
   SUCCESS
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AlertFactoryService {
   constructor(
     private snackBar: MatSnackBar,
