@@ -7,7 +7,7 @@ import {
 } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 import * as fromRouter from '@ngrx/router-store';
-import * as fromMedia from './media.reducers';
+import * as fromMedia from './media.reducer';
 import * as fromAlert from './alert.reducer';
 
 export interface State {

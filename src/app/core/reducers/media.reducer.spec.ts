@@ -1,4 +1,4 @@
-import { mediaReducer } from './media.reducers';
+import { mediaReducer } from './media.reducer';
 import { MediaChanged } from '../actions/media.actions';
 
 describe('Media Reducer', () => {
