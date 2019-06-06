@@ -6,7 +6,7 @@ export interface AlertState {
   alertType: null | ALERT_TYPE.SUCCESS | ALERT_TYPE.WARN;
 }
 
-const initialState = {
+export const initialState = {
   message: null,
   alertType: null
 };

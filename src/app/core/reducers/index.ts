@@ -8,7 +8,7 @@ import {
 import { environment } from '../../../environments/environment';
 import * as fromRouter from '@ngrx/router-store';
 import * as fromMedia from './media.reducers';
-import * as fromAlert from './alert.reducers';
+import * as fromAlert from './alert.reducer';
 
 export interface State {
   router: fromRouter.RouterReducerState;
