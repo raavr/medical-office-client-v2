@@ -10,17 +10,21 @@ import {
   ProfileSaveFailure,
   ProfileGetSuccess,
   ProfileUpdateAvatar,
-  ProfileUpdateAvatarSuccess
+  ProfileUpdateAvatarSuccess,
+  ProfileGet,
+  ProfileGetFailure
 } from '../actions/profile.action';
 import { hot, cold } from 'jasmine-marbles';
-import { AlertShow } from 'src/app/core/actions/alert.actions';
+import { AlertShow, AlertReset } from 'src/app/core/actions/alert.actions';
 import { ALERT_TYPE } from 'src/app/core/components/alert/alert-factory.service';
 import * as utilFun from '../../core/utils/utils';
+import { Logout } from 'src/app/auth/actions/auth.actions';
 
 describe('ProfileEffects', () => {
   let actions$: Observable<any>;
   let effects: ProfileEffects;
   let service: ProfileService;
+  let status: number;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -31,7 +35,8 @@ describe('ProfileEffects', () => {
           provide: ProfileService,
           useValue: {
             updateProfile: () => {},
-            uploadAvatar: () => {}
+            uploadAvatar: () => {},
+            getProfile: () => {}
           }
         }
       ]
@@ -39,6 +44,7 @@ describe('ProfileEffects', () => {
 
     effects = TestBed.get(ProfileEffects);
     service = TestBed.get(ProfileService);
+    status = 401;
   });
 
   it('should be created', () => {
@@ -137,4 +143,45 @@ describe('ProfileEffects', () => {
 
     expect(effects.profileUpdateAvatar$).toBeObservable(expected);
   });
+
+  it('should return the ProfileGet action if profileGet effect succeeds', () => {
+    const profile = { name: 'Test' };
+    const action = new ProfileGet('1');
+    const completion =  new ProfileGetSuccess({ sub: '1', ...profile });
+
+    actions$ = hot('-a---', { a: action });
+    const response = cold('-a|', { a: profile });
+    const expected = cold('--b', { b: completion });
+    service.getProfile = () => response;
+
+    expect(effects.profileGet$).toBeObservable(expected);
+  });
+
+  it('should catchError if profileGet effect fails', () => {
+    const action = new ProfileGet('1');
+    const completion = null;
+    const funSpy = jasmine
+      .createSpy('withUnauthorizeErrorAction')
+      .and.returnValue([completion]);
+    spyOnProperty(utilFun, 'withUnauthorizeErrorAction', 'get').and.returnValue(
+      funSpy
+    );
+    actions$ = hot('-a---', { a: action });
+    const response = cold('-#|', {}, { status });
+    const expected = cold('--b', { b: completion });
+    service.getProfile = () => response;
+
+    expect(effects.profileGet$).toBeObservable(expected);
+  });
+
+  it('should return the ProfileGetFailure action if removeProfile effect is called', () => {
+    const action = new Logout();
+    const completion =  new ProfileGetFailure();
+
+    actions$ = hot('-a---', { a: action });
+    const expected = cold('-b', { b: completion });
+
+    expect(effects.removeProfile$).toBeObservable(expected);
+  });
+
 });

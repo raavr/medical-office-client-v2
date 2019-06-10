@@ -6,6 +6,7 @@ import { StoreModule, combineReducers, Store } from '@ngrx/store';
 import * as fromNavbar from './navbar/reducers';
 import * as fromRoot from './core/reducers';
 import * as fromAuth from './auth/reducers';
+import * as fromAccounts from './account/reducers';
 import { Logout, AutoLogin } from './auth/actions/auth.actions';
 
 describe('AppComponent', () => {
@@ -20,6 +21,7 @@ describe('AppComponent', () => {
           navbar: combineReducers(fromNavbar.reducers),
           media: combineReducers(fromRoot.reducers),
           auth: combineReducers(fromAuth.reducers),
+          accounts: combineReducers(fromAccounts.reducers)
         }),
       ],
       declarations: [AppComponent],
