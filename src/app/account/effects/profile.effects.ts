@@ -6,6 +6,7 @@ import { ProfileService } from '../services/profile.service';
 import * as AlertActions from 'src/app/core/actions/alert.actions';
 import { ALERT_TYPE } from 'src/app/core/components/alert/alert-factory.service';
 import { withUnauthorizeErrorAction } from 'src/app/core/utils/utils';
+import * as AuthActions from 'src/app/auth/actions/auth.actions';
 
 @Injectable()
 export class ProfileEffects {
@@ -74,5 +75,27 @@ export class ProfileEffects {
         )
       )
     )
+  );
+
+  @Effect()
+  profileGet$ = this.actions$.pipe(
+    ofType<ProfileActions.ProfileGet>(
+      ProfileActions.ProfileActionTypes.ProfileGet
+    ),
+    map(action => action.payload),
+    exhaustMap(sub =>
+      this.profileService.getProfile().pipe(
+        map(
+          profile => new ProfileActions.ProfileGetSuccess({ sub, ...profile })
+        ),
+        catchError(({ status }) => withUnauthorizeErrorAction([], status))
+      )
+    )
+  );
+
+  @Effect()
+  removeProfile$ = this.actions$.pipe(
+    ofType<AuthActions.Logout>(AuthActions.AuthActionTypes.Logout),
+    map(() => new ProfileActions.ProfileGetFailure())
   );
 }

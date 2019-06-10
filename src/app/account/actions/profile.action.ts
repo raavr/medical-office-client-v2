@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store';
 import { User } from 'src/app/auth/models/user';
 import { Update } from '@ngrx/entity';
-import { Observable } from 'rxjs';
 
 export enum ProfileActionTypes {
+  ProfileGet = '[Profile] Get Profile',
   ProfileGetSuccess = '[Profile] Get Profile Success',
   ProfileGetFailure = '[Profile] Get Profile Failure',
   ProfileSave = '[Profile] Save Profile',
@@ -22,6 +22,12 @@ interface ProfileSaveDto {
 interface UpdateAvatarDto { 
   userId: string;
   avatar: FormData;
+}
+
+export class ProfileGet implements Action {
+  readonly type = ProfileActionTypes.ProfileGet
+
+  constructor(public payload: string) { }
 }
 
 export class ProfileGetSuccess implements Action {

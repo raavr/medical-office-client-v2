@@ -19,6 +19,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { HomeModule } from './home/home.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [
@@ -43,8 +44,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     CoreModule,
     AuthModule,
     HomeModule,
-    AppRoutingModule,
     NavbarModule,
+    AccountModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

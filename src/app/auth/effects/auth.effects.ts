@@ -17,7 +17,8 @@ import {
   exhaustMap, 
   map, 
   tap, 
-  mergeMap
+  mergeMap,
+  switchMap
 } from 'rxjs/operators';
 import { Credentials, User } from '../models/user';
 import { AuthService } from '../services/auth.service';
@@ -25,6 +26,7 @@ import { Router } from '@angular/router';
 import { TokenService } from '../services/token.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Token, TokenData } from '../models/token';
+import { ProfileGet } from 'src/app/account/actions/profile.action';
 
 @Injectable()
 export class AuthEffects {
@@ -60,7 +62,10 @@ export class AuthEffects {
         of(new TokenInvalid()),
         of(token).pipe(
           map((token: string) => this.jwtHelper.decodeToken(token) as TokenData),
-          map(({ sub, role }: User) => new DecodeTokenSuccess({ sub, role })),
+          switchMap(({ sub, role }: User) => [ 
+            new DecodeTokenSuccess({ sub, role }),
+            new ProfileGet(sub)
+          ]),
         )
       )
     )

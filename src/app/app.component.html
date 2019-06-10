@@ -5,7 +5,7 @@
     (closeSidenav)="closeSidenav()"
     [showMenu]="(media$ | async)[XSmall]"
   >
-    <app-menu *ngIf="loggedIn$ | async">
+    <app-menu *ngIf="loggedIn$ | async" [avatar]="profile?.avatar">
       <button mat-menu-item routerLink="/account">Moje konto</button>
       <button mat-menu-item (click)="logout()">Wyloguj</button>
     </app-menu>

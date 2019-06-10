@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import * as fromRoot from './core/reducers';
 import * as fromNavbar from './navbar/reducers';
+import * as fromProfile from './account/reducers';
 import { Observable, Subject } from 'rxjs';
 import { NavbarActions } from './navbar/actions';
 import * as fromAuth from './auth/reducers';
@@ -18,10 +19,10 @@ import { MediaActions } from './core/actions/';
 })
 export class AppComponent {
   showSidenav$: Observable<boolean>;
-  user$: Observable<User>;
+  profile: User;
   media$: Observable<any>;
   loggedIn$: Observable<boolean>;
-  
+
   XSmall = Breakpoints.XSmall;
   private mediaUnsub$: Subject<void> = new Subject();
 
@@ -30,9 +31,11 @@ export class AppComponent {
     private breakpointObserver: BreakpointObserver
   ) {
     this.showSidenav$ = this.store.pipe(select(fromNavbar.getShowSidenav));
-    this.user$ = this.store.pipe(select(fromAuth.getUser));
     this.loggedIn$ = this.store.pipe(select(fromAuth.getLoggedIn));
     this.media$ = this.store.pipe(select(fromRoot.getMediaQuery));
+    this.store
+      .pipe(select(fromProfile.getProfile))
+      .subscribe(profile => (this.profile = profile));
   }
 
   closeSidenav() {
