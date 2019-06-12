@@ -13,7 +13,7 @@ import { User } from 'src/app/auth/models/user';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['../../../core/styles/shared.scss', './profile.component.scss']
 })
 export class ProfileComponent implements OnChanges {
   @Input() profile: User;

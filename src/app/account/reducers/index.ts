@@ -6,10 +6,12 @@ import {
 import * as fromRoot from '../../core/reducers';
 import * as fromProfile from './profile.reducer';
 import * as fromAccounts from './accounts.reducer';
+import * as fromPassword from './password.reducer';
 
 export interface AccountsState {
   accounts: fromAccounts.State;
   profile: fromProfile.State;
+  password: fromPassword.State;
 }
 
 export interface State extends fromRoot.State {
@@ -19,6 +21,7 @@ export interface State extends fromRoot.State {
 export const reducers: ActionReducerMap<AccountsState> = {
   accounts: fromAccounts.reducer,
   profile: fromProfile.reducer,
+  password: fromPassword.reducer,
 };
 
 export const selectAccountsState = createFeatureSelector<State, AccountsState>('accounts');
@@ -37,6 +40,11 @@ export const selectProfileState = createSelector(
   (state: AccountsState) => state.profile
 );
 
+export const selectPasswordState = createSelector(
+  selectAccountsState,
+  (state: AccountsState) => state.password
+);
+
 export const getProfileId = createSelector(
   selectProfileState, 
   fromProfile.getProfileId
@@ -51,4 +59,9 @@ export const getProfile = createSelector(
   getAccountEntities,
   getProfileId,
   (accounts, id) => accounts[id]
+);
+
+export const getPasswordPending = createSelector(
+  selectPasswordState,
+  fromPassword.getPasswordPending
 );

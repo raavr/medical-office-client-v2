@@ -2,29 +2,40 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { User } from 'src/app/auth/models/user';
 import { Store, select } from '@ngrx/store';
-import * as fromProfile from '../../reducers';
+import * as fromAccount from '../../reducers';
 import * as fromRoot from '../../../core/reducers';
 import * as fromAuth from '../../../auth/reducers';
 import { AlertFactoryService } from 'src/app/core/components/alert/alert-factory.service';
 import { ProfileSave, ProfileUpdateAvatar } from '../../actions/profile.action';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Alert } from 'src/app/core/model/alert.interface';
+import { Passwords } from '../../model/passwords';
+import { ChangePassword } from '../../actions/password.action';
 
 @Component({
   selector: 'app-account',
   template: `
+    <h2>Moje konto</h2>
+    <mat-divider></mat-divider>
     <app-profile
       [profile]="profile$ | async"
-      [pending]="pending$ | async"
+      [pending]="profilePending$ | async"
       (onProfileSaved)="onProfileSaved($event)"
       (onAvatarChanged)="onAvatarChanged($event)"
+      class="flex-center"
     ></app-profile>
+    <app-change-password
+      [pending]="passwordPending$ | async"
+      (onPasswordChanged)="onPasswordChanged($event)"
+      class="flex-center"
+    ></app-change-password>
   `
 })
 export class AccountComponent implements OnInit, OnDestroy {
   profile$: Observable<User>;
   alert$: Observable<Alert>;
-  pending$: Observable<boolean>;
+  profilePending$: Observable<boolean>;
+  passwordPending$: Observable<boolean>;
 
   user: User;
   private alertUnsub$ = new Subject<any>();
@@ -33,10 +44,11 @@ export class AccountComponent implements OnInit, OnDestroy {
     private store: Store<fromRoot.State>,
     private alert: AlertFactoryService
   ) {
-    this.profile$ = store.pipe(select(fromProfile.getProfile));
+    this.profile$ = store.pipe(select(fromAccount.getProfile));
     this.alert$ = store.pipe(select(fromRoot.getAlertMessageAndType));
-    this.pending$ = store.pipe(select(fromProfile.getProfilePending));
-    store.pipe(select(fromAuth.getUser)).subscribe(user => this.user = user);
+    this.profilePending$ = store.pipe(select(fromAccount.getProfilePending));
+    this.passwordPending$ = store.pipe(select(fromAccount.getPasswordPending));
+    store.pipe(select(fromAuth.getUser)).subscribe(user => (this.user = user));
   }
 
   onProfileSaved(newProfile: User) {
@@ -49,6 +61,10 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       new ProfileUpdateAvatar({ userId: this.user.sub, avatar })
     );
+  }
+
+  onPasswordChanged(passwords: Passwords) {
+    this.store.dispatch(new ChangePassword(passwords));
   }
 
   ngOnInit(): void {

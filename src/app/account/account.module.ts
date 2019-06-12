@@ -11,11 +11,14 @@ import * as fromAccounts from './reducers';
 import { CoreModule } from '../core/core.module';
 import { EffectsModule } from '@ngrx/effects';
 import { ProfileEffects } from './effects/profile.effects';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { PasswordEffects } from './effects/password.effects';
 
 @NgModule({
   declarations: [
     AccountComponent,
-    ProfileComponent
+    ProfileComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +27,7 @@ import { ProfileEffects } from './effects/profile.effects';
     CoreModule,
     ReactiveFormsModule,
     StoreModule.forFeature('accounts', fromAccounts.reducers),
-    EffectsModule.forFeature([ProfileEffects]),
+    EffectsModule.forFeature([ProfileEffects, PasswordEffects]),
   ],
 })
 export class AccountModule { }
