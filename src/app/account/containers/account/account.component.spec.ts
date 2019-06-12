@@ -13,6 +13,7 @@ import {
 import { User } from 'src/app/auth/models/user';
 import { ProfileSave, ProfileUpdateAvatar } from '../../actions/profile.action';
 import { AlertShow } from 'src/app/core/actions/alert.actions';
+import { ChangePassword } from '../../actions/password.action';
 
 describe('AccountComponent', () => {
   let component: AccountComponent;
@@ -105,5 +106,18 @@ describe('AccountComponent', () => {
     component.alert$.subscribe(error => {
       expect(alertFactory.create).not.toHaveBeenCalled();
     });
+  });
+
+  it('should dispatch a changePassword action on form submit', () => {
+    const passwords = {
+      oldPassword: 'test123',
+      password: 'test1234',
+      confirmPassword: 'test1234',
+    };
+    const action = new ChangePassword(passwords);
+
+    component.onPasswordChanged(passwords);
+
+    expect(store.dispatch).toHaveBeenCalledWith(action);
   });
 });
