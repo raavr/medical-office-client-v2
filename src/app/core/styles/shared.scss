@@ -3,6 +3,10 @@
 .form-container {
   margin: 10px 0;
   width: 100%;
+
+  .mat-form-field-wrapper {
+    padding: 5px 0;
+  }
 }
 
 .card-container {
@@ -13,7 +17,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-
+  
   @media ($small-width) {
     & {
       width: 80%;
@@ -31,6 +35,13 @@
       width: 50%;
     }
   }
+}
+
+.loading-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
 }
 
 .card-loading {

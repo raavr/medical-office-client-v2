@@ -35,3 +35,14 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.filter-container {
+  
+  .mat-form-field-wrapper {
+    padding: 5px 0;
+  }
+
+  .mat-form-field-infix {
+    border-top: .40375em solid transparent;
+  }
+}

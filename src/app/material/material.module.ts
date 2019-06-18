@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CdkTableModule } from '@angular/cdk/table';
 
 import {
   MatInputModule,
@@ -13,6 +14,10 @@ import {
   MatSnackBarModule,
   MatDividerModule,
   MatFormFieldModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatCheckboxModule,
+  MatSelectModule,
 } from '@angular/material';
 
 @NgModule({
@@ -29,6 +34,11 @@ import {
     MatSnackBarModule,
     MatDividerModule,
     MatFormFieldModule,
+    CdkTableModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatSelectModule,
   ],
   exports: [
     MatInputModule,
@@ -43,6 +53,11 @@ import {
     MatSnackBarModule,
     MatDividerModule,
     MatFormFieldModule,
+    CdkTableModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatSelectModule,
   ],
 })
 export class MaterialModule {}

@@ -1,0 +1,11 @@
+@import '../../../app.variables.scss';
+
+.mat-amber {
+  background-color: $amber;
+  color: $light-primary-text;
+}
+
+.mat-success {
+  background-color: $success;
+  color: $light-primary-text;
+}

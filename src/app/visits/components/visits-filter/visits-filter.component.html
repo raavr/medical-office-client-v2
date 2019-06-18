@@ -1,0 +1,51 @@
+<app-filter-row>
+  <app-filter-cell *ngIf="isDoctor" [showDoctorCell]="isDoctor">
+    <mat-checkbox 
+      (change)="$event ? selectAll() : null"
+      [checked]="anyRowHasValue && allRowsHaveValue"
+      [indeterminate]="anyRowHasValue && !allRowsHaveValue"
+      [aria-label]="checkboxLabel()"
+    >
+    </mat-checkbox>
+  </app-filter-cell>
+  <app-filter-cell>
+    <mat-form-field
+      appearance="outline"
+      floatLabel="never"
+      class="filter-container"
+    >
+      <input matInput #dateBox (input)="typeText({value: dateBox.value, type: 'date'})"/>
+    </mat-form-field>
+  </app-filter-cell>
+  <app-filter-cell>
+    <mat-form-field
+      appearance="outline"
+      floatLabel="never"
+      class="filter-container"
+    >
+      <input matInput #timeBox (input)="typeText({value: timeBox.value, type: 'time'})"/>
+    </mat-form-field>
+  </app-filter-cell>
+  <app-filter-cell [showDoctorCell]="isDoctor">
+    <mat-form-field
+      appearance="outline"
+      floatLabel="never"
+      class="filter-container"
+    >
+      <input matInput #userBox (input)="typeText({value: userBox.value, type: 'userName'})"/>
+    </mat-form-field>
+  </app-filter-cell>
+  <app-filter-cell [showDoctorCell]="isDoctor">
+    <mat-select
+      [compareWith]="compareFn"
+      [(value)]="filter.status"
+      (selectionChange)="selectionChange($event)"
+      style="max-width: 140px"
+    >
+      <mat-option *ngFor="let status of visitStatuses" [value]="status.value">{{
+        status.viewValue
+      }}</mat-option>
+    </mat-select>
+  </app-filter-cell>
+  <app-filter-cell></app-filter-cell>
+</app-filter-row>

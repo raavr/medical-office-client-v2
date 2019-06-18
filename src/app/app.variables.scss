@@ -3,6 +3,8 @@
 $primary: mat-palette($mat-purple);
 $accent:  mat-palette($mat-green, A200, A100, A400);
 $theme: mat-dark-theme($primary, $accent);
+$success: mat-color(mat-palette($mat-teal, A700));
+$amber: mat-color(mat-palette($mat-amber, A700));
 
 $sizes: (
   "xsmall": "500px",
@@ -15,3 +17,9 @@ $xsmall-width: 'min-width: #{map-get($sizes, "xsmall")}';
 $small-width: 'min-width: #{map-get($sizes, "small")}';
 $middle-width: 'min-width: #{map-get($sizes, "middle")}';
 $large-width: 'min-width: #{map-get($sizes, "large")}';
+
+$filter-table-width: (
+  "select": "100px",
+  "actions": "150px",
+  "status": "200px",
+);

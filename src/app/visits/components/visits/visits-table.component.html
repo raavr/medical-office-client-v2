@@ -1,0 +1,98 @@
+<div class="loading-wrapper">
+  <mat-table [dataSource]="visits" class="visits-list">
+    <ng-container cdkColumnDef="select">
+      <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor">Zaz.</mat-header-cell>
+      <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+          [aria-label]="checkboxLabel(row)"
+        >
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="date">
+      <mat-header-cell *cdkHeaderCellDef> Data </mat-header-cell>
+      <mat-cell *cdkCellDef="let row" >
+        {{ row.visitDate | date: 'dd/MM/yyyy' }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="time">
+      <mat-header-cell *cdkHeaderCellDef> Godzina </mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        {{ row.visitDate | date: 'HH:mm' }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *ngIf="isDoctor; else patientCell" cdkColumnDef="patient">
+      <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor"> Pacjent </mat-header-cell>
+      <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor">
+        <img
+          [src]="row.patient.avatar"
+          alt="{{ row.patient.name }} {{ row.patient.surname }}"
+          style="height: 25px; width: 25px; margin-right: 5px;"
+        />
+        <span> {{ row.patient.name }} {{ row.patient.surname }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-template #patientCell>
+      <ng-container cdkColumnDef="patient">
+        <mat-header-cell *cdkHeaderCellDef> Doktor </mat-header-cell>
+        <mat-cell *cdkCellDef="let row">
+          <img
+            [src]="row.doctor.avatar"
+            alt="{{ row.doctor.name }} {{ row.doctor.surname }}"
+            style="height: 25px; width: 25px; margin-right: 5px;"
+          />
+          <span> {{ row.doctor.name }} {{ row.doctor.surname }}</span>
+        </mat-cell>
+      </ng-container>
+    </ng-template>
+
+    <ng-container cdkColumnDef="status">
+      <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor"> Status </mat-header-cell>
+      <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor">
+        <app-status-button [status]="row.status">{{
+          row.status | visitStatus
+        }}</app-status-button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="actions">
+      <mat-header-cell *cdkHeaderCellDef> Akcje </mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <button mat-mini-fab color="primary">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *cdkHeaderRowDef="displayedColumns">
+      <mat-header-row></mat-header-row>
+      <app-visits-filter
+        [anyRowHasValue]="selection.hasValue()"
+        [allRowsHaveValue]="isAllSelected()"
+        [filter]="filter"
+        [isDoctor]="isDoctor"
+        (onSelectBtnClicked)="masterToggle($event)"
+        (onFilterChanged)="filterChanged($event)"
+      ></app-visits-filter>
+    </ng-container>
+
+    <mat-row *cdkRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    [pageSize]="10"
+    showFirstLastButtons
+    [length]="totalItems"
+    (page)="changePaginator($event)"
+  ></mat-paginator>
+  <div *ngIf="pending" class="card-loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
