@@ -42,6 +42,13 @@
   justify-content: center;
   flex-direction: column;
   position: relative;
+
+  @media ($middle-width) {
+    & {
+      width: 80%;
+      margin: 0 auto;
+    }
+  }
 }
 
 .card-loading {
@@ -67,5 +74,24 @@
 
   &:last-child {
     margin: 0;
+  }
+}
+
+.mobile-table-label {
+  width: 120px;
+  min-width: 120px;
+  display: inline-block;
+  font-weight: bold;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  min-height: 40px;
+  vertical-align: middle;
+  line-height: 40px;
+  margin-right: 24px;
+  font-size: 1.4rem;
+
+  @media($small-width) {
+    & {
+      display: none;
+    }
   }
 }

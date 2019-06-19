@@ -2,22 +2,22 @@ import { Component, OnInit, Input } from '@angular/core';
 import { VisitStatus } from '../../models/visit';
 
 @Component({
-  selector: 'app-status-button',
+  selector: 'app-visits-status',
   template: `
-    <button mat-flat-button color="{{color}}" [style.width.px]="140">
+    <span class="visits__status" [ngClass]="color">
       <ng-content></ng-content>
-    </button>
+    </span>
   `,
-  styleUrls: ['./status-button.component.scss']
+  styleUrls: ['./visits-status.component.scss']
 })
-export class StatusButtonComponent implements OnInit {
+export class VisitsStatusComponent implements OnInit {
   @Input() set status(status: VisitStatus) {
     this.color =
       status === VisitStatus.ACCEPTED
-        ? 'success'
+        ? 'mat-success'
         : status === VisitStatus.CANCELED
-        ? 'warn'
-        : 'amber';
+        ? 'mat-warn'
+        : 'mat-amber';
   }
   color: string;
 

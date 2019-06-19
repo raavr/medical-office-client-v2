@@ -2,7 +2,12 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { VisitFilter } from '../../models/visit-filter';
 import { VisitStatusView, VisitStatus } from '../../models/visit';
 import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  takeUntil
+} from 'rxjs/operators';
 import { MatSelectChange } from '@angular/material';
 
 enum InputType {
@@ -19,7 +24,10 @@ interface InputFilter {
 @Component({
   selector: 'app-visits-filter',
   templateUrl: './visits-filter.component.html',
-  styleUrls: ['./visits-filter.component.scss']
+  styleUrls: [
+    '../../../core/styles/shared.scss',
+    './visits-filter.component.scss'
+  ]
 })
 export class VisitsFilterComponent implements OnInit {
   @Input() anyRowHasValue: boolean;

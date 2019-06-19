@@ -1,5 +1,6 @@
 <app-filter-row>
   <app-filter-cell *ngIf="isDoctor" [showDoctorCell]="isDoctor">
+    <span class="mobile-table-label mobile-table-label--filter">Zaz. wszystkie:</span>
     <mat-checkbox 
       (change)="$event ? selectAll() : null"
       [checked]="anyRowHasValue && allRowsHaveValue"
@@ -8,34 +9,38 @@
     >
     </mat-checkbox>
   </app-filter-cell>
-  <app-filter-cell>
+  <app-filter-cell [showDoctorCell]="isDoctor">
+    <span class="mobile-table-label mobile-table-label--filter">Data:</span>
     <mat-form-field
       appearance="outline"
       floatLabel="never"
-      class="filter-container"
+      class="filter-field"
     >
       <input matInput #dateBox (input)="typeText({value: dateBox.value, type: 'date'})"/>
     </mat-form-field>
   </app-filter-cell>
-  <app-filter-cell>
+  <app-filter-cell [showDoctorCell]="isDoctor">
+    <span class="mobile-table-label mobile-table-label--filter">Godzina:</span>
     <mat-form-field
       appearance="outline"
       floatLabel="never"
-      class="filter-container"
+      class="filter-field"
     >
       <input matInput #timeBox (input)="typeText({value: timeBox.value, type: 'time'})"/>
     </mat-form-field>
   </app-filter-cell>
   <app-filter-cell [showDoctorCell]="isDoctor">
+    <span class="mobile-table-label mobile-table-label--filter">Pacjent:</span>
     <mat-form-field
       appearance="outline"
       floatLabel="never"
-      class="filter-container"
+      class="filter-field"
     >
       <input matInput #userBox (input)="typeText({value: userBox.value, type: 'userName'})"/>
     </mat-form-field>
   </app-filter-cell>
   <app-filter-cell [showDoctorCell]="isDoctor">
+    <span class="mobile-table-label mobile-table-label--filter">Status:</span>
     <mat-select
       [compareWith]="compareFn"
       [(value)]="filter.status"

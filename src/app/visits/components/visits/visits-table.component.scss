@@ -1,36 +1,94 @@
 @import '../../../app.variables.scss';
 
-.visits-list {
+.visits {
   margin-top: 30px;
 }
 
-.filter-container {
+.mat-header-row {
+  display: none;
+
+  @media ($small-width) {
+    & {
+      display: flex;
+    }
+  }
+}
+
+.mat-row {
+  flex-direction: column;
+  align-items: start;
+  padding: 20px 24px;
+
+  @media ($small-width) {
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+  }
+
+  &::after {
+    min-height: auto;
+
+    @media ($small-width) {
+      & {
+        min-height: inherit;
+      }
+    }
+  }
+}
+
+.mat-cell {
+  min-height: auto;
   width: 100%;
-  font-size: 1.2rem;
-  padding-right: 24px;
+
+  @media ($small-width) {
+    & {
+      min-height: inherit;
+    }
+  }
+
+  &:first-of-type {
+    padding: 0px;
+    @media ($small-width) {
+      & {
+        padding-left: 24px;
+      }
+    }
+  }
 }
 
-.mat-header-cell:first-of-type.is-doctor,
-.mat-cell:first-of-type.is-doctor {
-  max-width: #{map-get($filter-table-width, "select")};
-}
+.mat-header-cell,
+.mat-cell {
+  @media ($small-width) {
+    &:first-of-type.is-doctor {
+      max-width: #{map-get($filter-table-width, 'select')};
+    }
 
-.mat-header-cell:nth-of-type(5n).is-doctor,
-.mat-cell:nth-of-type(5n).is-doctor {
-  max-width: #{map-get($filter-table-width, "status")};
-}
+    &:nth-of-type(3n).is-doctor {
+      max-width: #{map-get($filter-table-width, 'time')};
+    }
 
-.mat-header-cell:nth-of-type(4n).is-doctor,
-.mat-cell:nth-of-type(4n).is-doctor {
-  max-width: none;
-}
+    &:nth-of-type(2n) {
+      max-width: #{map-get($filter-table-width, 'time')};
+    }
 
-.mat-header-cell:nth-of-type(4n),
-.mat-cell:nth-of-type(4n) {
-  max-width: #{map-get($filter-table-width, "status")};
-}
+    &:nth-of-type(2n).is-doctor {
+      max-width: none;
+    }
 
-.mat-header-cell:last-of-type,
-.mat-cell:last-of-type {
-  max-width: #{map-get($filter-table-width, "actions")};
+    &:nth-of-type(4n).is-doctor {
+      max-width: none;
+    }
+
+    &:nth-of-type(4n) {
+      max-width: #{map-get($filter-table-width, 'status')};
+    }
+
+    &:nth-of-type(5n).is-doctor {
+      max-width: #{map-get($filter-table-width, 'status')};
+    }
+
+    &:last-of-type {
+      max-width: #{map-get($filter-table-width, 'actions')};
+    }
+  }
 }

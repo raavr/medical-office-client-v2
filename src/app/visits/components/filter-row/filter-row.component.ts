@@ -5,20 +5,6 @@ import { Component } from '@angular/core';
   template: `
     <ng-content></ng-content>
   `,
-  styles: [
-    `
-      :host {
-        display: flex;
-        border-width: 0;
-        border-bottom-width: 1px;
-        border-style: solid;
-        align-items: center;
-        box-sizing: border-box;
-        border-color: rgba(255, 255, 255, 0.12);
-      }
-    `
-  ],
+  styleUrls: [`./filter-row.component.scss`]
 })
-export class FilterRowComponent {
-
-}
+export class FilterRowComponent {}

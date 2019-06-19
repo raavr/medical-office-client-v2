@@ -1,7 +1,10 @@
 @import '~@angular/material/prebuilt-themes/purple-green.css';
+@import 'app/app.variables.scss';
 @import 'app/app.theme.scss';
 
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -36,13 +39,25 @@ body {
   justify-content: center;
 }
 
-.filter-container {
-  
+.filter-field {
   .mat-form-field-wrapper {
-    padding: 5px 0;
-  }
+    padding: 0;
 
-  .mat-form-field-infix {
-    border-top: .40375em solid transparent;
+    @media ($small-width) {
+      & {
+        padding: 5px 0;
+      }
+    }
+
+    .mat-form-field-infix {
+      border-top: 0.40375em solid transparent;
+      width: auto;
+
+      @media($small-width) {
+        & {
+          width: 180px;
+        }
+      }
+    }
   }
 }

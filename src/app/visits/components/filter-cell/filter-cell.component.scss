@@ -6,34 +6,57 @@
   align-items: center;
   overflow: hidden;
   word-wrap: break-word;
-  min-height: inherit;
+  min-height: auto;
+  width: 100%;
+
+  &:first-of-type {
+    padding-left: 0px;
+  }
 }
 
-:host:first-of-type {
-  padding-left: 24px;
-}
+@media ($small-width) {
+  :host {
+    min-height: inherit;
 
-:host:first-of-type.is-doctor {
-  max-width: #{map-get($filter-table-width, "select")};
-}
+    &:first-of-type {
+      padding-left: 24px;
+    }
 
-:host:nth-of-type(5n).is-doctor {
-  max-width: #{map-get($filter-table-width, "status")};
-}
+    &:first-of-type.is-doctor {
+      max-width: #{map-get($filter-table-width, 'select')};
+    }
 
-:host:nth-of-type(4n).is-doctor {
-  max-width: none;
-}
+    &:nth-of-type(5n).is-doctor {
+      max-width: #{map-get($filter-table-width, 'status')};
+    }
 
-:host:nth-of-type(4n) {
-  max-width: #{map-get($filter-table-width, "status")};
-}
+    &:nth-of-type(3n).is-doctor {
+      max-width: #{map-get($filter-table-width, 'time')};
+    }
 
-:host:last-of-type {
-  padding-right: 24px;
-  max-width: #{map-get($filter-table-width, "actions")};
-}
+    &:nth-of-type(2n) {
+      max-width: #{map-get($filter-table-width, 'time')};
+    }
 
-:host:last-of-type .filter-container {
-  padding-right: 0;
+    &:nth-of-type(2n).is-doctor {
+      max-width: none;
+    }
+
+    &:nth-of-type(4n).is-doctor {
+      max-width: none;
+    }
+
+    &:nth-of-type(4n) {
+      max-width: #{map-get($filter-table-width, 'status')};
+    }
+
+    &:last-of-type {
+      padding-right: 24px;
+      max-width: #{map-get($filter-table-width, 'actions')};
+    }
+
+    &:last-of-type .filter-container {
+      padding-right: 0;
+    }
+  }
 }

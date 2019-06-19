@@ -1,0 +1,23 @@
+@import '../../../app.variables.scss';
+
+:host {
+  display: flex;
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-style: solid;
+  align-items: start;
+  box-sizing: border-box;
+  border-color: rgba(255, 255, 255, 0.12);
+  flex-direction: column;
+  min-height: auto;
+  padding: 20px 24px;
+
+  @media($small-width) {
+    & {
+      min-height: inherit;
+      flex-direction: row;
+      align-items: center;
+      padding: 0px;
+    }
+  }
+}

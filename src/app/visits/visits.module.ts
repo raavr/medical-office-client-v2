@@ -6,7 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromVisits from './reducers';
 import { VisitsComponent } from './containers/visits/visits.component';
 import { MaterialModule } from '../material/material.module';
-import { StatusButtonComponent } from './components/status-button/status-button.component';
+import { VisitsStatusComponent } from './components/visits-status/visits-status.component';
 import { FilterCellComponent } from './components/filter-cell/filter-cell.component';
 import { FilterRowComponent } from './components/filter-row/filter-row.component';
 import { VisitStatusPipe } from './pipes/visit-status.pipe';
@@ -18,7 +18,7 @@ import { VisitEffects } from './effects/visit.effects';
   declarations: [
     VisitsTableComponent,
     VisitsComponent,
-    StatusButtonComponent,
+    VisitsStatusComponent,
     FilterCellComponent,
     FilterRowComponent,
     VisitStatusPipe,
