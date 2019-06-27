@@ -7,7 +7,7 @@
   border-style: solid;
   align-items: start;
   box-sizing: border-box;
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: if($is-dark-theme, $light-dividers, $dark-dividers);
   flex-direction: column;
   min-height: auto;
   padding: 20px 24px;

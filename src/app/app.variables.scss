@@ -3,6 +3,7 @@
 $primary: mat-palette($mat-purple);
 $accent:  mat-palette($mat-green, A200, A100, A400);
 $theme: mat-dark-theme($primary, $accent);
+$is-dark-theme: map-get($theme, is-dark);
 
 $warn:  mat-color(mat-palette($mat-red));
 $success: mat-color(mat-palette($mat-teal, A700));
