@@ -7,7 +7,10 @@ export enum VisitStatus {
   RESERVED = 'reserved',
 };
 
-export type VisitType = 'current' | 'past';
+export enum VisitType {
+  CURRENT = 'current',
+  PAST = 'past'
+}
 
 export interface Visit {
   id: number;

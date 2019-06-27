@@ -1,8 +1,10 @@
 <div class="loading-wrapper">
   <mat-table [dataSource]="visits" class="visits">
     <ng-container cdkColumnDef="select">
-      <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor">Zaz.</mat-header-cell>
-      <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor">
+      <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor && isCurrentTab"
+        >Zaz.</mat-header-cell
+      >
+      <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor && isCurrentTab">
         <span class="mobile-table-label">Zaz.</span>
         <mat-checkbox
           (click)="$event.stopPropagation()"
@@ -15,52 +17,66 @@
     </ng-container>
 
     <ng-container cdkColumnDef="date">
-      <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor"> Data </mat-header-cell>
-      <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor">
+      <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor && isCurrentTab">
+        Data
+      </mat-header-cell>
+      <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor && isCurrentTab">
         <span class="mobile-table-label">Data:</span>
         {{ row.visitDate | date: 'dd/MM/yyyy' }}
       </mat-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="time">
-      <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor"> Godzina </mat-header-cell>
-      <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor">
+      <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor && isCurrentTab">
+        Godzina
+      </mat-header-cell>
+      <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor && isCurrentTab">
         <span class="mobile-table-label">Godzina:</span>
         {{ row.visitDate | date: 'HH:mm' }}
       </mat-cell>
     </ng-container>
 
     <ng-container *ngIf="isDoctor; else patientCell" cdkColumnDef="patient">
-      <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor"> Pacjent </mat-header-cell>
-      <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor">
+      <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor && isCurrentTab">
+        Pacjent
+      </mat-header-cell>
+      <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor && isCurrentTab">
         <span class="mobile-table-label">Pacjent:</span>
         <img
-          [src]="row.patient.avatar"
-          alt="{{ row.patient.name }} {{ row.patient.surname }}"
-          style="height: 30px; width: 30px; margin-right: 5px;"
+          [src]="row.patient?.avatar"
+          alt="{{ row.patient?.name }} {{ row.patient?.surname }}"
+          style="height: 30px; width: 30px; margin-right: 5px; min-width: 30px; min-height: 30px;"
         />
-        <span [style.paddingRight.px]="24"> {{ row.patient.name }} {{ row.patient.surname }}</span>
+        <span [style.paddingRight.px]="24">
+          {{ row.patient?.name }} {{ row.patient?.surname }}</span
+        >
       </mat-cell>
     </ng-container>
 
     <ng-template #patientCell>
       <ng-container cdkColumnDef="patient">
-        <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor"> Doktor </mat-header-cell>
-        <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor">
+        <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor && isCurrentTab">
+          Doktor
+        </mat-header-cell>
+        <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor && isCurrentTab">
           <span class="mobile-table-label">Doktor:</span>
           <img
-            [src]="row.doctor.avatar"
-            alt="{{ row.doctor.name }} {{ row.doctor.surname }}"
-            style="height: 30px; width: 30px; margin-right: 5px;"
+            [src]="row.doctor?.avatar"
+            alt="{{ row.doctor?.name }} {{ row.doctor?.surname }}"
+            style="height: 30px; width: 30px; margin-right: 5px; min-width: 30px; min-height: 30px;"
           />
-          <span [style.paddingRight.px]="24"> {{ row.doctor.name }} {{ row.doctor.surname }}</span>
+          <span [style.paddingRight.px]="24">
+            {{ row.doctor?.name }} {{ row.doctor?.surname }}</span
+          >
         </mat-cell>
       </ng-container>
     </ng-template>
 
     <ng-container cdkColumnDef="status">
-      <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor"> Status </mat-header-cell>
-      <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor">
+      <mat-header-cell *cdkHeaderCellDef [class.is-doctor]="isDoctor && isCurrentTab">
+        Status
+      </mat-header-cell>
+      <mat-cell *cdkCellDef="let row" [class.is-doctor]="isDoctor && isCurrentTab">
         <span class="mobile-table-label">Status:</span>
         <app-visits-status [status]="row.status">{{
           row.status | visitStatus
@@ -95,6 +111,7 @@
   <mat-paginator
     [pageSizeOptions]="[5, 10, 20]"
     [pageSize]="10"
+    [pageIndex]="filter.currentPage-1"
     showFirstLastButtons
     [length]="totalItems"
     (page)="changePaginator($event)"

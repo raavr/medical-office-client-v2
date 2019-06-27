@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VisitsRoutingModule } from './visits-routing.module';
-import { VisitsTableComponent } from './components/visits/visits-table.component';
+import { VisitsTableComponent } from './components/visits-table/visits-table.component';
 import { StoreModule } from '@ngrx/store';
 import * as fromVisits from './reducers';
-import { VisitsComponent } from './containers/visits/visits.component';
+import { VisitsTabComponent } from './containers/visits-tab/visits-tab.component';
 import { MaterialModule } from '../material/material.module';
 import { VisitsStatusComponent } from './components/visits-status/visits-status.component';
 import { FilterCellComponent } from './components/filter-cell/filter-cell.component';
@@ -13,16 +13,18 @@ import { VisitStatusPipe } from './pipes/visit-status.pipe';
 import { VisitsFilterComponent } from './components/visits-filter/visits-filter.component';
 import { EffectsModule } from '@ngrx/effects';
 import { VisitEffects } from './effects/visit.effects';
+import { VisitsComponent } from './containers/visits/visits.component';
 
 @NgModule({
   declarations: [
     VisitsTableComponent,
-    VisitsComponent,
+    VisitsTabComponent,
     VisitsStatusComponent,
     FilterCellComponent,
     FilterRowComponent,
     VisitStatusPipe,
-    VisitsFilterComponent
+    VisitsFilterComponent,
+    VisitsComponent
   ],
   imports: [
     CommonModule,

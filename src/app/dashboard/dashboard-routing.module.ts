@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { VisitsGuard } from '../visits/services/visits.guard';
 
 const routes: Routes = [
   {
@@ -11,7 +10,6 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: '../visits/visits.module#VisitsModule',
-        canActivateChild: [VisitsGuard]
       }
     ]
   }

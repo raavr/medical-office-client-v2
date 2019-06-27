@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 import { VisitsApi } from '../models/visit';
-import { VisitFilter } from '../models/visit-filter';
 
 export enum VisitsActionTypes {
   GetVisits = '[Visits] Get Visits',
@@ -11,8 +10,6 @@ export enum VisitsActionTypes {
 
 export class GetVisits implements Action {
   readonly type = VisitsActionTypes.GetVisits
-
-  constructor(public payload: VisitFilter) { }
 }
 
 export class GetVisitsSuccess implements Action {

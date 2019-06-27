@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Visit } from '../../models/visit';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Visit, VisitType } from '../../models/visit';
 import { SelectionModel } from '@angular/cdk/collections';
 import { VisitFilter } from '../../models/visit-filter';
 import { PageEvent } from '@angular/material';
@@ -9,19 +9,23 @@ import { PageEvent } from '@angular/material';
   templateUrl: './visits-table.component.html',
   styleUrls: ['../../../core/styles/shared.scss', 'visits-table.component.scss']
 })
-export class VisitsTableComponent implements OnInit {
+export class VisitsTableComponent {
   @Input() visits: Visit[];
   @Input() totalItems: number;
   @Input() isDoctor: boolean;
   @Input() pending: boolean;
+  @Input() filter: VisitFilter;
   @Output() onFilterChanged = new EventEmitter<VisitFilter>();
 
   get displayedColumns(): string[] {
     const columns = ['date', 'time', 'patient', 'status', 'actions'];
-    return this.isDoctor ? ['select', ...columns] : columns;
+    return this.isDoctor && this.isCurrentTab ? ['select', ...columns] : columns;
   }
 
-  filter: VisitFilter;
+  get isCurrentTab(): boolean {
+    return this.filter.type === VisitType.CURRENT;
+  }
+
   selection = new SelectionModel<Visit>(true, []);
 
   isAllSelected() {
@@ -37,15 +41,16 @@ export class VisitsTableComponent implements OnInit {
   }
 
   changePaginator(page: PageEvent) {
-    this.filter.currentPage = page.pageIndex + 1;
-    this.filter.limit = page.pageSize;
-    this.filter.numPages = page.length;
+    const filter = {
+      currentPage: page.pageIndex + 1,
+      limit: page.pageSize,
+    };
 
-    this.onFilterChanged.emit(this.filter);
+    this.onFilterChanged.emit(filter);
   }
 
-  filterChanged() {
-    this.onFilterChanged.emit(this.filter);
+  filterChanged(filter: VisitFilter) {
+    this.onFilterChanged.emit(filter);
   }
 
   checkboxLabel(row: Visit): string {
@@ -56,11 +61,4 @@ export class VisitsTableComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    this.filter = {
-      currentPage: 1,
-      numPages: this.totalItems,
-      limit: 10
-    };
-  }
 }

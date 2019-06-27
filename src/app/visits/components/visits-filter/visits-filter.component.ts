@@ -1,6 +1,15 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  OnInit,
+  EventEmitter,
+  ElementRef,
+  ViewChild,
+  Renderer2
+} from '@angular/core';
 import { VisitFilter } from '../../models/visit-filter';
-import { VisitStatusView, VisitStatus } from '../../models/visit';
+import { VisitStatusView, VisitStatus, VisitType } from '../../models/visit';
 import { Subject } from 'rxjs';
 import {
   debounceTime,
@@ -37,6 +46,10 @@ export class VisitsFilterComponent implements OnInit {
   @Output() onSelectBtnClicked = new EventEmitter<any>();
   @Output() onFilterChanged = new EventEmitter<VisitFilter>();
 
+  @ViewChild('dateBox') dateBox: ElementRef;
+  @ViewChild('timeBox') timeBox: ElementRef;
+  @ViewChild('userBox') userBox: ElementRef;
+
   visitStatuses: VisitStatusView[] = [
     { value: VisitStatus.ALL, viewValue: 'Wszystkie' },
     { value: VisitStatus.ACCEPTED, viewValue: 'Zaakceptowane' },
@@ -45,6 +58,10 @@ export class VisitsFilterComponent implements OnInit {
   ];
   private input$ = new Subject<InputFilter>();
   private unsub$ = new Subject<any>();
+
+  get isCurrentTab(): boolean {
+    return this.filter.type === VisitType.CURRENT;
+  }
 
   checkboxLabel() {
     return `${this.allRowsHaveValue ? 'select' : 'deselect'} all`;
@@ -67,7 +84,7 @@ export class VisitsFilterComponent implements OnInit {
     this.onFilterChanged.emit(this.filter);
   }
 
-  constructor() {}
+  constructor(private renderer: Renderer2) {}
 
   ngOnInit() {
     this.filter.status = VisitStatus.ALL;
@@ -94,6 +111,24 @@ export class VisitsFilterComponent implements OnInit {
         })
       )
       .subscribe(() => this.onFilterChanged.emit(this.filter));
+  }
+
+  ngOnChanges() {
+    this.renderer.setProperty(
+      this.dateBox.nativeElement,
+      'value',
+      this.filter.date
+    );
+    this.renderer.setProperty(
+      this.timeBox.nativeElement,
+      'value',
+      this.filter.time
+    );
+    this.renderer.setProperty(
+      this.userBox.nativeElement,
+      'value',
+      this.filter.userName
+    );
   }
 
   ngOnDestroy() {
