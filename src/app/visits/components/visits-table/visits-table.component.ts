@@ -1,5 +1,16 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Visit, VisitType } from '../../models/visit';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  SimpleChanges
+} from '@angular/core';
+import {
+  Visit,
+  VisitType,
+  VisitStatus,
+  VisitsStatusUpdateDto
+} from '../../models/visit';
 import { SelectionModel } from '@angular/cdk/collections';
 import { VisitFilter } from '../../models/visit-filter';
 import { PageEvent } from '@angular/material';
@@ -16,10 +27,13 @@ export class VisitsTableComponent {
   @Input() pending: boolean;
   @Input() filter: VisitFilter;
   @Output() onFilterChanged = new EventEmitter<VisitFilter>();
+  @Output() onVisitsStatusModified = new EventEmitter<VisitsStatusUpdateDto>();
 
   get displayedColumns(): string[] {
     const columns = ['date', 'time', 'patient', 'status', 'actions'];
-    return this.isDoctor && this.isCurrentTab ? ['select', ...columns] : columns;
+    return this.isDoctor && this.isCurrentTab
+      ? ['select', ...columns]
+      : columns;
   }
 
   get isCurrentTab(): boolean {
@@ -43,7 +57,7 @@ export class VisitsTableComponent {
   changePaginator(page: PageEvent) {
     const filter = {
       currentPage: page.pageIndex + 1,
-      limit: page.pageSize,
+      limit: page.pageSize
     };
 
     this.onFilterChanged.emit(filter);
@@ -59,6 +73,16 @@ export class VisitsTableComponent {
     } row ${row.id + 1}`;
   }
 
-  constructor() {}
+  modifyVisitsStatus(status: VisitStatus) {
+    this.onVisitsStatusModified.emit({
+      status,
+      visitsIds: this.selection.selected.map(v => v.id)
+    });
+  }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.visits.previousValue !== changes.visits.currentValue) {
+      this.selection.clear();
+    }
+  }
 }

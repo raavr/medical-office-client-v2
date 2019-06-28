@@ -32,3 +32,9 @@ export interface VisitStatusView {
   value: string;
   viewValue: string;
 }
+
+export interface VisitsStatusUpdateDto {
+  status: VisitStatus;
+  visitsIds: number[],
+  reason?: string;
+}

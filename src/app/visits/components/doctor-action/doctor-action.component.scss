@@ -1,0 +1,11 @@
+@import '../../../app.variables.scss';
+
+.visits__actions {
+  background: if(
+    $is-dark-theme,
+    map-get($mat-dark-theme-background, card),
+    map-get($mat-light-theme-background, card)
+  );
+  padding: 8px 24px;
+  border-bottom: 1px solid if($is-dark-theme, $light-dividers, $dark-dividers);
+}

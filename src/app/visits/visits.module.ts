@@ -14,6 +14,8 @@ import { VisitsFilterComponent } from './components/visits-filter/visits-filter.
 import { EffectsModule } from '@ngrx/effects';
 import { VisitEffects } from './effects/visit.effects';
 import { VisitsComponent } from './containers/visits/visits.component';
+import { DoctorActionComponent } from './components/doctor-action/doctor-action.component';
+import { DoctorActionEffects } from './effects/doctor-action.effects';
 
 @NgModule({
   declarations: [
@@ -24,13 +26,14 @@ import { VisitsComponent } from './containers/visits/visits.component';
     FilterRowComponent,
     VisitStatusPipe,
     VisitsFilterComponent,
-    VisitsComponent
+    VisitsComponent,
+    DoctorActionComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
     StoreModule.forFeature('visits', fromVisits.reducers),
-    EffectsModule.forFeature([VisitEffects]),
+    EffectsModule.forFeature([VisitEffects, DoctorActionEffects]),
     VisitsRoutingModule
   ]
 })

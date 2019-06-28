@@ -5,8 +5,6 @@ import {
   filter,
   takeUntil,
   map,
-  switchMap,
-  defaultIfEmpty,
   mergeMap
 } from 'rxjs/operators';
 import * as fromRoot from '../../../core/reducers';
@@ -15,11 +13,12 @@ import * as fromAuth from '../../../auth/reducers';
 import * as fromVisitsFilter from '../../reducers';
 import { AlertFactoryService } from '../../../core/components/alert/alert-factory.service';
 import { Alert } from 'src/app/core/model/alert.interface';
-import { Visit, VisitType } from '../../models/visit';
+import { Visit, VisitType, VisitsStatusUpdateDto } from '../../models/visit';
 import { VisitFilter } from '../../models/visit-filter';
 import { GetVisits } from '../../actions/visits.action';
 import { SetFilter, ResetFilter } from '../../actions/visits-filter.action';
 import { ActivatedRoute } from '@angular/router';
+import { UpdateStatus } from '../../actions/visits-status.action';
 
 @Component({
   selector: 'app-visits-tab',
@@ -31,6 +30,7 @@ import { ActivatedRoute } from '@angular/router';
       [pending]="pending$ | async"
       [filter]="filter$ | async"
       (onFilterChanged)="onFilterChanged($event)"
+      (onVisitsStatusModified)="onVisitsStatusModified($event)"
     ></app-visits-table>
   `,
   styles: []
@@ -89,6 +89,10 @@ export class VisitsTabComponent implements OnInit {
   onTabChanged(type) {
     this.store.dispatch(new ResetFilter());
     this.onFilterChanged({ type });
+  }
+
+  onVisitsStatusModified(visitsToUpdate: VisitsStatusUpdateDto) {
+    this.store.dispatch(new UpdateStatus(visitsToUpdate));
   }
 
   ngOnDestroy() {

@@ -1,5 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import * as VisitsActions from '../actions/visits.action';
+import * as VisitsStatusActions from '../actions/visits-status.action';
 import { Visit } from '../models/visit';
 
 export const adapter: EntityAdapter<Visit> = createEntityAdapter<Visit>({
@@ -14,6 +15,7 @@ export function reducer(
   state = initialState,
   action:
     | VisitsActions.VisitsActionUnion
+    | VisitsStatusActions.VisitsStatusActionUnion
 ): State {
   switch (action.type) {
     case VisitsActions.VisitsActionTypes.GetVisitsSuccess: {
@@ -23,6 +25,10 @@ export function reducer(
     case VisitsActions.VisitsActionTypes.GetVisitsFailure: 
     case VisitsActions.VisitsActionTypes.ResetVisits: {
       return adapter.removeAll(state);
+    }
+    
+    case VisitsStatusActions.VisitsStatusActionTypes.UpdateStatusSuccess: {
+      return adapter.updateMany(action.payload, state);
     }
 
     default: {
