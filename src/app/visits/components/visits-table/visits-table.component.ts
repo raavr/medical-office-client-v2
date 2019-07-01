@@ -81,7 +81,7 @@ export class VisitsTableComponent {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.visits.previousValue !== changes.visits.currentValue) {
+    if (changes.visits) {
       this.selection.clear();
     }
   }

@@ -143,8 +143,11 @@
 
     <mat-row *cdkRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
+  <div *ngIf="visits?.length === 0" class="visits__row">
+    Brak wizyt
+  </div>
   <app-doctor-action
-    *ngIf="isDoctor && isCurrentTab"
+    *ngIf="isDoctor && isCurrentTab && visits?.length !== 0"
     [anyRowHasValue]="selection.hasValue()"
     (modifyVisitsStatus)="modifyVisitsStatus($event)"
   ></app-doctor-action>

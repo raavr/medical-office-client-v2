@@ -4,7 +4,7 @@ import { VisitStatus } from '../../models/visit';
 @Component({
   selector: 'app-doctor-action',
   template: `
-    <div class="visits__actions">
+    <div class="visits__row">
       <button
         mat-raised-button
         color="accent"
@@ -23,8 +23,7 @@ import { VisitStatus } from '../../models/visit';
         Odwołaj wizyty
       </button>
     </div>
-  `,
-  styleUrls: ['./doctor-action.component.scss']
+  `
 })
 export class DoctorActionComponent {
   @Input() anyRowHasValue: boolean;

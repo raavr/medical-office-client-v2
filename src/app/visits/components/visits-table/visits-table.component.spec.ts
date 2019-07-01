@@ -157,4 +157,12 @@ describe('VisitsTableComponent', () => {
     component.modifyVisitsStatus(status);
     expect(component.onVisitsStatusModified.emit).toHaveBeenCalledWith(expected);
   });
+
+  it('should render div containing text "Brak wizyt" if there is no vistis', () => {
+    component.visits = [];
+    fixture.detectChanges();
+
+    const noVisitsEl = fixture.nativeElement.querySelector('.visits__row');
+    expect(noVisitsEl.textContent.trim()).toEqual('Brak wizyt');
+  });
 });

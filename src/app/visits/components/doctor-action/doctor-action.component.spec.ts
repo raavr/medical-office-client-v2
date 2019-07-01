@@ -24,9 +24,9 @@ describe('DoctorActionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render div with class visits__actions', () => {
+  it('should render div with class visits__row', () => {
     const divEl = fixture.nativeElement.querySelector('div');
-    expect(divEl.getAttribute('class')).toEqual('visits__actions');
+    expect(divEl.getAttribute('class')).toEqual('visits__row');
   });
 
   it('should render two buttons', () => {
