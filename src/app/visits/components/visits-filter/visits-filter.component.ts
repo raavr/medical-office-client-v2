@@ -87,7 +87,9 @@ export class VisitsFilterComponent implements OnInit {
   constructor(private renderer: Renderer2) {}
 
   ngOnInit() {
-    this.filter.status = VisitStatus.ALL;
+    if(this.filter) {
+      this.filter.status = VisitStatus.ALL;
+    }
     this.input$
       .pipe(
         debounceTime(300),

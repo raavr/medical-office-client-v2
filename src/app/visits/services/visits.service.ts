@@ -17,9 +17,9 @@ export class VisitService {
     }) as Observable<VisitsApi>;
   }
 
-  cancelVisit(visitId: string) {
+  cancelVisit(visitId: number) {
     return this.http.delete(ENDPOINT + '/api/visits', {
-      params: { visitId }
+      params: { visitId: String(visitId) }
     }) as Observable<{ message: string }>;
   }
 }

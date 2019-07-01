@@ -10,7 +10,6 @@ import {
 import * as fromRoot from '../../../core/reducers';
 import * as fromVisits from '../../reducers';
 import * as fromAuth from '../../../auth/reducers';
-import * as fromVisitsFilter from '../../reducers';
 import { AlertFactoryService } from '../../../core/components/alert/alert-factory.service';
 import { Alert } from 'src/app/core/model/alert.interface';
 import { Visit, VisitType, VisitsStatusUpdateDto } from '../../models/visit';
@@ -54,7 +53,7 @@ export class VisitsTabComponent implements OnInit {
     this.totalItems$ = store.pipe(select(fromVisits.getTotalItems));
     this.isDoctor$ = store.pipe(select(fromAuth.isDoctor));
     this.pending$ = store.pipe(select(fromVisits.getPending));
-    this.filter$ = store.pipe(select(fromVisitsFilter.getVisitsFilter));
+    this.filter$ = store.pipe(select(fromVisits.getVisitsFilter));
   }
 
   ngOnInit(): void {

@@ -151,7 +151,7 @@
   <mat-paginator
     [pageSizeOptions]="[5, 10, 20]"
     [pageSize]="10"
-    [pageIndex]="filter.currentPage - 1"
+    [pageIndex]="filter && filter.currentPage - 1"
     showFirstLastButtons
     [length]="totalItems"
     (page)="changePaginator($event)"

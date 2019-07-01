@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import * as fromRoot from '../../../core/reducers';
 import * as fromVisitsFilter from '../../reducers';
 import { delay } from 'rxjs/operators';
 import { VisitType } from '../../models/visit';
@@ -32,7 +31,7 @@ export class VisitsComponent {
   activeLink: string;
 
   constructor(
-    private store: Store<fromRoot.State>,
+    private store: Store<fromVisitsFilter.State>,
   ) {
     store
       .pipe(
