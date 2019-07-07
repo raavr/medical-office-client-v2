@@ -4,11 +4,13 @@ import { MaterialModule } from '../material/material.module';
 import { NotFoundComponent } from './components/not-found.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { AlertFactoryService } from './components/alert/alert-factory.service';
+import { DisableControlDirective } from './directives/disable-control.directive';
 
 @NgModule({
   declarations: [
     NotFoundComponent,
-    AlertComponent
+    AlertComponent,
+    DisableControlDirective,
   ],
   imports: [
     CommonModule,
@@ -19,6 +21,7 @@ import { AlertFactoryService } from './components/alert/alert-factory.service';
   ],
   exports: [
     NotFoundComponent,
+    DisableControlDirective,
   ],
   entryComponents: [
     AlertComponent

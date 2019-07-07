@@ -1,4 +1,5 @@
 import { AbstractControl } from '@angular/forms';
+import * as moment from 'moment';
 
 export class ValidatorsService {
   static passwordValidator(
@@ -31,4 +32,29 @@ export class ValidatorsService {
       return { 'nomatch-passwords': true };
     }
   }
+
+  static autocompleteMatcher(control: AbstractControl): { [key: string]: boolean } {
+    const selection = control.value;
+    if (typeof selection === 'string') {
+        return { 'nomatch-autocomplete': true };
+    }
+    return null;
+  }
+
+  static currentDateMatcher(control: AbstractControl): { [key: string]: boolean } {
+    const date: moment.Moment = control.value;
+    if(!control.value) {
+      return null;
+    }
+    if (date instanceof moment) {
+      const yesterday = moment().subtract(1, 'days');
+      if(date.isAfter(yesterday)) {
+        return null;
+      }
+    }
+    
+    return { 'invalid-date': true };
+  }
 }
+
+

@@ -1,0 +1,14 @@
+@import '../../../app.variables.scss';
+
+:host {
+  margin-left: 0px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+  
+  @media($small-width) {
+    & {
+      margin-left: 20px;
+      margin-bottom: 0px;
+    }
+  }
+}

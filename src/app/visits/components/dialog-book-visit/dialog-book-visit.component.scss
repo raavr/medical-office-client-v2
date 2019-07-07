@@ -1,0 +1,11 @@
+.dialog {
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__footer {
+    padding: 25px 0;
+    justify-content: flex-end;
+  }
+}

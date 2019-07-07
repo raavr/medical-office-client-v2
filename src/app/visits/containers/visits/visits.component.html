@@ -1,0 +1,27 @@
+<header class="visits__header">
+  <h2>Moje wizyty</h2>
+  <app-book-visit [isDoctor]="isDoctor$ | async"
+    [visitTimes]="visitTimes$ | async"
+    [doctors]="doctors$ | async"
+    [patients]="patients$ | async"
+    [disabledDates]="disabledDates$ | async"
+    [bookVisitPending]="bookVisitPending$ | async"
+    (bookVisit)="bookVisit($event)"
+    (dialogClosed)="onDialogClosed($event)"
+    (dateChanged)="onDateChanged($event)"
+    (onPatientNameChanged)="onPatientNameChanged($event)"
+    (onDoctorSelected)="onDoctorSelected($event)"
+  ></app-book-visit>
+</header>
+<mat-divider></mat-divider>
+<nav mat-tab-nav-bar>
+  <a
+    mat-tab-link
+    *ngFor="let link of links"
+    [active]="activeLink === link.type"
+    [routerLink]="['/dashboard/visits', link.type]"
+  >
+    {{ link.label }}
+  </a>
+</nav>
+<router-outlet></router-outlet>

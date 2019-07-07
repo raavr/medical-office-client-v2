@@ -1,0 +1,159 @@
+<ng-container *ngIf="data.isDoctor">
+  <ng-container *ngIf="data.disabledDates; else loading">
+    <ng-container *ngTemplateOutlet="dialog"></ng-container>
+  </ng-container>
+</ng-container>
+<ng-container *ngIf="!data.isDoctor">
+  <ng-container *ngIf="data.doctors; else loading">
+    <ng-container *ngTemplateOutlet="dialog"></ng-container>
+  </ng-container>
+</ng-container>
+<ng-template #loading>
+  <div class="flex-center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+<ng-template #dialog>
+  <h2 mat-dialog-title>
+    Zapisz {{ data.isDoctor ? 'pacjenta' : 'się' }} na wizytę
+  </h2>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content>
+    <form [formGroup]="form" class="dialog__content">
+      <mat-form-field *ngIf="!data.isDoctor" class="form-container">
+        <mat-label>Wybierz doktora</mat-label>
+        <mat-select [(value)]="user" formControlName="user">
+          <mat-option *ngFor="let user of data?.doctors" [value]="user"
+            >{{ user.name }} {{ user.surname }}</mat-option
+          >
+        </mat-select>
+        <mat-error
+          *ngIf="
+            form.get('user').hasError('required') && form.get('user').touched
+          "
+        >
+          Musisz wybrać doktora
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-container">
+        <input
+          matInput
+          [matDatepickerFilter]="dateFilter"
+          [matDatepicker]="dp"
+          placeholder="Wybierz datę"
+          formControlName="date"
+          [disableControl]="!data.isDoctor && form.get('user').invalid"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="dp"
+          [disabled]="!data.isDoctor && form.get('user').invalid"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dp></mat-datepicker>
+        <mat-error
+          *ngIf="
+            form.get('date').hasError('matDatepickerFilter') &&
+            !form.get('date').hasError('required') &&
+            form.get('date').touched
+          "
+        >
+          Nie możesz wybrać niedostępnej daty
+        </mat-error>
+        <mat-error
+          *ngIf="
+            form.get('date').hasError('invalid-date') &&
+            !form.get('date').hasError('required') &&
+            form.get('date').touched
+          "
+        >
+          Musisz wybrać aktualną datę
+        </mat-error>
+        <mat-error
+          *ngIf="
+            form.get('date').hasError('required') && form.get('date').touched
+          "
+        >
+          Aktualna data jest wymagana
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-container">
+        <mat-label>Wybierz godzinę</mat-label>
+        <mat-select
+          [(value)]="time && time.value"
+          formControlName="time"
+          [disableControl]="
+            !form.get('date').touched || form.get('date').invalid
+          "
+        >
+          <mat-option
+            *ngFor="let time of data?.visitTimes"
+            [value]="time && time.visitTime"
+            >{{ time.visitTime }}</mat-option
+          >
+        </mat-select>
+        <mat-error
+          *ngIf="
+            form.get('time').hasError('required') && form.get('time').touched
+          "
+        >
+          Czas wizyty jest wymagany
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="data.isDoctor" class="form-container">
+        <input
+          type="text"
+          placeholder="Pacjent"
+          aria-label="Pacjent"
+          matInput
+          formControlName="user"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let patient of data?.patients" [value]="patient">
+            {{ patient.name }} {{ patient.surname }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error
+          *ngIf="
+            form.get('user').hasError('nomatch-autocomplete') &&
+            !form.get('user').hasError('required') &&
+            form.get('user').touched
+          "
+        >
+          Nie znaleziono takiego pacjenta
+        </mat-error>
+        <mat-error
+          *ngIf="
+            form.get('user').hasError('required') && form.get('user').touched
+          "
+        >
+          Pacjent jest wymagany
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-container">
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="2"
+          cdkAutosizeMaxRows="5"
+          placeholder="Dodatkowe informacje"
+          formControlName="desc"
+        ></textarea>
+      </mat-form-field>
+    </form>
+  </div>
+  <div mat-dialog-actions class="dialog__footer">
+    <button mat-raised-button color="accent" (click)="onCancelClick()">
+      Anuluj
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      [mat-dialog-close]="form.value"
+      cdkFocusInitial
+      [disabled]="form.invalid"
+    >
+      Zapisz
+    </button>
+  </div>
+</ng-template>

@@ -20,11 +20,10 @@ import { AppEffects } from './app.effects';
 import { HomeModule } from './home/home.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AccountModule } from './account/account.module';
+import { MomentDateModule } from './material/moment-date.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -46,9 +45,9 @@ import { AccountModule } from './account/account.module';
     HomeModule,
     NavbarModule,
     AccountModule,
+    MomentDateModule.forRoot(),
     AppRoutingModule,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

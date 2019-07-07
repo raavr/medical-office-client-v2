@@ -16,6 +16,13 @@ import { VisitEffects } from './effects/visit.effects';
 import { VisitsComponent } from './containers/visits/visits.component';
 import { DoctorActionComponent } from './components/doctor-action/doctor-action.component';
 import { DoctorActionEffects } from './effects/doctor-action.effects';
+import { BookVisitBtnComponent } from './components/book-visit-btn/book-visit-btn.component';
+import { DialogBookVisitComponent } from './components/dialog-book-visit/dialog-book-visit.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BookVisitEffects } from './effects/book-visit.effects';
+import { MomentDateModule } from '../material/moment-date.module';
+import { CoreModule } from '../core/core.module';
+import { BookVisitComponent } from './components/book-visit/book-visit.component';
 
 @NgModule({
   declarations: [
@@ -28,13 +35,20 @@ import { DoctorActionEffects } from './effects/doctor-action.effects';
     VisitsFilterComponent,
     VisitsComponent,
     DoctorActionComponent,
+    BookVisitBtnComponent,
+    DialogBookVisitComponent,
+    BookVisitComponent,
   ],
   imports: [
     CommonModule,
+    CoreModule,
+    ReactiveFormsModule,
     MaterialModule,
+    MomentDateModule.forFeature(),
     StoreModule.forFeature('visits', fromVisits.reducers),
-    EffectsModule.forFeature([VisitEffects, DoctorActionEffects]),
+    EffectsModule.forFeature([VisitEffects, DoctorActionEffects, BookVisitEffects]),
     VisitsRoutingModule
-  ]
+  ],
+  entryComponents: [DialogBookVisitComponent],
 })
 export class VisitsModule {}
