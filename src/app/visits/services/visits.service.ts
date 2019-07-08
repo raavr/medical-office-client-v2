@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { ENDPOINT } from '../../app.constant';
 import { Observable } from 'rxjs';
 import { VisitFilter } from '../models/visit-filter';
-import { VisitsApi } from '../models/visit';
+import { VisitsApi, Visit } from '../models/visit';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +17,9 @@ export class VisitService {
     }) as Observable<VisitsApi>;
   }
 
-  cancelVisit(visitId: number) {
-    return this.http.delete(ENDPOINT + '/api/visits', {
-      params: { visitId: String(visitId) }
-    }) as Observable<{ message: string }>;
+  cancelVisit(visit: Visit) {
+    return this.http.delete(
+      `${ENDPOINT}/api/visits/${visit.id}`
+    ) as Observable<{ message: string }>;
   }
 }

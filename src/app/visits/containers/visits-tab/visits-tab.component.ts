@@ -14,7 +14,7 @@ import { AlertFactoryService } from '../../../core/components/alert/alert-factor
 import { Alert } from 'src/app/core/model/alert.interface';
 import { Visit, VisitType, VisitsStatusUpdateDto } from '../../models/visit';
 import { VisitFilter } from '../../models/visit-filter';
-import { GetVisits } from '../../actions/visits.action';
+import { GetVisits, CancelVisit } from '../../actions/visits.action';
 import { SetFilter, ResetFilter } from '../../actions/visits-filter.action';
 import { ActivatedRoute } from '@angular/router';
 import { UpdateStatus } from '../../actions/visits-status.action';
@@ -30,6 +30,7 @@ import { UpdateStatus } from '../../actions/visits-status.action';
       [filter]="filter$ | async"
       (onFilterChanged)="onFilterChanged($event)"
       (onVisitsStatusModified)="onVisitsStatusModified($event)"
+      (onVisitCanceled)="onVisitCanceled($event)"
     ></app-visits-table>
   `,
   styles: []
@@ -92,6 +93,10 @@ export class VisitsTabComponent implements OnInit {
 
   onVisitsStatusModified(visitsToUpdate: VisitsStatusUpdateDto) {
     this.store.dispatch(new UpdateStatus(visitsToUpdate));
+  }
+
+  onVisitCanceled(visit: Visit) {
+    this.store.dispatch(new CancelVisit(visit));
   }
 
   ngOnDestroy() {

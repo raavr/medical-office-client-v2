@@ -124,7 +124,16 @@
       <mat-cell *cdkCellDef="let row">
         <span class="mobile-table-label">Akcje:</span>
         <button mat-flat-button color="primary">
-          Więcej
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+        <button
+          *ngIf="!isDoctor && row.status === 'reserved'"
+          mat-flat-button
+          color="warn"
+          (click)="cancelVisit(row)"
+          [style.marginLeft.px]="5"
+        >
+          <mat-icon>delete_forever</mat-icon>
         </button>
       </mat-cell>
     </ng-container>

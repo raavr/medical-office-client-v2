@@ -22,7 +22,7 @@ export interface DialogData {
   templateUrl: './dialog-book-visit.component.html',
   styleUrls: [
     '../../../core/styles/shared.scss',
-    './dialog-book-visit.component.scss'
+    '../../../core/styles/dialog_shared.scss',
   ]
 })
 export class DialogBookVisitComponent implements OnInit {

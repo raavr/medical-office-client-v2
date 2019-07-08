@@ -3,9 +3,13 @@
     display: flex;
     flex-direction: column;
   }
-
+ 
   &__footer {
-    padding: 25px 0;
+    margin-bottom: -15px;
     justify-content: flex-end;
   }
+}
+
+.mat-dialog-title {
+  margin-bottom: 10px;
 }

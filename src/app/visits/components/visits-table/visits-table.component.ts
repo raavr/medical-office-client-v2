@@ -13,7 +13,10 @@ import {
 } from '../../models/visit';
 import { SelectionModel } from '@angular/cdk/collections';
 import { VisitFilter } from '../../models/visit-filter';
-import { PageEvent } from '@angular/material';
+import { PageEvent, MatDialog } from '@angular/material';
+import { DialogConfirmationComponent } from '../dialog-confirmation/dialog-confirmation.component';
+import { filter } from 'rxjs/operators';
+import { DialogVisitMoreComponent } from '../dialog-visit-more/dialog-visit-more.component';
 
 @Component({
   selector: 'app-visits-table',
@@ -28,6 +31,9 @@ export class VisitsTableComponent {
   @Input() filter: VisitFilter;
   @Output() onFilterChanged = new EventEmitter<VisitFilter>();
   @Output() onVisitsStatusModified = new EventEmitter<VisitsStatusUpdateDto>();
+  @Output() onVisitCanceled = new EventEmitter<Visit>();
+
+  constructor(public dialog: MatDialog) {}
 
   get displayedColumns(): string[] {
     const columns = ['date', 'time', 'patient', 'status', 'actions'];
@@ -78,6 +84,19 @@ export class VisitsTableComponent {
       status,
       visitsIds: this.selection.selected.map(v => v.id)
     });
+  }
+
+  cancelVisit(visit: Visit) {
+    const dialogRef = this.dialog.open(DialogConfirmationComponent, {
+      data: {
+        title: 'rezerwację wizyty'
+      }
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(filter(result => !!result))
+      .subscribe(_ => this.onVisitCanceled.emit(visit));
   }
 
   ngOnChanges(changes: SimpleChanges) {

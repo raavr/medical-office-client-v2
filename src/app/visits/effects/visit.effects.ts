@@ -5,14 +5,15 @@ import {
   catchError,
   switchMap,
   concatMap,
-  withLatestFrom
+  withLatestFrom,
+  map
 } from 'rxjs/operators';
 import * as AlertActions from 'src/app/core/actions/alert.actions';
 import * as VisitsActions from '../actions/visits.action';
 import { ALERT_TYPE } from 'src/app/core/components/alert/alert-factory.service';
 import { withUnauthorizeErrorAction } from 'src/app/core/utils/utils';
 import { VisitService } from '../services/visits.service';
-import { VisitsApi } from '../models/visit';
+import { VisitsApi, Visit } from '../models/visit';
 import * as fromVisitsFilter from '../reducers';
 import { Store, Action } from '@ngrx/store';
 import { VisitFilter } from '../models/visit-filter';
@@ -44,6 +45,34 @@ export class VisitEffects {
           withUnauthorizeErrorAction(
             [
               new VisitsActions.GetVisitsFailure(),
+              new AlertActions.AlertShow({
+                message,
+                alertType: ALERT_TYPE.WARN
+              })
+            ],
+            status
+          )
+        )
+      )
+    )
+  );
+
+  @Effect()
+  cancelVisit$ = this.actions$.pipe(
+    ofType<VisitsActions.CancelVisit>(VisitsActions.VisitsActionTypes.CancelVisit),
+    map(action => action.payload),
+    exhaustMap((payload: Visit) =>
+      this.visitService.cancelVisit(payload).pipe(
+        switchMap(({ message }) => [
+          new AlertActions.AlertShow({
+            message,
+            alertType: ALERT_TYPE.SUCCESS
+          }),
+          new VisitsActions.CancelVisitSuccess(payload)
+        ]),
+        catchError(({ error: { message }, status }) =>
+          withUnauthorizeErrorAction(
+            [
               new AlertActions.AlertShow({
                 message,
                 alertType: ALERT_TYPE.WARN

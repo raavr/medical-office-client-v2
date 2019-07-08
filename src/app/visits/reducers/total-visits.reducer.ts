@@ -15,17 +15,26 @@ export function reducer(
   action: VisitsActions.VisitsActionUnion
 ) {
   switch(action.type) {
-    case VisitsActions.VisitsActionTypes.GetVisits: {
+    case VisitsActions.VisitsActionTypes.GetVisits: 
+    case VisitsActions.VisitsActionTypes.CancelVisit: {
       return {
         ...state,
         pending: true,
       }
     }
+
     case VisitsActions.VisitsActionTypes.GetVisitsSuccess: {
       return {
         pending: false,
         totalItems: action.payload.totalItems
       } 
+    }
+
+    case VisitsActions.VisitsActionTypes.CancelVisitSuccess: {
+      return {
+        totalItems: state.totalItems - 1,
+        pending: false
+      }
     }
 
     case VisitsActions.VisitsActionTypes.GetVisitsFailure: 

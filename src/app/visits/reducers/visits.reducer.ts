@@ -31,6 +31,10 @@ export function reducer(
       return adapter.updateMany(action.payload, state);
     }
 
+    case VisitsActions.VisitsActionTypes.CancelVisitSuccess: {
+      return adapter.removeOne(action.payload.id, state);
+    }
+
     default: {
       return state;
     }

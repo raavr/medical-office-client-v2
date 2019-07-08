@@ -1,11 +1,14 @@
 import { Action } from '@ngrx/store';
-import { VisitsApi } from '../models/visit';
+import { VisitsApi, Visit } from '../models/visit';
 
 export enum VisitsActionTypes {
   GetVisits = '[Visits] Get Visits',
   GetVisitsSuccess = '[Visits] Get Visits Success',
   GetVisitsFailure = '[Visits] Get Visits Failure',
   ResetVisits = '[Visits] Reset Visits',
+  CancelVisit = '[Visits] Cancel Visit',
+  CancelVisitSuccess = '[Visits] Cancel Visit Success',
+  CancelVisitFailure = '[Visits] Cancel Visit Failure',
 }
 
 export class GetVisits implements Action {
@@ -26,8 +29,22 @@ export class ResetVisits implements Action {
   readonly type = VisitsActionTypes.ResetVisits;
 }
 
+export class CancelVisit implements Action {
+  readonly type = VisitsActionTypes.CancelVisit;
+
+  constructor(public payload: Visit) { }
+}
+
+export class CancelVisitSuccess implements Action {
+  readonly type = VisitsActionTypes.CancelVisitSuccess;
+
+  constructor(public payload: Visit) { }
+}
+
 export type VisitsActionUnion = 
   | GetVisits
   | GetVisitsSuccess
   | GetVisitsFailure
-  | ResetVisits;
+  | ResetVisits
+  | CancelVisit
+  | CancelVisitSuccess;
