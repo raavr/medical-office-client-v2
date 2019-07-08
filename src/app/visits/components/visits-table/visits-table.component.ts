@@ -99,6 +99,16 @@ export class VisitsTableComponent {
       .subscribe(_ => this.onVisitCanceled.emit(visit));
   }
 
+  showMore(visit: Visit) {
+    this.dialog.open(DialogVisitMoreComponent, {
+      width: '600px',
+      data: {
+        visit,
+        isDoctor: this.isDoctor
+      }
+    });
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes.visits) {
       this.selection.clear();

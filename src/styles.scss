@@ -25,6 +25,21 @@ body {
   font-size: 1.6rem;
 }
 
+dl {
+  margin: 0;
+  padding-right: 20px;
+}
+
+dd {
+  margin-left: 0;
+  margin-bottom: 20px;
+}
+
+dt {
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
 .toolbar-spacer {
   flex: 1 1 auto;
 }

@@ -24,6 +24,7 @@ import { MomentDateModule } from '../material/moment-date.module';
 import { CoreModule } from '../core/core.module';
 import { BookVisitComponent } from './components/book-visit/book-visit.component';
 import { DialogConfirmationComponent } from './components/dialog-confirmation/dialog-confirmation.component';
+import { DialogVisitMoreComponent } from './components/dialog-visit-more/dialog-visit-more.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { DialogConfirmationComponent } from './components/dialog-confirmation/di
     DialogBookVisitComponent,
     BookVisitComponent,
     DialogConfirmationComponent,
+    DialogVisitMoreComponent
   ],
   imports: [
     CommonModule,
@@ -58,6 +60,7 @@ import { DialogConfirmationComponent } from './components/dialog-confirmation/di
   entryComponents: [
     DialogBookVisitComponent,
     DialogConfirmationComponent,
+    DialogVisitMoreComponent
   ]
 })
 export class VisitsModule {}

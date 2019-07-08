@@ -1,0 +1,28 @@
+@import '../../../app.variables.scss';
+
+.dialog {
+  &__avatar {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+
+    @media ($small-width) {
+      & {
+        margin-bottom: 0px;
+      }
+    }
+  }
+
+  &__more {
+    flex-flow: column-reverse;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    @media ($small-width) {
+      & {
+        flex-direction: row;
+        flex-flow: initial;
+      }
+    }
+  }
+}

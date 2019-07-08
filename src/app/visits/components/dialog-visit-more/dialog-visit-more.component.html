@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Szczegóły wizyty</h2>
+<mat-divider></mat-divider>
+<div mat-dialog-content class="dialog__content dialog__more">
+  <dl>
+    <dt>Termin wizyty:</dt>
+    <dd>
+      {{ data.visit.visitDate | date: 'dd/MM/yyyy' }} o godzinie
+      {{ data.visit.visitDate | date: 'HH:mm' }}
+    </dd>
+    <dt>Informacje dodatkowe:</dt>
+    <dd>
+      {{ data.visit.description || 'Brak' }}
+    </dd>
+    <ng-container *ngIf="data.isDoctor">
+      <dt>Pacjent:</dt>
+      <dd>{{ data.visit.patient.name }} {{ data.visit.patient.surname }}</dd>
+    </ng-container>
+    <ng-container *ngIf="!data.isDoctor">
+      <dt>Lekarz:</dt>
+      <dd>{{ data.visit.doctor.name }} {{ data.visit.doctor.surname }}</dd>
+    </ng-container>
+    <dt>Status:</dt>
+    <dd>
+      <app-visits-status [status]="data.visit.status">{{
+        data.visit.status | visitStatus
+      }}</app-visits-status>
+    </dd>
+  </dl>
+  <img
+    *ngIf="data.isDoctor; else doctorAvatar"
+    src="{{ data.visit.patient.avatar }}"
+    class="dialog__avatar"
+  />
+  <ng-template #doctorAvatar>
+    <img src="{{ data.visit.doctor.avatar }}" class="dialog__avatar" />
+  </ng-template>
+</div>
+<footer mat-dialog-actions class="dialog__footer">
+  <button mat-raised-button color="primary" (click)="onOkClick()">
+    Ok
+  </button>
+</footer>
