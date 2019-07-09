@@ -60,17 +60,17 @@ export class DialogBookVisitComponent implements OnInit {
 
   dateFilter = (d: Moment): boolean => {
     return (
-      this.data.disabledDates &&
+      !!this.data.disabledDates &&
       !this.data.disabledDates.some((el: Moment) => moment(el).isSame(d))
     );
   };
 
-  resetTimeForm() {
+  resetTimeFormAndData() {
     this.form.get('time').reset();
     this.data.visitTimes = [];
   }
 
-  resetPatientsForm() {
+  resetPatientsData() {
     this.data.patients = [];
   }
 
@@ -79,7 +79,7 @@ export class DialogBookVisitComponent implements OnInit {
       .get('date')
       .valueChanges.pipe(filter(_ => this.form.get('date').valid))
       .subscribe((newDate: Moment) => {
-        this.resetTimeForm();
+        this.resetTimeFormAndData();
 
         this.onDateChanged.emit({
           date: newDate,
@@ -98,7 +98,7 @@ export class DialogBookVisitComponent implements OnInit {
           if (typeof user === 'string' && !!user) {
             this.onPatientNameTyped.emit(user);
           }
-          this.resetPatientsForm();
+          this.resetPatientsData();
         } else {
           this.onDoctorSelected.emit(user.id);
         }

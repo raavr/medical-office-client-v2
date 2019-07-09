@@ -10,7 +10,7 @@ export interface State {
   pending: boolean;
 }
 
-const initialState: State = {
+export const initialState: State = {
   disabledDates: [],
   availableTimes: [],
   patientsByName: [],

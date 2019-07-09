@@ -5,11 +5,15 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { VisitStatusPipe } from '../../pipes/visit-status.pipe';
 import { CdkTableModule } from '@angular/cdk/table';
 import { VisitStatus, VisitType } from '../../models/visit';
-import { PageEvent } from '@angular/material';
+import { PageEvent, MatDialog, MatDialogModule } from '@angular/material';
+import { of } from 'rxjs';
+import { DialogConfirmationComponent } from '../dialog-confirmation/dialog-confirmation.component';
+import { DialogVisitMoreComponent } from '../dialog-visit-more/dialog-visit-more.component';
 
 describe('VisitsTableComponent', () => {
   let component: VisitsTableComponent;
   let fixture: ComponentFixture<VisitsTableComponent>;
+  let dialog: MatDialog;
   const visits = [
     {
       createDate: '2019-08-13T07:30:00.000Z',
@@ -38,9 +42,19 @@ describe('VisitsTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CdkTableModule],
+      imports: [CdkTableModule, MatDialogModule],
       declarations: [VisitsTableComponent, VisitStatusPipe],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        {
+          provide: MatDialog,
+          useValue: {
+            open: () => ({
+              afterClosed: () => of(null)
+            })
+          }
+        }
+      ]
     }).compileComponents();
   }));
 
@@ -49,6 +63,7 @@ describe('VisitsTableComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+    dialog = TestBed.get(MatDialog);
     component.visits = visits;
     component.filter = filter;
   });
@@ -118,7 +133,7 @@ describe('VisitsTableComponent', () => {
     const expected = {
       currentPage: 1,
       limit: 2
-    }
+    };
     spyOn(component.onFilterChanged, 'emit');
 
     expect(component.onFilterChanged.emit).not.toHaveBeenCalled();
@@ -130,7 +145,7 @@ describe('VisitsTableComponent', () => {
     const filter = {
       currentPage: 1,
       limit: 2
-    }
+    };
     spyOn(component.onFilterChanged, 'emit');
 
     expect(component.onFilterChanged.emit).not.toHaveBeenCalled();
@@ -139,9 +154,13 @@ describe('VisitsTableComponent', () => {
   });
 
   it('should return specific aria label for a visit row', () => {
-    expect(component.checkboxLabel(component.visits[0])).toEqual('select row 125');
+    expect(component.checkboxLabel(component.visits[0])).toEqual(
+      'select row 125'
+    );
     component.selection.select(component.visits[0]);
-    expect(component.checkboxLabel(component.visits[0])).toEqual('deselect row 125');
+    expect(component.checkboxLabel(component.visits[0])).toEqual(
+      'deselect row 125'
+    );
   });
 
   it('should call onVisitsStatusModified when modifyVisitsStatus is called', () => {
@@ -149,13 +168,15 @@ describe('VisitsTableComponent', () => {
     const expected = {
       status,
       visitsIds: [visits[0].id]
-    }
+    };
     spyOn(component.onVisitsStatusModified, 'emit');
 
     expect(component.onVisitsStatusModified.emit).not.toHaveBeenCalled();
     component.selection.select(visits[0]);
     component.modifyVisitsStatus(status);
-    expect(component.onVisitsStatusModified.emit).toHaveBeenCalledWith(expected);
+    expect(component.onVisitsStatusModified.emit).toHaveBeenCalledWith(
+      expected
+    );
   });
 
   it('should render div containing text "Brak wizyt" if there is no vistis', () => {
@@ -164,5 +185,41 @@ describe('VisitsTableComponent', () => {
 
     const noVisitsEl = fixture.nativeElement.querySelector('.visits__row');
     expect(noVisitsEl.textContent.trim()).toEqual('Brak wizyt');
+  });
+
+  it('should call dialog.open when cancelVisit method is called', () => {
+    spyOn(dialog, 'open').and.callThrough();
+    const visit = {
+      createDate: '2019-08-13T07:30:00.000Z',
+      description: 'Zapis',
+      id: 124,
+      status: VisitStatus.ACCEPTED,
+      visitDate: '2019-08-13T08:30:00.000Z'
+    };
+
+    expect(dialog.open).not.toHaveBeenCalled();
+    component.cancelVisit(visit);
+    expect(dialog.open).toHaveBeenCalledWith(DialogConfirmationComponent, {
+      data: { title: 'rezerwację wizyty' }
+    });
+  });
+
+  it('should call dialog.open when showMore method is called', () => {
+    spyOn(dialog, 'open').and.callThrough();
+    const visit = {
+      createDate: '2019-08-13T07:30:00.000Z',
+      description: 'Zapis',
+      id: 124,
+      status: VisitStatus.ACCEPTED,
+      visitDate: '2019-08-13T08:30:00.000Z'
+    };
+    component.isDoctor = false;
+
+    expect(dialog.open).not.toHaveBeenCalled();
+    component.showMore(visit);
+    expect(dialog.open).toHaveBeenCalledWith(DialogVisitMoreComponent, {
+      width: '600px',
+      data: { visit, isDoctor: false }
+    });
   });
 });

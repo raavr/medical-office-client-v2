@@ -1,5 +1,5 @@
 import { reducer, State } from './visits.reducer';
-import { GetVisitsSuccess, GetVisitsFailure } from '../actions/visits.action';
+import { GetVisitsSuccess, GetVisitsFailure, CancelVisitSuccess } from '../actions/visits.action';
 import { UpdateStatusSuccess } from '../actions/visits-status.action';
 import * as fromVisits from './visits.reducer';
 import { Visit, VisitStatus } from '../models/visit';
@@ -132,6 +132,20 @@ describe('Visists Reducer', () => {
         changes: { status: VisitStatus.CANCELED }
       }
     ]);
+    const result = reducer(initialState, action);
+
+    expect(result).toEqual(expResult);
+  });
+
+  it('should remove visit', () => {
+    const expResult = {
+      ids: [visit1.id],
+      entities: {
+        [visit1.id]: visit1,
+      }
+    } as State;
+
+    const action = new CancelVisitSuccess(visit2);
     const result = reducer(initialState, action);
 
     expect(result).toEqual(expResult);

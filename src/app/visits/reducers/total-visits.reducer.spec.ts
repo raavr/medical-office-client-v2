@@ -2,9 +2,11 @@ import { reducer, initialState, State } from './total-visits.reducer';
 import {
   ResetVisits,
   GetVisits,
-  GetVisitsSuccess
+  GetVisitsSuccess,
+  CancelVisit,
+  CancelVisitSuccess
 } from '../actions/visits.action';
-import { VisitStatus, VisitType } from '../models/visit';
+import { VisitStatus } from '../models/visit';
 import { GetVisitsFailure } from '../actions/visits.action';
 
 describe('Total Visits Reducer', () => {
@@ -34,7 +36,7 @@ describe('Total Visits Reducer', () => {
     expect(result).toBe(expectedResult);
   });
 
-  it('should return the state with pending prop equals true', () => {
+  it('should return the state containing pending prop equals true when the GetVisits action is dispatch', () => {
     const state = {
       pending: false,
       totalItems: 0
@@ -46,7 +48,25 @@ describe('Total Visits Reducer', () => {
     expect(result).toEqual(expResult);
   });
 
-  it('should return new state with totalItems prop and pending prop equals false', () => {
+  it('should return the state containing pending prop equals true when the CancelVisit action is dispatch', () => {
+    const state = {
+      pending: false,
+      totalItems: 0
+    };
+    const action = new CancelVisit({
+      createDate: '2019-08-15T07:30:00.000Z',
+      description: 'Desc 1',
+      id: 126,
+      status: VisitStatus.ACCEPTED,
+      visitDate: '2019-08-15T08:30:00.000Z'
+    });
+
+    const expResult = { totalItems: 0, pending: true } as State;
+    const result = reducer(state, action);
+    expect(result).toEqual(expResult);
+  });
+
+  it('should return new state containing totalItems prop and pending prop equals false', () => {
     const state = {
       pending: true,
       totalItems: 0
@@ -62,6 +82,24 @@ describe('Total Visits Reducer', () => {
         }
       ],
       totalItems: 1
+    });
+
+    const expResult = { pending: false, totalItems: 1 } as State;
+    const result = reducer(state, action);
+    expect(result).toEqual(expResult);
+  });
+
+  it('should return new state containing totalItems prop and pending prop equals false when the CancelVisitSuccess action is dispatch', () => {
+    const state = {
+      pending: true,
+      totalItems: 2
+    };
+    const action = new CancelVisitSuccess({
+      createDate: '2019-08-13T07:30:00.000Z',
+      description: 'Zapis',
+      id: 124,
+      status: VisitStatus.ACCEPTED,
+      visitDate: '2019-08-13T08:30:00.000Z'
     });
 
     const expResult = { pending: false, totalItems: 1 } as State;

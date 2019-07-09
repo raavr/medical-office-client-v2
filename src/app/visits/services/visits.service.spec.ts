@@ -4,6 +4,7 @@ import { VisitService } from './visits.service';
 import { HttpClient } from '@angular/common/http';
 import { ENDPOINT } from 'src/app/app.constant';
 import { VisitFilter } from '../models/visit-filter';
+import { VisitStatus } from '../models/visit';
 
 describe('VisitService', () => {
   let service: VisitService;
@@ -47,12 +48,17 @@ describe('VisitService', () => {
 
   it('should call httpClient.delete with the specific URL and params', () => {
     spyOn(httpClient, 'delete');
-    const visitId = 1;
-    service.cancelVisit(visitId);
+    const visit = {
+      createDate: '2019-08-13T07:30:00.000Z',
+      description: 'Zapis',
+      id: 124,
+      status: VisitStatus.ACCEPTED,
+      visitDate: '2019-08-13T08:30:00.000Z'
+    };
+    service.cancelVisit(visit);
 
     expect(httpClient.delete).toHaveBeenCalledWith(
-      `${ENDPOINT}/api/visits`,
-      { params: { visitId: String(visitId) } }
+      `${ENDPOINT}/api/visits/${visit.id}`,
     );
   });
 

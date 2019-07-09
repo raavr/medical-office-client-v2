@@ -14,7 +14,7 @@ import { of } from 'rxjs';
 import { AlertShow } from 'src/app/core/actions/alert.actions';
 import { VisitType, VisitStatus } from '../../models/visit';
 import { SetFilter, ResetFilter } from '../../actions/visits-filter.action';
-import { GetVisits } from '../../actions/visits.action';
+import { GetVisits, CancelVisit } from '../../actions/visits.action';
 import { UpdateStatus } from '../../actions/visits-status.action';
 
 describe('VisitsTabComponent', () => {
@@ -129,6 +129,21 @@ describe('VisitsTabComponent', () => {
     const action = new UpdateStatus(visitsToUpdate);
 
     component.onVisitsStatusModified(visitsToUpdate);
+
+    expect(store.dispatch).toHaveBeenCalledWith(action);
+  });
+
+  it('should dispatch CancelVisit action when onVisitCanceled method is called', () => {
+    const visit = {
+      createDate: '2019-08-13T07:30:00.000Z',
+      description: 'Zapis',
+      id: 124,
+      status: VisitStatus.ACCEPTED,
+      visitDate: '2019-08-13T08:30:00.000Z'
+    };
+    const action = new CancelVisit(visit);
+
+    component.onVisitCanceled(visit);
 
     expect(store.dispatch).toHaveBeenCalledWith(action);
   });

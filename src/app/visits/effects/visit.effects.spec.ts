@@ -4,7 +4,14 @@ import { Observable } from 'rxjs';
 
 import { VisitEffects } from './visit.effects';
 import { VisitService } from '../services/visits.service';
-import { ResetVisits, GetVisits, GetVisitsSuccess, GetVisitsFailure } from '../actions/visits.action';
+import {
+  ResetVisits,
+  GetVisits,
+  GetVisitsSuccess,
+  GetVisitsFailure,
+  CancelVisit,
+  CancelVisitSuccess
+} from '../actions/visits.action';
 import * as fromRoot from '../../core/reducers';
 import * as fromVisits from '../reducers';
 import { hot, cold } from 'jasmine-marbles';
@@ -25,14 +32,14 @@ describe('VisitEffects', () => {
     visits: {
       filter: {
         currentPage: 1,
-        date: "",
+        date: '',
         limit: 10,
-        status: "all",
-        time: "",
+        status: 'all',
+        time: '',
         type: VisitType.CURRENT,
-        userName: ""
-      },
-    },
+        userName: ''
+      }
+    }
   } as fromVisits.State;
 
   beforeEach(() => {
@@ -40,8 +47,8 @@ describe('VisitEffects', () => {
       imports: [
         StoreModule.forRoot({
           ...fromRoot.reducers,
-          visits: combineReducers(fromVisits.reducers),
-        }),
+          visits: combineReducers(fromVisits.reducers)
+        })
       ],
       providers: [
         VisitEffects,
@@ -50,7 +57,8 @@ describe('VisitEffects', () => {
         {
           provide: VisitService,
           useValue: {
-            getVisits: () => {}
+            getVisits: () => {},
+            cancelVisit: () => {}
           }
         }
       ]
@@ -68,21 +76,20 @@ describe('VisitEffects', () => {
 
   it('should return the ResetVisits action and the GetVisitsSuccess action with a changes object if getVisits effect succeeds', () => {
     const visitsApi = {
-      visits: [{
-        createDate: '2019-08-13T07:30:00.000Z',
-        description: 'Zapis',
-        id: 124,
-        status: VisitStatus.ACCEPTED,
-        visitDate: '2019-08-13T08:30:00.000Z'
-      }],
+      visits: [
+        {
+          createDate: '2019-08-13T07:30:00.000Z',
+          description: 'Zapis',
+          id: 124,
+          status: VisitStatus.ACCEPTED,
+          visitDate: '2019-08-13T08:30:00.000Z'
+        }
+      ],
       totalItems: 1
     };
 
     const action = new GetVisits();
-    const completion = [
-      new ResetVisits(),
-      new GetVisitsSuccess(visitsApi)
-    ];
+    const completion = [new ResetVisits(), new GetVisitsSuccess(visitsApi)];
 
     actions$ = hot('-a---', { a: action });
     const response = cold('-a|', { a: visitsApi });
@@ -101,7 +108,7 @@ describe('VisitEffects', () => {
       new AlertShow({
         message,
         alertType: ALERT_TYPE.WARN
-      }),
+      })
     ];
     const funSpy = jasmine
       .createSpy('withUnauthorizeErrorAction')
@@ -114,10 +121,65 @@ describe('VisitEffects', () => {
     const response = cold('-#', {}, { error: { message }, status });
     const expected = cold('--(bc)', {
       b: completion[0],
-      c: completion[1],
+      c: completion[1]
     });
     service.getVisits = () => response;
 
     expect(effects.getVisits$).toBeObservable(expected);
+  });
+
+  it('should return the AlertShow action and the CancelVisitSuccess action containing a visit object if cancelVisit effect succeeds', () => {
+    const visit = {
+      createDate: '2019-08-13T07:30:00.000Z',
+      description: 'Zapis',
+      id: 124,
+      status: VisitStatus.ACCEPTED,
+      visitDate: '2019-08-13T08:30:00.000Z'
+    };
+
+    const message = 'OK';
+    const action = new CancelVisit(visit);
+    const completion = [
+      new AlertShow({ message, alertType: ALERT_TYPE.SUCCESS }),
+      new CancelVisitSuccess(visit)
+    ];
+
+    actions$ = hot('-a---', { a: action });
+    const response = cold('-a|', { a: { message } });
+    const expected = cold('--(bc)', { b: completion[0], c: completion[1] });
+    service.cancelVisit = () => response;
+
+    expect(effects.cancelVisit$).toBeObservable(expected);
+  });
+
+  it('should return the "error" actions if cancelVisit effect fails', () => {
+    const message = 'Error';
+    const action = new CancelVisit({
+      createDate: '2019-08-13T07:30:00.000Z',
+      description: 'Zapis',
+      id: 124,
+      status: VisitStatus.ACCEPTED,
+      visitDate: '2019-08-13T08:30:00.000Z'
+    });
+    const completion = new AlertShow({
+      message,
+      alertType: ALERT_TYPE.WARN
+    });
+
+    const funSpy = jasmine
+      .createSpy('withUnauthorizeErrorAction')
+      .and.returnValue([completion]);
+    spyOnProperty(utilFun, 'withUnauthorizeErrorAction', 'get').and.returnValue(
+      funSpy
+    );
+
+    actions$ = hot('-a---', { a: action });
+    const response = cold('-#', {}, { error: { message }, status });
+    const expected = cold('--b', {
+      b: completion
+    });
+    service.cancelVisit = () => response;
+
+    expect(effects.cancelVisit$).toBeObservable(expected);
   });
 });
