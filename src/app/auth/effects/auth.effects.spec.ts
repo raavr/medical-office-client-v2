@@ -24,6 +24,8 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { ProfileGet } from 'src/app/account/actions/profile.action';
 import { AlertShow } from 'src/app/core/actions/alert.actions';
 import { ALERT_TYPE } from 'src/app/core/components/alert/alert-factory.service';
+import { Signup, SignupSuccess, SignupFailure } from '../actions/signup.actions';
+import * as AlertActions from '../../core/actions/alert.actions';
 
 describe('AuthEffects', () => {
   let effects: AuthEffects;
@@ -41,7 +43,7 @@ describe('AuthEffects', () => {
         provideMockActions(() => actions$),
         {
           provide: AuthService,
-          useValue: { login: () => {} }
+          useValue: { login: () => {}, signup: () => {} }
         },
         {
           provide: Router,
@@ -70,7 +72,7 @@ describe('AuthEffects', () => {
     spyTokenExpired = spyOn(jwtHelperService, 'isTokenExpired');
   });
 
-  it('should return the LoginSuccess action with token object if login succeeds', () => {
+  it('should return the AlertShow action and the LoginSuccess action with token object if login succeeds', () => {
     const credentials: Credentials = {
       email: 'test@example.com',
       password: ''
@@ -95,7 +97,10 @@ describe('AuthEffects', () => {
     const message = 'Invalid email or password';
     const error = { error: { message } };
     const action = new Login(credentials);
-    const completion = [ new LoginFailure(), new AlertShow({ message, alertType: ALERT_TYPE.WARN })];
+    const completion = [
+      new LoginFailure(),
+      new AlertShow({ message, alertType: ALERT_TYPE.WARN })
+    ];
 
     actions$ = hot('-a---', { a: action });
     const response = cold('-#', {}, error);
@@ -177,7 +182,7 @@ describe('AuthEffects', () => {
     });
   });
 
-  it('should navigate to "/login" when logout$ effect is called', done => {
+  it('should navigate to "/login" when loginRedirect$ effect is called', done => {
     const action = new Logout();
     actions$ = of(action);
     effects.loginRedirect$.subscribe(() => {
@@ -195,6 +200,15 @@ describe('AuthEffects', () => {
     });
   });
 
+  it('should navigate to "/login" when loginRedirect$ effect is called', done => {
+    const action = new SignupSuccess();
+    actions$ = of(action);
+    effects.loginRedirect$.subscribe(() => {
+      expect(routerService.navigate).toHaveBeenCalledWith(['/login']);
+      done();
+    });
+  });
+
   it('should navigate to "/login" when TokenInvalid$ effect is called', done => {
     const action = new TokenInvalid();
     actions$ = of(action);
@@ -202,5 +216,55 @@ describe('AuthEffects', () => {
       expect(routerService.navigate).toHaveBeenCalledWith(['/login']);
       done();
     });
+  });
+
+  it('should return the SignupSuccess action and the AlertShow action if signup succeeds', () => {
+    const signupData = {
+      name: 'John',
+      surname: 'Doe',
+      email: 'john@example.com',
+      password: 'test123',
+      confirmPassword: 'test123'
+    };
+    const action = new Signup(signupData);
+    const message = 'Signup ok';
+    const completion = [
+      new SignupSuccess(),
+      new AlertActions.AlertShow({
+        message,
+        alertType: ALERT_TYPE.SUCCESS
+      })
+    ];
+
+    actions$ = hot('-a---', { a: action });
+    const response = cold('-a|', { a: { message } });
+    const expected = cold('--(bc)', { b: completion[0], c: completion[1] });
+    authService.signup = () => response;
+
+    expect(effects.signup$).toBeObservable(expected);
+  });
+
+  it('should return the SignupFailure action and the AlertShow action if the login service throws an Error', () => {
+    const signupData = {
+      name: 'John',
+      surname: 'Doe',
+      email: 'john@example.com',
+      password: 'test123',
+      confirmPassword: 'test123'
+    };
+    const message = 'Something went wrong';
+    const error = { error: { message } };
+    const action = new Signup(signupData);
+    const completion = [
+      new SignupFailure(),
+      new AlertShow({ message, alertType: ALERT_TYPE.WARN })
+    ];
+
+    actions$ = hot('-a---', { a: action });
+    const response = cold('-#', {}, error);
+    const expected = cold('--(bc)', { b: completion[0], c: completion[1] });
+    authService.signup = () => response;
+
+    expect(effects.signup$).toBeObservable(expected);
   });
 });

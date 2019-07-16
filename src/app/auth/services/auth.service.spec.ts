@@ -25,11 +25,18 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should call the http service with a specific URL', () => {
+  it('should call the http service with a specific URL when login method is called', () => {
     const credentials = { email: 'test@example.com', password: 'test123' };
     service.login(credentials);
 
     expect(http.post).toHaveBeenCalledWith(`${ENDPOINT}/auth/login`, credentials);
+  });
+
+  it('should call the http service with a specific URL when signup method is called', () => {
+    const signupData = { name: 'John', surname: 'Doe', email: 'john@example.com', password: 'test123', confirmPassword: 'test123' };
+    service.signup(signupData);
+
+    expect(http.post).toHaveBeenCalledWith(`${ENDPOINT}/auth/signup`, signupData);
   });
   
 });
