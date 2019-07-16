@@ -22,6 +22,8 @@ import { Token, TokenData } from '../models/token';
 import { TokenService } from '../services/token.service';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { ProfileGet } from 'src/app/account/actions/profile.action';
+import { AlertShow } from 'src/app/core/actions/alert.actions';
+import { ALERT_TYPE } from 'src/app/core/components/alert/alert-factory.service';
 
 describe('AuthEffects', () => {
   let effects: AuthEffects;
@@ -90,13 +92,14 @@ describe('AuthEffects', () => {
       email: 'test@example.com',
       password: ''
     };
+    const message = 'Invalid email or password';
+    const error = { error: { message } };
     const action = new Login(credentials);
-    const completion = new LoginFailure('Invalid email or password');
-    const error = { error: { message: 'Invalid email or password' } };
+    const completion = [ new LoginFailure(), new AlertShow({ message, alertType: ALERT_TYPE.WARN })];
 
     actions$ = hot('-a---', { a: action });
     const response = cold('-#', {}, error);
-    const expected = cold('--b', { b: completion });
+    const expected = cold('--(bc)', { b: completion[0], c: completion[1] });
     authService.login = () => response;
 
     expect(effects.login$).toBeObservable(expected);

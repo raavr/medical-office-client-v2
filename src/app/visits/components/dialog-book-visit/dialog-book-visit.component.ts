@@ -21,7 +21,7 @@ export interface DialogData {
   selector: 'app-dialog-book-visit',
   templateUrl: './dialog-book-visit.component.html',
   styleUrls: [
-    '../../../core/styles/shared.scss',
+    '../../../core/styles/card_shared.scss',
     '../../../core/styles/dialog_shared.scss',
   ]
 })

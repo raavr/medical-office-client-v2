@@ -21,7 +21,11 @@ import { DialogVisitMoreComponent } from '../dialog-visit-more/dialog-visit-more
 @Component({
   selector: 'app-visits-table',
   templateUrl: './visits-table.component.html',
-  styleUrls: ['../../../core/styles/shared.scss', 'visits-table.component.scss']
+  styleUrls: [
+    '../../../core/styles/shared.scss',
+    '../../../core/styles/card_shared.scss',
+    'visits-table.component.scss'
+  ]
 })
 export class VisitsTableComponent {
   @Input() visits: Visit[];

@@ -1,0 +1,41 @@
+<mat-card class="card-container" [style.maxWidth.px]="380">
+  <mat-card-title class="card-title--center">Logowanie</mat-card-title>
+  <div class="card__spinner" *ngIf="_pending">
+    <mat-spinner class="mat-spinner__form" [diameter]="25"></mat-spinner>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-card-content>
+      <mat-form-field class="form-container">
+        <input
+          type="email"
+          matInput
+          placeholder="Email"
+          formControlName="email"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-container">
+        <input
+          type="password"
+          matInput
+          placeholder="Hasło"
+          formControlName="password"
+        />
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-footer class="card-footer card-footer--center">
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="form.invalid"
+        [style.width.%]="100"
+      >
+        Zaloguj się
+      </button>
+      <p>
+        Nie masz jeszcze konta?
+        <a routerLink="/signup" class="link link--accent">Zarejestruj się</a>
+      </p>
+    </mat-card-footer>
+  </form>
+</mat-card>

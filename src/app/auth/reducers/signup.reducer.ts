@@ -1,4 +1,4 @@
-import { AuthActionUnion, AuthActionTypes } from '../actions/auth.actions';
+import { SignupActionTypes, SignupActionUnion } from '../actions/signup.actions';
 
 export interface State {
   pending: boolean;
@@ -8,19 +8,17 @@ export const initialState: State = {
   pending: false,
 }
 
-export function reducer(state = initialState, action: AuthActionUnion): State {
+export function reducer(state = initialState, action: SignupActionUnion): State {
   switch(action.type) {
-    case AuthActionTypes.Login: {
+    case SignupActionTypes.Signup: {
       return {
-        ...state,
         pending: true,
       }
     }
 
-    case AuthActionTypes.LoginSuccess:
-    case AuthActionTypes.LoginFailure: {
+    case SignupActionTypes.SignupSuccess: 
+    case SignupActionTypes.SignupFailure: {
       return {
-        ...state,
         pending: false,
       }
     }

@@ -6,10 +6,12 @@ import {
 import * as fromRoot from '../../core/reducers';
 import * as fromAuth from './auth.reducer';
 import * as fromLogin from './login.reducer';
+import * as fromSignup from './signup.reducer';
 
 export interface AuthState {
   session: fromAuth.State;
   login: fromLogin.State;
+  signup: fromSignup.State;
 }
 
 export interface State extends fromRoot.State {
@@ -19,6 +21,7 @@ export interface State extends fromRoot.State {
 export const reducers: ActionReducerMap<AuthState> = {
   session: fromAuth.reducer,
   login: fromLogin.reducer,
+  signup: fromSignup.reducer
 };
 
 export const selectAuthState = createFeatureSelector<State, AuthState>('auth');
@@ -35,11 +38,18 @@ export const selectLoginState = createSelector(
   selectAuthState,
   (state: AuthState) => state.login
 );
-export const getLoginError = createSelector(
-  selectLoginState,
-  fromLogin.getError
-);
+
 export const getLoginPending = createSelector(
   selectLoginState,
   fromLogin.getPending
+);
+
+export const selectSignupState = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.signup
+);
+
+export const getSignupPending = createSelector(
+  selectSignupState,
+  fromSignup.getPending
 );

@@ -9,6 +9,8 @@
       <button mat-menu-item routerLink="/account">Moje konto</button>
       <button mat-menu-item (click)="logout()">Wyloguj</button>
     </app-menu>
+    <button *ngIf="!(loggedIn$ | async)" mat-button color="accent" routerLink="/login" [style.marginRight.px]="5">Zaloguj</button>
+    <button *ngIf="!(loggedIn$ | async)" mat-raised-button color="accent" routerLink="/signup">Zarejestruj się</button>
   </app-toolbar>
   <mat-sidenav-container
     (backdropClick)="closeSidenav()"

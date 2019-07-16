@@ -2,10 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { StoreModule, combineReducers, Store } from '@ngrx/store';
-import * as fromAuth from '../reducers';
+import * as fromAuth from '../../reducers';
+import * as fromRoot from '../../../core/reducers';
 import { LoginComponent } from './login.component';
-import { Login, LoginFailure } from '../actions/auth.actions';
+import { Login } from '../../actions/auth.actions';
 import { AlertFactoryService, ALERT_TYPE } from 'src/app/core/components/alert/alert-factory.service';
+import { AlertShow } from 'src/app/core/actions/alert.actions';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -17,6 +19,7 @@ describe('LoginComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
+          ...fromRoot.reducers,
           auth: combineReducers(fromAuth.reducers),
         }),
       ],
@@ -59,25 +62,31 @@ describe('LoginComponent', () => {
     expect(store.dispatch).toHaveBeenCalledWith(action);
   });
 
-  it('should dispatch a login failure action', () => {
+  it('should dispatch an alertShow action and call alertFactoryService', () => {
     const message = 'Wrong email or password';
-    const action = new LoginFailure(message);
+    const action = new AlertShow({
+      message,
+      alertType: ALERT_TYPE.WARN
+    });
 
     store.dispatch(action);
 
-    component.error$.subscribe(error => {
-      expect(error).toEqual(message);
-      expect(alertFactory.create).toHaveBeenCalledWith(error, { type: ALERT_TYPE.WARN });
+    component.alert$.subscribe(error => {
+      expect(error.message).toEqual(message);
+      expect(alertFactory.create).toHaveBeenCalledWith(message, { type: ALERT_TYPE.WARN });
     });
   });
 
-  it('should dispatch a login failure action', () => {
+  it('should dispatch an alertShow action and not call alertFactoryService', () => {
     const message = '';
-    const action = new LoginFailure(message);
+    const action = new AlertShow({
+      message,
+      alertType: ALERT_TYPE.WARN
+    });
 
     store.dispatch(action);
 
-    component.error$.subscribe(_ => {
+    component.alert$.subscribe(_ => {
       expect(alertFactory.create).not.toHaveBeenCalled();
     });
   });

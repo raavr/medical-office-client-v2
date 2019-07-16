@@ -44,36 +44,24 @@ dt {
   flex: 1 1 auto;
 }
 
-.link-router {
-  color: $light-primary-text;
-  text-decoration: none;
-}
-
 .flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.filter-field {
-  .mat-form-field-wrapper {
-    padding: 0;
+.link {
+  text-decoration: none;
 
-    @media ($small-width) {
-      & {
-        padding: 5px 0;
-      }
-    }
+  &--primary {
+    color: mat-color($primary);
+  }
 
-    .mat-form-field-infix {
-      border-top: 0.40375em solid transparent;
-      width: auto;
+  &--accent {
+    color: mat-color($accent);
+  }
 
-      @media($small-width) {
-        & {
-          width: 180px;
-        }
-      }
-    }
+  &--light-primary {
+    color: $light-primary-text;
   }
 }

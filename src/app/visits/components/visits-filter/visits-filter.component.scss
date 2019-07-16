@@ -16,3 +16,27 @@
   min-height: 45px;
   line-height: 45px;
 }
+
+//workaround to override material styles
+:host ::ng-deep .filter-field {
+  .mat-form-field-wrapper {
+    padding: 0;
+
+    @media ($small-width) {
+      & {
+        padding: 5px 0;
+      }
+    }
+
+    .mat-form-field-infix {
+      border-top: 0.40375em solid transparent;
+      width: auto;
+
+      @media($small-width) {
+        & {
+          width: 180px;
+        }
+      }
+    }
+  }
+}

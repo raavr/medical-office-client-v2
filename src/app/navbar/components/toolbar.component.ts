@@ -8,7 +8,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
         <button *ngIf="showMenu" mat-icon-button (click)="toggleSidenav()">
           <mat-icon>menu</mat-icon>
         </button>
-        <a class="link-router" routerLink="/">eGabinet</a>
+        <a class="link link--light-primary" routerLink="/">eGabinet</a>
         <span class="toolbar-spacer"></span>
         <ng-content></ng-content>
       </mat-toolbar-row>

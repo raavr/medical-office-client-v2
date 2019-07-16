@@ -1,0 +1,124 @@
+<mat-card class="card-container">
+  <mat-card-title class="card-title--center">Rejestracja</mat-card-title>
+  <div class="card__spinner" *ngIf="_pending">
+    <mat-spinner class="mat-spinner__form" [diameter]="25"></mat-spinner>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-card-content>
+      <mat-form-field class="form-container">
+        <input type="text" matInput placeholder="Imię" formControlName="name" />
+        <mat-error
+          *ngIf="
+            form.get('name').hasError('required') && form.get('name').touched
+          "
+        >
+          Imię jest wymagane
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-container">
+        <input
+          type="text"
+          matInput
+          placeholder="Nazwisko"
+          formControlName="surname"
+        />
+        <mat-error
+          *ngIf="
+            form.get('surname').hasError('required') &&
+            form.get('surname').touched
+          "
+        >
+          Nazwisko jest wymagane
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-container">
+        <input
+          type="email"
+          matInput
+          placeholder="Email"
+          formControlName="email"
+        />
+        <mat-error
+          *ngIf="
+            form.get('email').hasError('required') && form.get('email').touched
+          "
+        >
+          Email jest wymagany
+        </mat-error>
+        <mat-error
+          *ngIf="
+            form.get('email').hasError('email') && form.get('email').touched
+          "
+        >
+          Email jest niepoprawny
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-container">
+        <input
+          type="password"
+          matInput
+          placeholder="Hasło"
+          formControlName="password"
+        />
+        <mat-error
+          *ngIf="
+            form.get('password').hasError('required') &&
+            form.get('password').touched
+          "
+        >
+          Hasło jest wymagane
+        </mat-error>
+        <mat-error
+          *ngIf="
+            form.get('password').touched &&
+            form.get('password').hasError('invalid-password') &&
+            !form.get('password').hasError('required')
+          "
+        >
+          Hasło musi składać z conajmniej 8 znaków i zawierać przynajmniej jedną
+          cyfrę
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-container">
+        <input
+          type="password"
+          matInput
+          placeholder="Powtórz hasło"
+          formControlName="confirmPassword"
+        />
+        <mat-error
+          *ngIf="
+            form.get('password').touched &&
+            form.hasError('nomatch-passwords') &&
+            !form.get('confirmPassword').hasError('required')
+          "
+        >
+          Hasła muszą być takie same
+        </mat-error>
+        <mat-error
+          *ngIf="
+            form.get('confirmPassword').hasError('required') &&
+            form.get('confirmPassword').touched
+          "
+        >
+          Nowe hasło jest wymagane
+        </mat-error>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-footer class="card-footer card-footer--center">
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="form.invalid"
+        [style.width.%]="100"
+      >
+        Zarejestruj się
+      </button>
+      <p>
+        Masz już konto?
+        <a routerLink="/login" class="link link--accent">Zaloguj się</a>
+      </p>
+    </mat-card-footer>
+  </form>
+</mat-card>

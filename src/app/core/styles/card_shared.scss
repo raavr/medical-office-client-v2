@@ -1,0 +1,80 @@
+@import '../../app.variables.scss';
+
+.form-container {
+  margin: 8px 0;
+  width: 100%;
+}
+
+.card {
+  &-container {
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    @media ($small-width) {
+      & {
+        width: 80%;
+      }
+    }
+
+    @media ($middle-width) {
+      & {
+        width: 60%;
+      }
+    }
+
+    @media ($large-width) {
+      & {
+        width: 50%;
+      }
+    }
+  }
+
+  &-title--center {
+    text-align: center;
+  }
+
+  &__spinner {
+    margin: auto;
+  }
+
+  &-loading {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, if($is-dark-theme, 0.6, 0.8));
+  }
+
+  &-footer {
+    display: flex;
+    margin: 0;
+    font-size: 1.4rem;
+
+    &--end {
+      justify-content: flex-end;
+    }
+
+    &--center {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &-button {
+    margin: 0 10px;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+}

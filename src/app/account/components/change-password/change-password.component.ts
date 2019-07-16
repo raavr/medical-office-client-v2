@@ -13,7 +13,7 @@ import { Passwords } from '../../model/passwords';
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: [
-    '../../../core/styles/shared.scss',
+    '../../../core/styles/card_shared.scss',
     './change-password.component.scss'
   ]
 })

@@ -15,28 +15,24 @@ describe("Login Reducer", () => {
     const action = new Login({ email: 'test@example.com', password: 'test' });
     const expectedResult = {
       pending: true,
-      error: null
     }
     const result = reducer(initialState, action);
     expect(result).toEqual(expectedResult);
   });
 
-  it('should make pending to false and have no error', () => {
+  it('should make pending to false when LoginSuccess action is disaptch', () => {
     const action = new LoginSuccess({ token: 'some_token' });
     const expectedResult = {
       pending: false,
-      error: null
     }
     const result = reducer(initialState, action);
     expect(result).toEqual(expectedResult);
   });
 
-  it('should make pending to false and have an error', () => {
-    const error = 'Invalid credentials';
-    const action = new LoginFailure(error);
+  it('should make pending to false when LoginFailure action is disaptch', () => {
+    const action = new LoginFailure();
     const expectedResult = {
       pending: false,
-      error
     }
     const result = reducer(initialState, action);
     expect(result).toEqual(expectedResult);
