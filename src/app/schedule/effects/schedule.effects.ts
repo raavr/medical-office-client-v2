@@ -22,9 +22,11 @@ export class ScheduleEffects {
     ),
     exhaustMap(() =>
       this.scheduleService.getFullVisitSchedule().pipe(
-        map(
-          (visitDatetimes: VisitDatetime) =>
-            new ScheduleActions.SetVisitTimes(visitDatetimes.times)
+        switchMap(
+          (visitDatetimes: VisitDatetime) => [
+            new ScheduleActions.SetVisitTimes(visitDatetimes.times),
+            new ScheduleActions.SetDisabledDates(visitDatetimes.disabledDates)
+          ]
         ),
         catchError(({ error: { message }, status }) =>
           withUnauthorizeErrorAction(
@@ -62,6 +64,38 @@ export class ScheduleEffects {
           withUnauthorizeErrorAction(
             [
               new ScheduleActions.UpdateVisitTimesFailure(),
+              new AlertActions.AlertShow({
+                message,
+                alertType: ALERT_TYPE.WARN
+              })
+            ],
+            status
+          )
+        )
+      )
+    )
+  );
+
+  @Effect()
+  updateDisabledDates$ = this.actions$.pipe(
+    ofType<ScheduleActions.UpdateDisabledDates>(
+      ScheduleActions.ScheduleActionTypes.UpdateDisabledDates
+    ),
+    map(action => action.payload),
+    exhaustMap((dates: string[]) =>
+      this.scheduleService.updateDisabledDates(dates).pipe(
+        switchMap(
+          ({ message }) => [
+            new ScheduleActions.SetDisabledDates(dates),
+            new AlertActions.AlertShow({
+              message,
+              alertType: ALERT_TYPE.SUCCESS
+            })
+          ]),
+        catchError(({ error: { message }, status }) =>
+          withUnauthorizeErrorAction(
+            [
+              new ScheduleActions.UpdateDisabledDatesFailure(),
               new AlertActions.AlertShow({
                 message,
                 alertType: ALERT_TYPE.WARN

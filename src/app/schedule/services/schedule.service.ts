@@ -31,4 +31,10 @@ export class ScheduleService {
       times
     }) as Observable<{ message: string }>;
   }
+
+  updateDisabledDates(disabledDates: string[]) {
+    return this.http.put(`${ENDPOINT}/api/disabled_dates`, {
+      disabledDates
+    }) as Observable<{ message: string }>;
+  }
 }

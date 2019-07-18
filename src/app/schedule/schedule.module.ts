@@ -11,15 +11,18 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import * as fromSchedule from './reducers';
 import { ScheduleEffects } from './effects/schedule.effects';
+import { DisabledDatesComponent } from './components/disabled-dates/disabled-dates.component';
+import { MomentDateModule } from '../material/moment-date.module';
 
 @NgModule({
-  declarations: [ScheduleComponent, VisitTimeComponent],
+  declarations: [ScheduleComponent, VisitTimeComponent, DisabledDatesComponent],
   imports: [
     CommonModule,
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    MomentDateModule.forFeature(),
     StoreModule.forFeature('schedule', fromSchedule.reducers),
     EffectsModule.forFeature([
       ScheduleEffects,

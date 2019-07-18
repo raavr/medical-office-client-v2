@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  SimpleChanges
+} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -6,16 +12,17 @@ import { FormControl, Validators } from '@angular/forms';
   templateUrl: './visit-time.component.html',
   styleUrls: [
     '../../../core/styles/card_shared.scss',
+    '../../containers/schedule/schedule.component.scss',
     './visit-time.component.scss'
   ]
 })
-export class VisitTimeComponent implements OnInit {
+export class VisitTimeComponent {
   visitTimesSet = new Set<string>();
   @Input() times: string[];
   @Input() pending: boolean;
   @Output() update = new EventEmitter<string[]>();
 
-  timeFormControl = new FormControl('', [Validators.required]);
+  timeFormControl = new FormControl('08:00', [Validators.required]);
 
   private makeListFromSet() {
     this.times = Array.from(this.visitTimesSet).sort();
@@ -31,12 +38,13 @@ export class VisitTimeComponent implements OnInit {
     this.makeListFromSet();
   }
 
-  ngOnChanges() {
-    this.visitTimesSet = new Set(this.times);
-    this.makeListFromSet();
-  }
-
-  ngOnInit() {
-    this.timeFormControl.setValue('08:00');
+  ngOnChanges(changes: SimpleChanges) {
+    if (
+      changes.times &&
+      changes.times.previousValue != changes.times.currentValue
+    ) {
+      this.visitTimesSet = new Set(this.times);
+      this.makeListFromSet();
+    }
   }
 }

@@ -5,9 +5,11 @@ import {
 } from '@ngrx/store';
 import * as fromRoot from '../../core/reducers';
 import * as fromVisitTimes from './visit-times.reducer';
+import * as fromDisabledDates from './disabled-dates.reducer';
 
 export interface ScheduleState {
   times: fromVisitTimes.State;
+  disabledDates: fromDisabledDates.State;
 }
 
 export interface State extends fromRoot.State {
@@ -16,6 +18,7 @@ export interface State extends fromRoot.State {
 
 export const reducers: ActionReducerMap<ScheduleState> = {
   times: fromVisitTimes.reducer,
+  disabledDates: fromDisabledDates.reducer,
 };
 
 export const selectScheduleState = createFeatureSelector<State, ScheduleState>('schedule');
@@ -33,4 +36,19 @@ export const getVisitTimes = createSelector(
 export const getPendingVisitTimes = createSelector(
   selectVisitTimesState,
   fromVisitTimes.getPending
+);
+
+export const selectDisabledDatesState = createSelector(
+  selectScheduleState,
+  (state: ScheduleState) => state.disabledDates
+);
+
+export const getDisabledDates = createSelector(
+  selectDisabledDatesState,
+  fromDisabledDates.getDisabledDates
+);
+
+export const getPendingDisabledDates = createSelector(
+  selectDisabledDatesState,
+  fromDisabledDates.getPending
 );
