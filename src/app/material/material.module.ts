@@ -21,7 +21,9 @@ import {
   MatTabsModule,
   MatDialogModule,
   MatDatepickerModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatChipsModule,
+  MatGridListModule,
 } from '@angular/material';
 
 @NgModule({
@@ -46,7 +48,9 @@ import {
     MatTabsModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatGridListModule,
   ],
   exports: [
     MatInputModule,
@@ -69,7 +73,9 @@ import {
     MatTabsModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatGridListModule,
   ]
 })
 export class MaterialModule {}

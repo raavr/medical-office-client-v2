@@ -8,8 +8,12 @@ const routes: Routes = [
     component: DashboardComponent,
     children: [
       {
-        path: '',
+        path: 'visits',
         loadChildren: '../visits/visits.module#VisitsModule',
+      },
+      {
+        path: 'schedule',
+        loadChildren: '../schedule/schedule.module#ScheduleModule',
       }
     ]
   }

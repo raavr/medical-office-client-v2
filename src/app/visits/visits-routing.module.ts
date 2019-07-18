@@ -6,10 +6,6 @@ import { VisitsComponent } from './containers/visits/visits.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'visits/current'
-  },
-  {
-    path: 'visits',
     component: VisitsComponent,
     children: [
       {

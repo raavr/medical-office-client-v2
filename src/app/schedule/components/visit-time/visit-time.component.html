@@ -1,0 +1,64 @@
+<mat-card>
+  <mat-card-title class="card-title" [style.marginBottom.px]="10"
+    >Ustal ogólne godziny wizyt</mat-card-title
+  >
+  <mat-divider></mat-divider>
+  <form (ngSubmit)="addTime()">
+    <mat-card-content>
+      <mat-chip-list #chipList aria-label="Wybór godzin wizyt">
+        <mat-chip
+          *ngFor="let visitTime of times"
+          [selectable]="true"
+          [removable]="true"
+          (removed)="removeTime(visitTime)"
+        >
+          {{ visitTime }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+      <div class="flex">
+        <mat-form-field class="time-input">
+          <input
+            type="time"
+            matInput
+            [formControl]="timeFormControl"
+            placeholder="Godzina wizyty"
+            required
+          />
+          <mat-error
+            *ngIf="
+              timeFormControl.hasError('required') && timeFormControl.touched
+            "
+          >
+            Godzina wizyty jest wymagana
+          </mat-error>
+        </mat-form-field>
+        <div class="btn__time-add-wrapper">
+          <button
+            type="submit"
+            mat-raised-button
+            color="accent"
+            class="btn__time-add"
+            [disabled]="timeFormControl.invalid"
+          >
+            Dodaj
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </form>
+  <mat-card-footer class="card-footer card-footer--end">
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      (click)="update.emit(times)"
+      class="card-button"
+    >
+      Zapisz zmiany
+    </button>
+  </mat-card-footer>
+  <div *ngIf="pending" class="card-loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</mat-card>
