@@ -6,10 +6,12 @@ import {
 import * as fromRoot from '../../core/reducers';
 import * as fromVisitTimes from './visit-times.reducer';
 import * as fromDisabledDates from './disabled-dates.reducer';
+import * as fromWeeklyTimes from './weekly-visit-times.reducer';
 
 export interface ScheduleState {
   times: fromVisitTimes.State;
   disabledDates: fromDisabledDates.State;
+  weeklyVisitTimes: fromWeeklyTimes.State;
 }
 
 export interface State extends fromRoot.State {
@@ -19,6 +21,7 @@ export interface State extends fromRoot.State {
 export const reducers: ActionReducerMap<ScheduleState> = {
   times: fromVisitTimes.reducer,
   disabledDates: fromDisabledDates.reducer,
+  weeklyVisitTimes: fromWeeklyTimes.reducer
 };
 
 export const selectScheduleState = createFeatureSelector<State, ScheduleState>('schedule');
@@ -51,4 +54,19 @@ export const getDisabledDates = createSelector(
 export const getPendingDisabledDates = createSelector(
   selectDisabledDatesState,
   fromDisabledDates.getPending
+);
+
+export const selectWeeklyVisitTimesState = createSelector(
+  selectScheduleState,
+  (state: ScheduleState) => state.weeklyVisitTimes
+);
+
+export const getWeeklyVisitTimes = createSelector(
+  selectWeeklyVisitTimesState,
+  fromWeeklyTimes.getWeeklyVisitTimes
+);
+
+export const getPendingWeeklyVisitTimes = createSelector(
+  selectWeeklyVisitTimesState,
+  fromWeeklyTimes.getPending
 );

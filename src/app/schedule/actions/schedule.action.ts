@@ -18,6 +18,8 @@ export enum ScheduleActionTypes {
 
 export class GetFullSchedule implements Action {
   readonly type = ScheduleActionTypes.GetFullSchedule;
+
+  constructor(public disableDatesPending: boolean = true) {}
 }
 
 export class ResetFullSchedule implements Action {

@@ -4,13 +4,18 @@ import * as fromSchedule from '../../reducers';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { AlertFactoryService } from 'src/app/core/components/alert/alert-factory.service';
-import { takeUntil, filter } from 'rxjs/operators';
+import {
+  takeUntil,
+  filter,
+} from 'rxjs/operators';
 import { Alert } from 'src/app/core/model/alert.interface';
 import {
   GetFullSchedule,
   UpdateVisitTimes,
-  UpdateDisabledDates
+  UpdateDisabledDates,
+  UpdateWeeklyVisitTimes
 } from '../../actions/schedule.action';
+import { VisitTimeOfDay } from '../../models/visit-datetime.interface';
 
 @Component({
   selector: 'app-schedule',
@@ -22,13 +27,18 @@ import {
         (update)="updateVisitTimes($event)"
         class="flex flex-100 flex-sm-50"
       ></app-visit-time>
-        <app-disabled-dates
-          [disabledDates]="disabledDates$ | async"
-          [pending]="disabledDatesPending$ | async"
-          (update)="updateDisabledDates($event)"
-          class="flex flex-100 flex-sm-50"
+      <app-disabled-dates
+        [disabledDates]="disabledDates$ | async"
+        [pending]="disabledDatesPending$ | async"
+        (update)="updateDisabledDates($event)"
+        class="flex flex-100 flex-sm-50"
       ></app-disabled-dates>
     </div>
+    <app-day-of-week-list
+      [weeklyTimes]="weeklyTimes$ | async"
+      [pending]="weeklyTimesPending$ | async"
+      (update)="updateWeeklyTimes($event)"
+    ></app-day-of-week-list>
   `
 })
 export class ScheduleComponent implements OnInit {
@@ -37,6 +47,8 @@ export class ScheduleComponent implements OnInit {
   timesPending$: Observable<boolean>;
   disabledDates$: Observable<string[]>;
   disabledDatesPending$: Observable<boolean>;
+  weeklyTimes$: Observable<VisitTimeOfDay[]>;
+  weeklyTimesPending$: Observable<boolean>;
   private alertUnsub$ = new Subject<any>();
 
   constructor(
@@ -50,6 +62,10 @@ export class ScheduleComponent implements OnInit {
     this.disabledDatesPending$ = store.pipe(
       select(fromSchedule.getPendingDisabledDates)
     );
+    this.weeklyTimes$ = store.pipe(select(fromSchedule.getWeeklyVisitTimes));
+    this.weeklyTimesPending$ = store.pipe(
+      select(fromSchedule.getPendingWeeklyVisitTimes)
+    );
   }
 
   updateVisitTimes(times: string[]) {
@@ -58,6 +74,10 @@ export class ScheduleComponent implements OnInit {
 
   updateDisabledDates(dates: string[]) {
     this.store.dispatch(new UpdateDisabledDates(dates));
+  }
+
+  updateWeeklyTimes(weeklyTimes: VisitTimeOfDay[]) {
+    this.store.dispatch(new UpdateWeeklyVisitTimes(weeklyTimes));
   }
 
   ngOnInit() {

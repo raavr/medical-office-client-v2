@@ -1,0 +1,26 @@
+<mat-card class="card-container--relative card-container--bmargin">
+  <mat-card-title class="card-title" [style.marginBottom.px]="10">
+    Ustal godziny wizyt dla dni tygodnia
+  </mat-card-title>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <app-day-of-week
+      *ngFor="let visitTime of weeklyTimes"
+      [visitTime]="visitTime"
+    ></app-day-of-week>
+  </mat-card-content>
+  <mat-card-footer class="card-footer card-footer--end">
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      (click)="update.emit(weeklyTimes)"
+      class="card-button"
+    >
+      Zapisz zmiany
+    </button>
+  </mat-card-footer>
+  <div *ngIf="pending" class="card-loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</mat-card>

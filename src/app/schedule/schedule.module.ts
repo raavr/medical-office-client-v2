@@ -13,9 +13,17 @@ import * as fromSchedule from './reducers';
 import { ScheduleEffects } from './effects/schedule.effects';
 import { DisabledDatesComponent } from './components/disabled-dates/disabled-dates.component';
 import { MomentDateModule } from '../material/moment-date.module';
+import { DayOfWeekComponent } from './components/day-of-week/day-of-week.component';
+import { DayOfWeekListComponent } from './components/day-of-week-list/day-of-week-list.component';
 
 @NgModule({
-  declarations: [ScheduleComponent, VisitTimeComponent, DisabledDatesComponent],
+  declarations: [
+    ScheduleComponent,
+    VisitTimeComponent,
+    DisabledDatesComponent,
+    DayOfWeekComponent,
+    DayOfWeekListComponent
+  ],
   imports: [
     CommonModule,
     CoreModule,
@@ -24,10 +32,8 @@ import { MomentDateModule } from '../material/moment-date.module';
     MaterialModule,
     MomentDateModule.forFeature(),
     StoreModule.forFeature('schedule', fromSchedule.reducers),
-    EffectsModule.forFeature([
-      ScheduleEffects,
-    ]),
+    EffectsModule.forFeature([ScheduleEffects]),
     ScheduleRoutingModule
   ]
 })
-export class ScheduleModule { }
+export class ScheduleModule {}

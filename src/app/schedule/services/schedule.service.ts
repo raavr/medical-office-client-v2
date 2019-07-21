@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ENDPOINT } from '../../app.constant';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { VisitDatetime } from '../models/visit-datetime.interface';
+import { VisitDatetime, VisitTimeOfDay } from '../models/visit-datetime.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,12 @@ export class ScheduleService {
   updateDisabledDates(disabledDates: string[]) {
     return this.http.put(`${ENDPOINT}/api/disabled_dates`, {
       disabledDates
+    }) as Observable<{ message: string }>;
+  }
+
+  updateWeeklyVisitTimes(weeklyVisitTimes: VisitTimeOfDay[]) {
+    return this.http.put(`${ENDPOINT}/api/weekly_times`, {
+      weeklyVisitTimes
     }) as Observable<{ message: string }>;
   }
 }

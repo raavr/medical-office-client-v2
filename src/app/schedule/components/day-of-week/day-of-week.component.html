@@ -1,0 +1,23 @@
+<fieldset>
+  <legend>
+    {{ dayOfWeekName }}
+  </legend>
+  <div class="select-all">
+    <mat-checkbox
+      (change)="$event ? selectAll() : null"
+      [checked]="allSelected"
+      [indeterminate]="false"
+      [aria-label]="checkboxLabel()"
+      >Zaz. wszystkie</mat-checkbox
+    >
+  </div>
+  <mat-slide-toggle
+    class="toggle"
+    *ngFor="let vtime of visitTime.visitTime"
+    [color]="accent"
+    [checked]="vtime.selected"
+    (change)="changeSelected($event, vtime)"
+  >
+    {{ vtime.time }}
+  </mat-slide-toggle>
+</fieldset>

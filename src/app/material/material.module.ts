@@ -24,6 +24,7 @@ import {
   MatAutocompleteModule,
   MatChipsModule,
   MatGridListModule,
+  MatSlideToggleModule,
 } from '@angular/material';
 
 @NgModule({
@@ -51,6 +52,7 @@ import {
     MatAutocompleteModule,
     MatChipsModule,
     MatGridListModule,
+    MatSlideToggleModule,
   ],
   exports: [
     MatInputModule,
@@ -76,6 +78,7 @@ import {
     MatAutocompleteModule,
     MatChipsModule,
     MatGridListModule,
+    MatSlideToggleModule,
   ]
 })
 export class MaterialModule {}
