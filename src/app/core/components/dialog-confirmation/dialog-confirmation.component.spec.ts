@@ -18,7 +18,7 @@ describe('DialogConfirmationComponent', () => {
         {
           provide: MAT_DIALOG_DATA,
           useValue: {
-            title: 'rezerwację wizyty'
+            title: 'Czy na pewno chcesz usunąć rezerwację wizyty?'
           }
         }
       ]

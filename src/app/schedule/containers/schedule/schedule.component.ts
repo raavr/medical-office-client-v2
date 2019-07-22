@@ -2,12 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import * as fromRoot from '../../../core/reducers';
 import * as fromSchedule from '../../reducers';
 import { select, Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { AlertFactoryService } from 'src/app/core/components/alert/alert-factory.service';
-import {
-  takeUntil,
-  filter,
-} from 'rxjs/operators';
+import { takeUntil, filter } from 'rxjs/operators';
 import { Alert } from 'src/app/core/model/alert.interface';
 import {
   GetFullSchedule,
@@ -16,6 +13,8 @@ import {
   UpdateWeeklyVisitTimes
 } from '../../actions/schedule.action';
 import { VisitTimeOfDay } from '../../models/visit-datetime.interface';
+import { dirtyCheck } from 'src/app/core/utils/utils';
+import { DirtyComponent } from '../../services/dirty-check.guard';
 
 @Component({
   selector: 'app-schedule',
@@ -24,24 +23,30 @@ import { VisitTimeOfDay } from '../../models/visit-datetime.interface';
       <app-visit-time
         [times]="times$ | async"
         [pending]="timesPending$ | async"
+        [unsavedChanges]="isDirty$[0] | async"
         (update)="updateVisitTimes($event)"
+        (initChangesCheck)="initTimesChangesCheck($event)"
         class="flex flex-100 flex-sm-50"
       ></app-visit-time>
       <app-disabled-dates
         [disabledDates]="disabledDates$ | async"
         [pending]="disabledDatesPending$ | async"
+        [unsavedChanges]="isDirty$[1] | async"
         (update)="updateDisabledDates($event)"
+        (initChangesCheck)="initDatesChangesCheck($event)"
         class="flex flex-100 flex-sm-50"
       ></app-disabled-dates>
     </div>
     <app-day-of-week-list
       [weeklyTimes]="weeklyTimes$ | async"
       [pending]="weeklyTimesPending$ | async"
+      [unsavedChanges]="isDirty$[2] | async"
       (update)="updateWeeklyTimes($event)"
+      (initChangesCheck)="initWeeklyTimesChangesCheck($event)"
     ></app-day-of-week-list>
   `
 })
-export class ScheduleComponent implements OnInit {
+export class ScheduleComponent implements OnInit, DirtyComponent {
   alert$: Observable<Alert>;
   times$: Observable<string[]>;
   timesPending$: Observable<boolean>;
@@ -50,6 +55,8 @@ export class ScheduleComponent implements OnInit {
   weeklyTimes$: Observable<VisitTimeOfDay[]>;
   weeklyTimesPending$: Observable<boolean>;
   private alertUnsub$ = new Subject<any>();
+
+  isDirty$: Array<Observable<boolean>> = [];
 
   constructor(
     private store: Store<fromRoot.State>,
@@ -66,6 +73,7 @@ export class ScheduleComponent implements OnInit {
     this.weeklyTimesPending$ = store.pipe(
       select(fromSchedule.getPendingWeeklyVisitTimes)
     );
+    this.isDirty$ = [of(false), of(false), of(false)];
   }
 
   updateVisitTimes(times: string[]) {
@@ -78,6 +86,18 @@ export class ScheduleComponent implements OnInit {
 
   updateWeeklyTimes(weeklyTimes: VisitTimeOfDay[]) {
     this.store.dispatch(new UpdateWeeklyVisitTimes(weeklyTimes));
+  }
+
+  initDatesChangesCheck(changes$: Subject<string[]>) {
+    this.isDirty$[1] = changes$.pipe(dirtyCheck(this.disabledDates$));
+  }
+
+  initTimesChangesCheck(changes$: Subject<string[]>) {
+    this.isDirty$[0] = changes$.pipe(dirtyCheck(this.times$));
+  }
+
+  initWeeklyTimesChangesCheck(changes$: Subject<VisitTimeOfDay[]>) {
+    this.isDirty$[2] = changes$.pipe(dirtyCheck(this.weeklyTimes$));
   }
 
   ngOnInit() {

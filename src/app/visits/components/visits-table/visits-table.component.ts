@@ -14,7 +14,7 @@ import {
 import { SelectionModel } from '@angular/cdk/collections';
 import { VisitFilter } from '../../models/visit-filter';
 import { PageEvent, MatDialog } from '@angular/material';
-import { DialogConfirmationComponent } from '../dialog-confirmation/dialog-confirmation.component';
+import { DialogConfirmationComponent } from '../../../core/components/dialog-confirmation/dialog-confirmation.component';
 import { filter } from 'rxjs/operators';
 import { DialogVisitMoreComponent } from '../dialog-visit-more/dialog-visit-more.component';
 
@@ -93,7 +93,7 @@ export class VisitsTableComponent {
   cancelVisit(visit: Visit) {
     const dialogRef = this.dialog.open(DialogConfirmationComponent, {
       data: {
-        title: 'rezerwację wizyty'
+        title: 'Czy na pewno chcesz usunąć rezerwację wizyty?'
       }
     });
 

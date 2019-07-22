@@ -3,18 +3,22 @@
     Ustal godziny wizyt dla dni tygodnia
   </mat-card-title>
   <mat-divider></mat-divider>
-  <mat-card-content>
+  <mat-card-content [style.marginBottom.px]="50">
     <app-day-of-week
-      *ngFor="let visitTime of weeklyTimes"
+      *ngFor="let visitTime of _weeklyTimes"
       [visitTime]="visitTime"
+      (onWeeklyTimesChanged)="oneOfWeeklyTimesChanged()"
     ></app-day-of-week>
   </mat-card-content>
   <mat-card-footer class="card-footer card-footer--end">
+    <mat-icon *ngIf="unsavedChanges" color="warn" class="schedule__unsaved">
+      warning
+    </mat-icon>
     <button
       type="button"
       mat-raised-button
       color="primary"
-      (click)="update.emit(weeklyTimes)"
+      (click)="update.emit(_weeklyTimes)"
       class="card-button"
     >
       Zapisz zmiany

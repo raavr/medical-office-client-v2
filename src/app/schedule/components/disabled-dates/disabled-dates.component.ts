@@ -9,6 +9,7 @@ import { FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { ValidatorsService } from 'src/app/core/services/validator.service';
 import { FormatDateService } from 'src/app/visits/services/format-date.service';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-disabled-dates',
@@ -23,7 +24,10 @@ export class DisabledDatesComponent {
   datesStrSet = new Set<string>();
   @Input() disabledDates: string[];
   @Input() pending: boolean;
+  @Input() unsavedChanges: boolean;
   @Output() update = new EventEmitter<string[]>();
+  @Output() initChangesCheck = new EventEmitter<Subject<string[]>>();
+  datesChanges$ = new BehaviorSubject<string[]>(this.disabledDates);
 
   dateFormControl = new FormControl(moment().add(1, 'day'), [
     Validators.required,
@@ -46,13 +50,15 @@ export class DisabledDatesComponent {
       this.formatDateService.formatDate(this.dateFormControl.value)
     );
     this.makeListFromSet();
+    this.datesChanges$.next(this.disabledDates);
   }
-
+  
   removeDate(date) {
     this.datesStrSet.delete(date);
     this.makeListFromSet();
+    this.datesChanges$.next(this.disabledDates);
   }
-
+  
   ngOnChanges(changes: SimpleChanges) {
     if (
       changes.disabledDates &&
@@ -61,5 +67,9 @@ export class DisabledDatesComponent {
       this.datesStrSet = new Set(this.disabledDates);
       this.makeListFromSet();
     }
+  }
+  
+  ngOnInit() {
+    this.initChangesCheck.emit(this.datesChanges$);
   }
 }

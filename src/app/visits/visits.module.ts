@@ -23,7 +23,6 @@ import { BookVisitEffects } from './effects/book-visit.effects';
 import { MomentDateModule } from '../material/moment-date.module';
 import { CoreModule } from '../core/core.module';
 import { BookVisitComponent } from './components/book-visit/book-visit.component';
-import { DialogConfirmationComponent } from './components/dialog-confirmation/dialog-confirmation.component';
 import { DialogVisitMoreComponent } from './components/dialog-visit-more/dialog-visit-more.component';
 
 @NgModule({
@@ -40,7 +39,6 @@ import { DialogVisitMoreComponent } from './components/dialog-visit-more/dialog-
     BookVisitBtnComponent,
     DialogBookVisitComponent,
     BookVisitComponent,
-    DialogConfirmationComponent,
     DialogVisitMoreComponent
   ],
   imports: [
@@ -59,7 +57,6 @@ import { DialogVisitMoreComponent } from './components/dialog-visit-more/dialog-
   ],
   entryComponents: [
     DialogBookVisitComponent,
-    DialogConfirmationComponent,
     DialogVisitMoreComponent
   ]
 })

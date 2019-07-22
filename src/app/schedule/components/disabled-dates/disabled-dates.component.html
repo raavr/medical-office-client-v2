@@ -3,7 +3,7 @@
     >Ustal niedostępne dni wizyt</mat-card-title
   >
   <mat-divider></mat-divider>
-  <form (ngSubmit)="addDate()">
+  <form (ngSubmit)="addDate()" [style.marginBottom.px]="50">
     <mat-card-content>
       <mat-chip-list #chipList aria-label="Wybór niedostępnych dni wizyt">
         <mat-chip
@@ -58,20 +58,23 @@
         </div>
       </div>
     </mat-card-content>
-  </form>
-  <mat-card-footer
-    class="card-footer card-footer--end card-footer--absolute-bottom"
-  >
-    <button
-      type="button"
-      mat-raised-button
-      color="primary"
-      (click)="update.emit(disabledDates)"
-      class="card-button"
+    <mat-card-footer
+      class="card-footer card-footer--end card-footer--absolute-bottom"
     >
-      Zapisz zmiany
-    </button>
-  </mat-card-footer>
+      <mat-icon *ngIf="unsavedChanges" color="warn" class="schedule__unsaved">
+        warning
+      </mat-icon>
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        (click)="update.emit(disabledDates)"
+        class="card-button"
+      >
+        Zapisz zmiany
+      </button>
+    </mat-card-footer>
+  </form>
   <div *ngIf="pending" class="card-loading">
     <mat-spinner></mat-spinner>
   </div>

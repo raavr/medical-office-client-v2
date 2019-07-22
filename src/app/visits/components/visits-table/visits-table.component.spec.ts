@@ -7,7 +7,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { VisitStatus, VisitType } from '../../models/visit';
 import { PageEvent, MatDialog, MatDialogModule } from '@angular/material';
 import { of } from 'rxjs';
-import { DialogConfirmationComponent } from '../dialog-confirmation/dialog-confirmation.component';
+import { DialogConfirmationComponent } from '../../../core/components/dialog-confirmation/dialog-confirmation.component';
 import { DialogVisitMoreComponent } from '../dialog-visit-more/dialog-visit-more.component';
 
 describe('VisitsTableComponent', () => {
@@ -200,7 +200,7 @@ describe('VisitsTableComponent', () => {
     expect(dialog.open).not.toHaveBeenCalled();
     component.cancelVisit(visit);
     expect(dialog.open).toHaveBeenCalledWith(DialogConfirmationComponent, {
-      data: { title: 'rezerwację wizyty' }
+      data: { title: 'Czy na pewno chcesz usunąć rezerwację wizyty?' }
     });
   });
 

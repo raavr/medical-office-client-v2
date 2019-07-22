@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import * as moment from 'moment';
 import {
   VisitTimeOfDay,
@@ -10,10 +10,11 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 @Component({
   selector: 'app-day-of-week',
   templateUrl: './day-of-week.component.html',
-  styleUrls: ['./day-of-week.component.scss']
+  styleUrls: ['./day-of-week.component.scss'],
 })
 export class DayOfWeekComponent implements OnInit {
   @Input() visitTime: VisitTimeOfDay;
+  @Output() onWeeklyTimesChanged = new EventEmitter<null>();
   dayOfWeekName: string;
   allSelected: boolean;
   constructor(private dateAdapter: DateAdapter<any>) {}
@@ -42,10 +43,12 @@ export class DayOfWeekComponent implements OnInit {
     this.visitTime.visitTime.forEach(
       elem => (elem.selected = this.allSelected)
     );
+    this.onWeeklyTimesChanged.emit();
   }
 
   changeSelected(change: MatSlideToggleChange, time: SelectedVisitTime) {
     time.selected = change.checked;
+    this.onWeeklyTimesChanged.emit();
   }
 
   checkboxLabel() {

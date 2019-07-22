@@ -6,6 +6,7 @@ import {
   SimpleChanges
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-visit-time',
@@ -20,7 +21,10 @@ export class VisitTimeComponent {
   visitTimesSet = new Set<string>();
   @Input() times: string[];
   @Input() pending: boolean;
+  @Input() unsavedChanges: boolean;
   @Output() update = new EventEmitter<string[]>();
+  @Output() initChangesCheck = new EventEmitter<Subject<string[]>>();
+  timesChanges$ = new BehaviorSubject<string[]>(this.times);
 
   timeFormControl = new FormControl('08:00', [Validators.required]);
 
@@ -31,11 +35,13 @@ export class VisitTimeComponent {
   addTime() {
     this.visitTimesSet.add(this.timeFormControl.value);
     this.makeListFromSet();
+    this.timesChanges$.next(this.times);
   }
 
   removeTime(time) {
     this.visitTimesSet.delete(time);
     this.makeListFromSet();
+    this.timesChanges$.next(this.times);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -46,5 +52,9 @@ export class VisitTimeComponent {
       this.visitTimesSet = new Set(this.times);
       this.makeListFromSet();
     }
+  }
+
+  ngOnInit() {
+    this.initChangesCheck.emit(this.timesChanges$);
   }
 }
