@@ -22,16 +22,18 @@ import { UpdateStatus } from '../../actions/visits-status.action';
 @Component({
   selector: 'app-visits-tab',
   template: `
-    <app-visits-table
-      [visits]="visits$ | async"
-      [totalItems]="totalItems$ | async"
-      [isDoctor]="isDoctor$ | async"
-      [pending]="pending$ | async"
-      [filter]="filter$ | async"
-      (onFilterChanged)="onFilterChanged($event)"
-      (onVisitsStatusModified)="onVisitsStatusModified($event)"
-      (onVisitCanceled)="onVisitCanceled($event)"
-    ></app-visits-table>
+    <div class="container">
+      <app-visits-table
+        [visits]="visits$ | async"
+        [totalItems]="totalItems$ | async"
+        [isDoctor]="isDoctor$ | async"
+        [pending]="pending$ | async"
+        [filter]="filter$ | async"
+        (onFilterChanged)="onFilterChanged($event)"
+        (onVisitsStatusModified)="onVisitsStatusModified($event)"
+        (onVisitCanceled)="onVisitCanceled($event)"
+      ></app-visits-table>
+    </div>
   `,
   styles: []
 })

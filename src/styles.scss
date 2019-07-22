@@ -44,6 +44,35 @@ dt {
   flex: 1 1 auto;
 }
 
+.container {
+  width: 100%;
+  margin: auto;
+
+  @media ($xsmall-width) {
+    & {
+      max-width: #{map-get($sizes, "xsmall")};
+    }
+  }
+
+  @media ($small-width) {
+    & {
+      max-width: #{map-get($sizes, "small")};
+    }
+  }
+
+  @media ($middle-width) {
+    & {
+      max-width: #{map-get($sizes, "middle")};
+    }
+  }
+
+  @media ($large-width) {
+    & {
+      max-width: #{map-get($sizes, "large")};
+    }
+  }
+}
+
 .flex-center {
   display: flex;
   justify-content: center;

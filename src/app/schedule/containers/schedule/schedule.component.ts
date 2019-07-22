@@ -19,31 +19,33 @@ import { DirtyComponent } from '../../services/dirty-check.guard';
 @Component({
   selector: 'app-schedule',
   template: `
-    <div class="flex flex-wrap">
-      <app-visit-time
-        [times]="times$ | async"
-        [pending]="timesPending$ | async"
-        [unsavedChanges]="isDirty$[0] | async"
-        (update)="updateVisitTimes($event)"
-        (initChangesCheck)="initTimesChangesCheck($event)"
-        class="flex flex-100 flex-sm-50"
-      ></app-visit-time>
-      <app-disabled-dates
-        [disabledDates]="disabledDates$ | async"
-        [pending]="disabledDatesPending$ | async"
-        [unsavedChanges]="isDirty$[1] | async"
-        (update)="updateDisabledDates($event)"
-        (initChangesCheck)="initDatesChangesCheck($event)"
-        class="flex flex-100 flex-sm-50"
-      ></app-disabled-dates>
+    <div class="container">
+      <div class="flex flex-wrap">
+          <app-visit-time
+            [times]="times$ | async"
+            [pending]="timesPending$ | async"
+            [unsavedChanges]="isDirty$[0] | async"
+            (update)="updateVisitTimes($event)"
+            (initChangesCheck)="initTimesChangesCheck($event)"
+            class="flex flex-100 flex-sm-50"
+          ></app-visit-time>
+          <app-disabled-dates
+            [disabledDates]="disabledDates$ | async"
+            [pending]="disabledDatesPending$ | async"
+            [unsavedChanges]="isDirty$[1] | async"
+            (update)="updateDisabledDates($event)"
+            (initChangesCheck)="initDatesChangesCheck($event)"
+            class="flex flex-100 flex-sm-50"
+          ></app-disabled-dates>
+        </div>
+        <app-day-of-week-list
+          [weeklyTimes]="weeklyTimes$ | async"
+          [pending]="weeklyTimesPending$ | async"
+          [unsavedChanges]="isDirty$[2] | async"
+          (update)="updateWeeklyTimes($event)"
+          (initChangesCheck)="initWeeklyTimesChangesCheck($event)"
+        ></app-day-of-week-list>
     </div>
-    <app-day-of-week-list
-      [weeklyTimes]="weeklyTimes$ | async"
-      [pending]="weeklyTimesPending$ | async"
-      [unsavedChanges]="isDirty$[2] | async"
-      (update)="updateWeeklyTimes($event)"
-      (initChangesCheck)="initWeeklyTimesChangesCheck($event)"
-    ></app-day-of-week-list>
   `
 })
 export class ScheduleComponent implements OnInit, DirtyComponent {

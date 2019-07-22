@@ -17,19 +17,21 @@ import { ChangePassword } from '../../actions/password.action';
   template: `
     <h2>Moje konto</h2>
     <mat-divider></mat-divider>
-    <div class="flex flex-md-wrap flex-justify" [style.marginTop.px]="20">
-      <app-profile
-        [profile]="profile$ | async"
-        [pending]="profilePending$ | async"
-        (onProfileSaved)="onProfileSaved($event)"
-        (onAvatarChanged)="onAvatarChanged($event)"
-        class="flex flex-100 flex-sm-80 flex-md-50"
-      ></app-profile>
-      <app-change-password
-        [pending]="passwordPending$ | async"
-        (onPasswordChanged)="onPasswordChanged($event)"
-        class="flex flex-100 flex-sm-80 flex-md-50"
-      ></app-change-password>
+    <div class="container">
+      <div class="flex flex-md-wrap flex-justify" [style.marginTop.px]="20">
+        <app-profile
+          [profile]="profile$ | async"
+          [pending]="profilePending$ | async"
+          (onProfileSaved)="onProfileSaved($event)"
+          (onAvatarChanged)="onAvatarChanged($event)"
+          class="flex flex-100 flex-sm-80 flex-md-50"
+        ></app-profile>
+        <app-change-password
+          [pending]="passwordPending$ | async"
+          (onPasswordChanged)="onPasswordChanged($event)"
+          class="flex flex-100 flex-sm-80 flex-md-50"
+        ></app-change-password>
+      </div>
     </div>
   `
 })
