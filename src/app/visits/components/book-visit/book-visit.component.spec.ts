@@ -5,6 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material';
 import { DialogBookVisitComponent } from '../dialog-book-visit/dialog-book-visit.component';
 import { of } from 'rxjs';
+import { FormatDateService } from '../../services/format-date.service';
 
 describe('BookVisitComponent', () => {
   let component: BookVisitComponent;
@@ -30,6 +31,13 @@ describe('BookVisitComponent', () => {
                 onDoctorSelected: of({})
               }
             })
+          }
+        },
+        {
+          provide: FormatDateService,
+          useValue: {
+            formatDate: () => {},
+            toMomentList: () => {}
           }
         }
       ]

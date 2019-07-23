@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DayOfWeekListComponent } from './day-of-week-list.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('DayOfWeekListComponent', () => {
   let component: DayOfWeekListComponent;
@@ -8,7 +9,8 @@ describe('DayOfWeekListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DayOfWeekListComponent ]
+      declarations: [ DayOfWeekListComponent ],
+      schemas: [NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   }));
