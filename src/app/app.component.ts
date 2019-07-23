@@ -22,6 +22,7 @@ export class AppComponent {
   profile: User;
   media$: Observable<any>;
   loggedIn$: Observable<boolean>;
+  isDoctor$: Observable<boolean>;
 
   XSmall = Breakpoints.XSmall;
   private mediaUnsub$: Subject<void> = new Subject();
@@ -32,6 +33,7 @@ export class AppComponent {
   ) {
     this.showSidenav$ = this.store.pipe(select(fromNavbar.getShowSidenav));
     this.loggedIn$ = this.store.pipe(select(fromAuth.getLoggedIn));
+    this.isDoctor$ = this.store.pipe(select(fromAuth.isDoctor));
     this.media$ = this.store.pipe(select(fromRoot.getMediaQuery));
     this.store
       .pipe(select(fromProfile.getProfile))

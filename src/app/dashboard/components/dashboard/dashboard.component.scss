@@ -1,0 +1,81 @@
+@import '../../../app.variables.scss';
+
+$size: 60px;
+
+.dashboard {
+  &__menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% - 16px);
+    height: $size;
+    background: if(
+      $is-dark-theme,
+      map-get($mat-dark-theme-background, card),
+      map-get($mat-light-theme-background, card)
+    );
+    position: fixed;
+    left: 0;
+    top: 56px;
+    z-index: 2;
+    @include mat-elevation(2);
+
+    @media ($small-width) {
+      & {
+        height: calc(100% - 56px);
+        width: $size;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: unset;
+      }
+    }
+
+    @media (min-width: '599px') {
+      & {
+        top: 64px;
+      }
+    }
+  }
+
+  &__router {
+    margin-top: $size;
+
+    @media ($small-width) {
+      & {
+        margin-top: 0px;
+        margin-left: $size;
+      }
+    }
+  }
+
+  &__link {
+    display: block;
+    padding: 18px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 24px;
+    height: $size;
+    width: $size;
+    color: if(
+      $is-dark-theme,
+      map-get($mat-dark-theme-foreground, text),
+      map-get($mat-light-theme-foreground, text)
+    );
+
+    &:hover {
+      background-color: if(
+        $is-dark-theme,
+        map-get($mat-dark-theme-background, unselected-chip),
+        map-get($mat-light-theme-background, unselected-chip)
+      );
+    }
+
+    &--active {
+      background-color: if(
+        $is-dark-theme,
+        map-get($mat-dark-theme-background, unselected-chip),
+        map-get($mat-light-theme-background, unselected-chip)
+      );
+    }
+  }
+}

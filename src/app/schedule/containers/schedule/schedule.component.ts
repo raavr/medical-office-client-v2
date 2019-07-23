@@ -19,6 +19,8 @@ import { DirtyComponent } from '../../services/dirty-check.guard';
 @Component({
   selector: 'app-schedule',
   template: `
+    <h2 class="app-title">Grafik wizyt</h2>
+    <mat-divider [style.marginBottom.px]="20"></mat-divider>
     <div class="container">
       <div class="flex flex-wrap">
           <app-visit-time
@@ -46,7 +48,8 @@ import { DirtyComponent } from '../../services/dirty-check.guard';
           (initChangesCheck)="initWeeklyTimesChangesCheck($event)"
         ></app-day-of-week-list>
     </div>
-  `
+  `,
+  styleUrls: ['../../../core/styles/shared.scss']
 })
 export class ScheduleComponent implements OnInit, DirtyComponent {
   alert$: Observable<Alert>;
