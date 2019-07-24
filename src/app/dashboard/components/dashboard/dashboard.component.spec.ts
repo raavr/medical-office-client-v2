@@ -28,4 +28,9 @@ describe('DashboardComponent', () => {
     const router = fixture.nativeElement.querySelector('router-outlet');
     expect(router).not.toBeNull();
   });
+
+  it('should render three links', () => {
+    const links = fixture.nativeElement.querySelectorAll('a');
+    expect(links.length).toBe(3);
+  });
 });
