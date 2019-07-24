@@ -1,55 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import * as fromRoot from '../../../core/reducers';
-import * as fromSchedule from '../../reducers';
-import { select, Store } from '@ngrx/store';
-import { Observable, Subject, of } from 'rxjs';
-import { AlertFactoryService } from 'src/app/core/components/alert/alert-factory.service';
-import { takeUntil, filter } from 'rxjs/operators';
-import { Alert } from 'src/app/core/model/alert.interface';
+import { Component, OnInit } from "@angular/core";
+import * as fromRoot from "../../../core/reducers";
+import * as fromSchedule from "../../reducers";
+import { select, Store } from "@ngrx/store";
+import { Observable, Subject, of } from "rxjs";
+import { AlertFactoryService } from "src/app/core/components/alert/alert-factory.service";
+import { takeUntil, filter } from "rxjs/operators";
+import { Alert } from "src/app/core/model/alert.interface";
 import {
   GetFullSchedule,
   UpdateVisitTimes,
   UpdateDisabledDates,
   UpdateWeeklyVisitTimes
-} from '../../actions/schedule.action';
-import { VisitTimeOfDay } from '../../models/visit-datetime.interface';
-import { dirtyCheck } from 'src/app/core/utils/utils';
-import { DirtyComponent } from '../../services/dirty-check.guard';
+} from "../../actions/schedule.action";
+import { VisitTimeOfDay } from "../../models/visit-datetime.interface";
+import { dirtyCheck } from "src/app/core/utils/utils";
+import { DirtyComponent } from "../../services/dirty-check.guard";
 
 @Component({
-  selector: 'app-schedule',
+  selector: "app-schedule",
   template: `
     <h2 class="app-title">Grafik wizyt</h2>
     <mat-divider [style.marginBottom.px]="20"></mat-divider>
     <div class="container">
       <div class="flex flex-wrap">
-          <app-visit-time
-            [times]="times$ | async"
-            [pending]="timesPending$ | async"
-            [unsavedChanges]="isDirty$[0] | async"
-            (update)="updateVisitTimes($event)"
-            (initChangesCheck)="initTimesChangesCheck($event)"
-            class="flex flex-100 flex-sm-50"
-          ></app-visit-time>
-          <app-disabled-dates
-            [disabledDates]="disabledDates$ | async"
-            [pending]="disabledDatesPending$ | async"
-            [unsavedChanges]="isDirty$[1] | async"
-            (update)="updateDisabledDates($event)"
-            (initChangesCheck)="initDatesChangesCheck($event)"
-            class="flex flex-100 flex-sm-50"
-          ></app-disabled-dates>
-        </div>
-        <app-day-of-week-list
-          [weeklyTimes]="weeklyTimes$ | async"
-          [pending]="weeklyTimesPending$ | async"
-          [unsavedChanges]="isDirty$[2] | async"
-          (update)="updateWeeklyTimes($event)"
-          (initChangesCheck)="initWeeklyTimesChangesCheck($event)"
-        ></app-day-of-week-list>
+        <app-visit-time
+          [times]="times$ | async"
+          [pending]="timesPending$ | async"
+          [unsavedChanges]="isDirty$[0] | async"
+          (update)="updateVisitTimes($event)"
+          (initChangesCheck)="initTimesChangesCheck($event)"
+          class="flex flex-100 flex-sm-50"
+        ></app-visit-time>
+        <app-disabled-dates
+          [disabledDates]="disabledDates$ | async"
+          [pending]="disabledDatesPending$ | async"
+          [unsavedChanges]="isDirty$[1] | async"
+          (update)="updateDisabledDates($event)"
+          (initChangesCheck)="initDatesChangesCheck($event)"
+          class="flex flex-100 flex-sm-50"
+        ></app-disabled-dates>
+      </div>
+      <app-day-of-week-list
+        [weeklyTimes]="weeklyTimes$ | async"
+        [pending]="weeklyTimesPending$ | async"
+        [unsavedChanges]="isDirty$[2] | async"
+        (update)="updateWeeklyTimes($event)"
+        (initChangesCheck)="initWeeklyTimesChangesCheck($event)"
+      ></app-day-of-week-list>
     </div>
   `,
-  styleUrls: ['../../../core/styles/shared.scss']
+  styleUrls: ["../../../core/styles/shared.scss"]
 })
 export class ScheduleComponent implements OnInit, DirtyComponent {
   alert$: Observable<Alert>;

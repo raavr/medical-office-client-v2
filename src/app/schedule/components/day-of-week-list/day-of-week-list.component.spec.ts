@@ -24,4 +24,63 @@ describe('DayOfWeekListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it("should call initChangesCheck when ngOnInit method is called", () => {
+    spyOn(component.initChangesCheck, "emit");
+    expect(component.initChangesCheck.emit).not.toHaveBeenCalled();
+    component.ngOnInit();
+    expect(component.initChangesCheck.emit).toHaveBeenCalledWith(
+      component.weeklyTimesChanges$
+    );
+  });
+
+  it("should call weeklyTimesChanges$ when oneOfWeeklyTimesChanged method is called", () => {
+    spyOn(component.weeklyTimesChanges$, "next");
+    expect(component.weeklyTimesChanges$.next).not.toHaveBeenCalled();
+    component.oneOfWeeklyTimesChanged();
+    expect(component.weeklyTimesChanges$.next).toHaveBeenCalledWith(
+      component._weeklyTimes
+    );
+  });
+
+  describe("with hostElement", () => {
+    let host: HTMLElement;
+
+    beforeEach(() => {
+      host = fixture.nativeElement;
+    });
+
+    it('should render mat-card-title with the title equals "Ustal godziny wizyt dla dni tygodnia"', () => {
+      const title = host.querySelector("mat-card-title");
+      expect(title.textContent.trim()).toEqual("Ustal godziny wizyt dla dni tygodnia");
+    });
+
+    it("should display mat-icon when there are unsaved changes", () => {
+      let matIcon = host.querySelectorAll("mat-icon")[1];
+      expect(matIcon).toBeUndefined();
+      component.unsavedChanges = true;
+      fixture.detectChanges();
+      matIcon = host.querySelectorAll("mat-icon")[1];
+      expect(matIcon).not.toBeNull();
+    });
+
+    it("should dispay mat-spinner if pending property equals true", () => {
+      let matSpinner = host.querySelector("mat-spinner");
+      expect(matSpinner).toBeNull();
+      component.pending = true;
+      fixture.detectChanges();
+      matSpinner = host.querySelector("mat-spinner");
+      expect(matSpinner).not.toBeNull();
+    });
+
+    it("should emit disabledDates object when save btn is clicked", () => {
+      const button = host.querySelector(".card-button") as HTMLElement;
+      spyOn(component.update, "emit");
+      expect(component.update.emit).not.toHaveBeenCalled();
+      button.click();
+      expect(component.update.emit).toHaveBeenCalledWith(
+        component._weeklyTimes
+      );
+    });
+  });
 });
