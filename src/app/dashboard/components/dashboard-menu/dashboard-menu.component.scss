@@ -1,14 +1,12 @@
 @import '../../../app.variables.scss';
 
-$size: 60px;
-
 .dashboard {
   &__menu {
     display: flex;
     justify-content: center;
     align-items: center;
     width: calc(100% - 16px);
-    height: $size;
+    height: $dash-menu-width;
     background: if(
       $is-dark-theme,
       map-get($mat-dark-theme-background, card),
@@ -23,7 +21,7 @@ $size: 60px;
     @media ($small-width) {
       & {
         height: calc(100% - 56px);
-        width: $size;
+        width: $dash-menu-width;
         flex-direction: column;
         justify-content: flex-start;
         align-items: unset;
@@ -37,25 +35,14 @@ $size: 60px;
     }
   }
 
-  &__router {
-    margin-top: $size;
-
-    @media ($small-width) {
-      & {
-        margin-top: 0px;
-        margin-left: $size;
-      }
-    }
-  }
-
   &__link {
     display: block;
     padding: 18px;
     cursor: pointer;
     text-align: center;
     line-height: 24px;
-    height: $size;
-    width: $size;
+    height: $dash-menu-width;
+    width: $dash-menu-width;
     color: if(
       $is-dark-theme,
       map-get($mat-dark-theme-foreground, text),

@@ -1,0 +1,12 @@
+@import '../../../app.variables.scss';
+
+.dashboard__router {
+  margin-top: $dash-menu-width;
+
+  @media ($small-width) {
+    & {
+      margin-top: 0px;
+      margin-left: $dash-menu-width;
+    }
+  }
+}

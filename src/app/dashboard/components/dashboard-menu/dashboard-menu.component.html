@@ -1,0 +1,33 @@
+<div class="dashboard__menu">
+  <div
+    routerLinkActive="dashboard__link--active"
+  >
+    <a
+      routerLink="/dashboard/visits/current"
+      class="dashboard__link link link--light-primary"
+    >
+      <mat-icon>event_note</mat-icon>
+    </a>
+    <a
+      routerLink="/dashboard/visits/past"
+      class="dashboard__link link link--light-primary"
+      style="display: none"
+    >
+      <mat-icon>event_note</mat-icon>
+    </a>
+  </div>
+  <a
+    routerLink="/dashboard/schedule"
+    routerLinkActive="dashboard__link--active"
+    class="dashboard__link link link--light-primary"
+  >
+    <mat-icon>schedule</mat-icon>
+  </a>
+  <a
+    routerLink="/dashboard/patients"
+    routerLinkActive="dashboard__link--active"
+    class="dashboard__link link link--light-primary"
+  >
+    <mat-icon>group</mat-icon>
+  </a>
+</div>

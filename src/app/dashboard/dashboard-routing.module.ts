@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardComponent } from './containers/dashboard/dashboard.component';
+import { DoctorGuard } from '../auth/services/doctor.guard';
 
 const routes: Routes = [
   {
@@ -14,6 +15,16 @@ const routes: Routes = [
       {
         path: 'schedule',
         loadChildren: '../schedule/schedule.module#ScheduleModule',
+        canActivateChild: [
+          DoctorGuard
+        ]
+      },
+      {
+        path: 'patients',
+        loadChildren: '../patients/patients.module#PatientsModule',
+        canActivateChild: [
+          DoctorGuard
+        ]
       }
     ]
   }
