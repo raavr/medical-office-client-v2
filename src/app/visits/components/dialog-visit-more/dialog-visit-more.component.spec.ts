@@ -25,7 +25,7 @@ describe('DialogVisitMoreComponent', () => {
               description: 'Zapis',
               id: 124,
               status: VisitStatus.ACCEPTED,
-              doctor: { sub: '1', name: 'Test', surname: 'Test' },
+              doctor: { id: '1', name: 'Test', surname: 'Test' },
               visitDate: '2019-08-13T08:30:00.000Z'
             }
           }
@@ -72,7 +72,7 @@ describe('DialogVisitMoreComponent', () => {
     const { doctor, ...visit } = component.data.visit;
     component.data.visit = {
       ...visit,
-      patient: { sub: '1', name: 'Test', surname: 'Test' }
+      patient: { id: '1', name: 'Test', surname: 'Test' }
     };
     fixture.detectChanges();
     const dt = host.querySelectorAll('dt')[2];

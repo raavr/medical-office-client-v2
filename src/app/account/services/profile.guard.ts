@@ -25,7 +25,7 @@ export class ProfileGuard implements CanActivate {
       this.store.pipe(select(fromProfile.getAccountEntities)),
       this.store.pipe(select(fromAuth.getUser))
     ).pipe(
-      map(([entities, user]) => entities[user.sub]),
+      map(([entities, user]) => entities[user.id]),
       tap(
         profile =>
           profile &&
@@ -38,7 +38,7 @@ export class ProfileGuard implements CanActivate {
 
   hasProfileInApi(): Observable<boolean> {
     return this.profileService.getProfile().pipe(
-      switchMap(profile => this.store.pipe(select(fromAuth.getUser)), (profile, user) => ({...profile, sub: user.sub})),
+      switchMap(profile => this.store.pipe(select(fromAuth.getUser)), (profile, user) => ({...profile, id: user.id})),
       map((profile) => new ProfileActions.ProfileGetSuccess(profile)),
       tap((action: ProfileActions.ProfileGetSuccess) =>
         this.store.dispatch(action)

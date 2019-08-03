@@ -31,7 +31,7 @@ describe('HomeComponent', () => {
   });
   
   it('should create', () => {
-    store.dispatch(new DecodeTokenSuccess({ name: 'Test', sub: '1'}));
+    store.dispatch(new DecodeTokenSuccess({ name: 'Test', id: '1'}));
     fixture.detectChanges();
 
     expect(component).toBeTruthy();

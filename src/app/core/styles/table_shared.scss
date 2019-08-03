@@ -1,0 +1,72 @@
+@import '../../app.variables.scss';
+
+.mat-header-row {
+  display: none;
+
+  @media ($small-width) {
+    & {
+      display: flex;
+    }
+  }
+}
+
+.mat-row {
+  flex-direction: column;
+  align-items: start;
+  padding: 20px 24px;
+
+  @media ($small-width) {
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+  }
+
+  &::after {
+    min-height: auto;
+
+    @media ($small-width) {
+      & {
+        min-height: inherit;
+      }
+    }
+  }
+}
+
+.mat-cell {
+  min-height: auto;
+  width: 100%;
+
+  @media ($small-width) {
+    & {
+      min-height: inherit;
+    }
+  }
+
+  &:first-of-type {
+    padding: 0px;
+    @media ($small-width) {
+      & {
+        padding-left: 24px;
+      }
+    }
+  }
+}
+
+.mat-header-cell,
+.mat-cell {
+  @media ($small-width) {
+    &:last-of-type {
+      max-width: #{map-get($filter-table-width, 'actions')};
+    }
+  }
+}
+
+:host ::ng-deep .table__row {
+  background: if(
+    $is-dark-theme,
+    map-get($mat-dark-theme-background, card),
+    map-get($mat-light-theme-background, card)
+  );
+  padding: 8px 24px;
+  border-bottom: 1px solid if($is-dark-theme, $light-dividers, $dark-dividers);
+}

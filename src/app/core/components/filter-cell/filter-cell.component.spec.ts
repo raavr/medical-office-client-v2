@@ -1,7 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FilterCellComponent } from './filter-cell.component';
-import { By } from '@angular/platform-browser';
 
 describe('FilterCellComponent', () => {
   let component: FilterCellComponent;
@@ -9,9 +7,8 @@ describe('FilterCellComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FilterCellComponent ]
-    })
-    .compileComponents();
+      declarations: [FilterCellComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -38,5 +35,5 @@ describe('FilterCellComponent', () => {
 
     const hostEl = fixture.debugElement.nativeElement;
     expect(hostEl.getAttribute('class')).toBeNull();
-  })
+  });
 });

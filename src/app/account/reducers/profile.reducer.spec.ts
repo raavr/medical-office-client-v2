@@ -17,7 +17,7 @@ describe('Profile Reducer', () => {
 
   it('should return a user profile', () => {
     const action = new ProfileGetSuccess({
-      sub: '1',
+      id: '1',
       name: 'Test',
       email: 'test@example.com'
     });
@@ -37,8 +37,8 @@ describe('Profile Reducer', () => {
   });
 
   it('should return the state with pending equals true', () => {
-    const prevProfile = { sub: '1', name: 'Test' };
-    const newProfile = { sub: '1', name: 'New Test' };
+    const prevProfile = { id: '1', name: 'Test' };
+    const newProfile = { id: '1', name: 'New Test' };
     const action = new ProfileSave({ prevProfile, newProfile });
 
     const expResult = { id: '1', pending: true } as State;

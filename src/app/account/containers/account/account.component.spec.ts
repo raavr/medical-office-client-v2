@@ -58,8 +58,8 @@ describe('AccountComponent', () => {
   });
 
   it('should dispatch a ProfileSave action on form submit', () => {
-    component.user = { sub: '1', name: 'PrevTest' };
-    const newProfile: User = { sub: '1', name: 'Test' };
+    component.user = { id: '1', name: 'PrevTest' };
+    const newProfile: User = { id: '1', name: 'Test' };
     const action = new ProfileSave({
       prevProfile: component.user,
       newProfile
@@ -72,9 +72,9 @@ describe('AccountComponent', () => {
 
   it('should dispatch a ProfileUpdateAvatar action on avatar changed', () => {
     const avatar = new FormData();
-    component.user = { sub: '1', name: 'PrevTest' };
+    component.user = { id: '1', name: 'PrevTest' };
     const action = new ProfileUpdateAvatar({
-      userId: component.user.sub,
+      userId: component.user.id,
       avatar
     });
 

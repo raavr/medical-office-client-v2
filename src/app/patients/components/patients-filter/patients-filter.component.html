@@ -1,0 +1,23 @@
+<app-filter-row>
+  <app-filter-cell>
+    <span class="mobile-table-label mobile-table-label--filter">Imię i nazwisko:</span>
+    <mat-form-field
+      appearance="outline"
+      floatLabel="never"
+      class="filter-field"
+    >
+      <input matInput #nameBox (input)="typeText({value: nameBox.value, type: 'name'})"/>
+    </mat-form-field>
+  </app-filter-cell>
+  <app-filter-cell>
+    <span class="mobile-table-label mobile-table-label--filter">Email:</span>
+    <mat-form-field
+      appearance="outline"
+      floatLabel="never"
+      class="filter-field"
+    >
+      <input matInput #emailBox (input)="typeText({value: emailBox.value, type: 'email'})"/>
+    </mat-form-field>
+  </app-filter-cell>
+  <app-filter-cell></app-filter-cell>
+</app-filter-row>

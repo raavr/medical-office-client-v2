@@ -108,7 +108,7 @@ describe('DialogBookVisitComponent', () => {
   });
 
   it('should return string when displayFn is called with user object', () => {
-    const user = { sub: '1', name: 'Test', surname: 'New' };
+    const user = { id: '1', name: 'Test', surname: 'New' };
     expect(component.displayFn(user)).toEqual('Test New');
   });
 
@@ -150,7 +150,7 @@ describe('DialogBookVisitComponent', () => {
   });
 
   it('should set data.patients to empty list when resetPatientsData method is called', () => {
-    const patients = [{ sub: '1', name: 'Test', surname: 'New' }];
+    const patients = [{ id: '1', name: 'Test', surname: 'New' }];
     component.data.patients = patients;
     expect(component.data.patients).toEqual(patients);
     component.resetPatientsData();

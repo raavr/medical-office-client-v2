@@ -25,7 +25,7 @@ export class ProfileEffects {
       this.profileService.updateProfile(payload.newProfile).pipe(
         switchMap(({ message }: any) => [
           new ProfileActions.ProfileSaveSuccess({
-            id: payload.prevProfile.sub,
+            id: payload.prevProfile.id,
             changes: payload.newProfile
           }),
           new AlertActions.AlertShow({ message, alertType: ALERT_TYPE.SUCCESS })
@@ -83,10 +83,10 @@ export class ProfileEffects {
       ProfileActions.ProfileActionTypes.ProfileGet
     ),
     map(action => action.payload),
-    exhaustMap(sub =>
+    exhaustMap(id =>
       this.profileService.getProfile().pipe(
         map(
-          profile => new ProfileActions.ProfileGetSuccess({ sub, ...profile })
+          profile => new ProfileActions.ProfileGetSuccess({ id, ...profile })
         ),
         catchError(({ status }) => withUnauthorizeErrorAction([], status))
       )

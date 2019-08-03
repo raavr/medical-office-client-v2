@@ -89,16 +89,6 @@ describe('VisitsTabComponent', () => {
     });
   });
 
-  it('should call onTabChanged with specific VisitType', () => {
-    spyOn(component, 'onTabChanged');
-
-    component.ngOnInit();
-
-    activatedRoute.paramMap.subscribe(type => {
-      expect(component.onTabChanged).toHaveBeenCalledWith(VisitType.PAST);
-    });
-  });
-
   it('should dispatch SetFilter action and GetVisits action when onFilterChanged method is called', () => {
     const filter = {
       type: VisitType.CURRENT
@@ -112,17 +102,17 @@ describe('VisitsTabComponent', () => {
     expect(store.dispatch).toHaveBeenCalledWith(action2);
   });
 
-  it('should dispatch ResetFilter action and call onFilterChanged method when onTabChanged method is called', () => {
-    spyOn(component, 'onFilterChanged');
-    const type = VisitType.CURRENT;
+  // it('should dispatch ResetFilter action and call onFilterChanged method when onTabChanged method is called', () => {
+  //   spyOn(component, 'onFilterChanged');
+  //   const type = VisitType.CURRENT;
 
-    const action = new ResetFilter();
+  //   const action = new ResetFilter();
 
-    component.onTabChanged(type);
+  //   component.onTabChanged(type);
 
-    expect(store.dispatch).toHaveBeenCalledWith(action);
-    expect(component.onFilterChanged).toHaveBeenCalledWith({ type });
-  });
+  //   expect(store.dispatch).toHaveBeenCalledWith(action);
+  //   expect(component.onFilterChanged).toHaveBeenCalledWith({ type });
+  // });
 
   it('should dispatch UpdateStatus action when onVisitsStatusModified method is called', () => {
     const visitsToUpdate = { status: VisitStatus.ACCEPTED, visitsIds: [1], reason: '' };

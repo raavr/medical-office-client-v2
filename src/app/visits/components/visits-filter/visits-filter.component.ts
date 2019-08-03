@@ -35,7 +35,7 @@ interface InputFilter {
   templateUrl: './visits-filter.component.html',
   styleUrls: [
     '../../../core/styles/shared.scss',
-    './visits-filter.component.scss'
+    '../../../core/styles/table-filter_shared.scss'
   ]
 })
 export class VisitsFilterComponent implements OnInit {

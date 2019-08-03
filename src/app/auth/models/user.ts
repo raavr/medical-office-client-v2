@@ -3,10 +3,10 @@ export interface Credentials {
   password: string;
 }
 
-type UserRole = 'doctor' | 'patient';
+export type UserRole = 'doctor' | 'patient';
 
 export interface User {
-  sub: string;
+  id: string;
   name?: string;
   surname?: string;
   role?: UserRole;

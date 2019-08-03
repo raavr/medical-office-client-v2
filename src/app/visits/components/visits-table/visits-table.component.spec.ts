@@ -183,7 +183,7 @@ describe('VisitsTableComponent', () => {
     component.visits = [];
     fixture.detectChanges();
 
-    const noVisitsEl = fixture.nativeElement.querySelector('.visits__row');
+    const noVisitsEl = fixture.nativeElement.querySelector('.table__row');
     expect(noVisitsEl.textContent.trim()).toEqual('Brak wizyt');
   });
 

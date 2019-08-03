@@ -10,19 +10,19 @@ import { User } from 'src/app/auth/models/user';
 
 describe('Accounts Reducer', () => {
   const user1: User = {
-    sub: '1',
+    id: '1',
     name: 'User1'
   };
   const user2: User = {
-    sub: '2',
+    id: '2',
     name: 'User2',
     surname: 'User Surname'
   };
   const initialState: State = {
-    ids: [user1.sub, user2.sub],
+    ids: [user1.id, user2.id],
     entities: {
-      [user1.sub]: user1,
-      [user2.sub]: user2
+      [user1.id]: user1,
+      [user2.id]: user2
     }
   };
   it('should return the default state', () => {
@@ -33,13 +33,13 @@ describe('Accounts Reducer', () => {
   });
 
   it('should add a user to the store', () => {
-    const user3 = { sub: '3', name: 'Test', email: 'test@example.com' };
+    const user3 = { id: '3', name: 'Test', email: 'test@example.com' };
     const action = new ProfileGetSuccess(user3);
     const expResult = {
-      ids: [...initialState.ids, user3.sub],
+      ids: [...initialState.ids, user3.id],
       entities: {
         ...initialState.entities,
-        [user3.sub]: user3
+        [user3.id]: user3
       }
     } as State;
 
@@ -55,15 +55,15 @@ describe('Accounts Reducer', () => {
   });
 
   it('should add many users to the store', () => {
-    const user3 = { sub: '3', name: 'Test', email: 'test@example.com' };
-    const user4 = { sub: '4', name: 'John', email: 'john@example.com' };
+    const user3 = { id: '3', name: 'Test', email: 'test@example.com' };
+    const user4 = { id: '4', name: 'John', email: 'john@example.com' };
     const action = new GetAccountsSuccess([user3, user4]);
     const expResult = {
-      ids: [...initialState.ids, user3.sub, user4.sub],
+      ids: [...initialState.ids, user3.id, user4.id],
       entities: {
         ...initialState.entities,
-        [user3.sub]: user3,
-        [user4.sub]: user4
+        [user3.id]: user3,
+        [user4.id]: user4
       }
     } as State;
 
@@ -72,13 +72,13 @@ describe('Accounts Reducer', () => {
   });
 
   it('should add only new users if users already exist', () => {
-    const user3 = { sub: '3', name: 'Test', email: 'test@example.com' };
+    const user3 = { id: '3', name: 'Test', email: 'test@example.com' };
     const action = new GetAccountsSuccess([user2, user3]);
     const expResult = {
-      ids: [...initialState.ids, user3.sub],
+      ids: [...initialState.ids, user3.id],
       entities: {
         ...initialState.entities,
-        [user3.sub]: user3
+        [user3.id]: user3
       }
     } as State;
 
@@ -95,17 +95,17 @@ describe('Accounts Reducer', () => {
   });
 
   it('should update the second user', () => {
-    const user = { sub: '2', name: 'Test', email: 'test@example.com' };
+    const user = { id: '2', name: 'Test', email: 'test@example.com' };
     const expResult = {
       ids: [...initialState.ids],
       entities: {
         ...initialState.entities,
-        [user.sub]: { ...user, surname: user2.surname }
+        [user.id]: { ...user, surname: user2.surname }
       }
     } as State;
 
     const action = new ProfileSaveSuccess({
-      id: user.sub,
+      id: user.id,
       changes: user
     });
     const result = reducer(initialState, action);

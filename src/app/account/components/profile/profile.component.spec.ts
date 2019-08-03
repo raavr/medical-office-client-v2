@@ -12,7 +12,7 @@ describe('ProfileComponent', () => {
 
   beforeEach(() => {
     profile = {
-      sub: '1',
+      id: '1',
       name: 'Test',
       surname: 'Doe',
       email: 'test@doe.com'

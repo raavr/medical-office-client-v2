@@ -152,7 +152,7 @@
 
     <mat-row *cdkRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
-  <div *ngIf="visits?.length === 0" class="visits__row">
+  <div *ngIf="visits?.length === 0" class="table__row">
     Brak wizyt
   </div>
   <app-doctor-action
@@ -162,7 +162,7 @@
   ></app-doctor-action>
   <mat-paginator
     [pageSizeOptions]="[5, 10, 20]"
-    [pageSize]="10"
+    [pageSize]="filter && filter.limit"
     [pageIndex]="filter && filter.currentPage - 1"
     showFirstLastButtons
     [length]="totalItems"

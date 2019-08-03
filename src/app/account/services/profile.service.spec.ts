@@ -41,7 +41,7 @@ describe('ProfileService', () => {
 
   it('should call httpClient.put with the specific URL', () => {
     spyOn(httpClient, 'put');
-    const profileData = { sub: '1', name: 'Test' };
+    const profileData = { id: '1', name: 'Test' };
     service.updateProfile(profileData);
 
     expect(httpClient.put).toHaveBeenCalledWith(

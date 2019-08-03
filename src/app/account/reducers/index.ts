@@ -33,6 +33,7 @@ export const getAccountEntitiesState = createSelector(
 
 export const {
   selectEntities: getAccountEntities,
+  selectAll: getAccounts
 } = fromAccounts.adapter.getSelectors(getAccountEntitiesState);
 
 export const selectProfileState = createSelector(
@@ -64,4 +65,10 @@ export const getProfile = createSelector(
 export const getPasswordPending = createSelector(
   selectPasswordState,
   fromPassword.getPasswordPending
+);
+
+export const getPatients = createSelector(
+  getAccounts,
+  getProfileId,
+  (accounts, id) => accounts.filter(account => account.id !== id)
 );

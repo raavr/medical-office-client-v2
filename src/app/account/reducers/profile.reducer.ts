@@ -18,7 +18,7 @@ export function reducer(
     case ProfileActions.ProfileActionTypes.ProfileGetSuccess: {
       return {
         ...state,
-        id: action.payload.sub
+        id: action.payload.id
       } 
     }
 

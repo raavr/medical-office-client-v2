@@ -7,8 +7,6 @@ import * as fromVisits from './reducers';
 import { VisitsTabComponent } from './containers/visits-tab/visits-tab.component';
 import { MaterialModule } from '../material/material.module';
 import { VisitsStatusComponent } from './components/visits-status/visits-status.component';
-import { FilterCellComponent } from './components/filter-cell/filter-cell.component';
-import { FilterRowComponent } from './components/filter-row/filter-row.component';
 import { VisitStatusPipe } from './pipes/visit-status.pipe';
 import { VisitsFilterComponent } from './components/visits-filter/visits-filter.component';
 import { EffectsModule } from '@ngrx/effects';
@@ -30,8 +28,6 @@ import { DialogVisitMoreComponent } from './components/dialog-visit-more/dialog-
     VisitsTableComponent,
     VisitsTabComponent,
     VisitsStatusComponent,
-    FilterCellComponent,
-    FilterRowComponent,
     VisitStatusPipe,
     VisitsFilterComponent,
     VisitsComponent,

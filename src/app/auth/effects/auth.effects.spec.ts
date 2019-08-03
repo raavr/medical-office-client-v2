@@ -131,7 +131,7 @@ describe('AuthEffects', () => {
     const action = new DecodeToken({ token: 'some_token' });
 
     const completion = [
-      new DecodeTokenSuccess({ sub: '1', role: 'doctor' }),
+      new DecodeTokenSuccess({ id: '1', role: 'doctor' }),
       new ProfileGet('1')
     ];
 

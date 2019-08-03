@@ -26,7 +26,7 @@ import {
   mergeMap,
   switchMap
 } from 'rxjs/operators';
-import { Credentials, User } from '../models/user';
+import { Credentials } from '../models/user';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { TokenService } from '../services/token.service';
@@ -78,8 +78,8 @@ export class AuthEffects {
           map(
             (token: string) => this.jwtHelper.decodeToken(token) as TokenData
           ),
-          switchMap(({ sub, role }: User) => [
-            new DecodeTokenSuccess({ sub, role }),
+          switchMap(({ sub, role }) => [
+            new DecodeTokenSuccess({ id: sub, role }),
             new ProfileGet(sub)
           ])
         )

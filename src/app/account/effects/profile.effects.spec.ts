@@ -52,13 +52,13 @@ describe('ProfileEffects', () => {
   });
 
   it('should return the ProfileSaveSuccess action with a changes object and the AlertShow with a message if profileSave effect succeeds', () => {
-    const prevProfile = { sub: '1', name: 'Test' };
-    const newProfile = { sub: '1', name: 'New' };
+    const prevProfile = { id: '1', name: 'Test' };
+    const newProfile = { id: '1', name: 'New' };
     const message = 'OK';
 
     const action = new ProfileSave({ prevProfile, newProfile });
     const completion = [
-      new ProfileSaveSuccess({ id: prevProfile.sub, changes: newProfile }),
+      new ProfileSaveSuccess({ id: prevProfile.id, changes: newProfile }),
       new AlertShow({ message, alertType: ALERT_TYPE.SUCCESS })
     ];
 
@@ -71,8 +71,8 @@ describe('ProfileEffects', () => {
   });
 
   it('should return the "error" actions if profileSave effect fails', () => {
-    const prevProfile = { sub: '1', name: 'Test' };
-    const newProfile = { sub: '1', name: 'New' };
+    const prevProfile = { id: '1', name: 'Test' };
+    const newProfile = { id: '1', name: 'New' };
     const message = 'Error';
 
     const action = new ProfileSave({ prevProfile, newProfile });
@@ -147,7 +147,7 @@ describe('ProfileEffects', () => {
   it('should return the ProfileGet action if profileGet effect succeeds', () => {
     const profile = { name: 'Test' };
     const action = new ProfileGet('1');
-    const completion =  new ProfileGetSuccess({ sub: '1', ...profile });
+    const completion =  new ProfileGetSuccess({ id: '1', ...profile });
 
     actions$ = hot('-a---', { a: action });
     const response = cold('-a|', { a: profile });

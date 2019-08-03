@@ -24,6 +24,7 @@ import { DialogVisitMoreComponent } from '../dialog-visit-more/dialog-visit-more
   styleUrls: [
     '../../../core/styles/shared.scss',
     '../../../core/styles/card_shared.scss',
+    '../../../core/styles/table_shared.scss',
     'visits-table.component.scss'
   ]
 })

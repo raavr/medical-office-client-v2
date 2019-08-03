@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable, Subject, iif, of } from 'rxjs';
-import {
-  filter,
-  takeUntil,
-  map,
-  mergeMap
-} from 'rxjs/operators';
+import { Observable, Subject, combineLatest } from 'rxjs';
+import { filter, takeUntil, map, tap } from 'rxjs/operators';
 import * as fromRoot from '../../../core/reducers';
 import * as fromVisits from '../../reducers';
 import * as fromAuth from '../../../auth/reducers';
@@ -69,28 +64,25 @@ export class VisitsTabComponent implements OnInit {
         this.alert.create(payload.message, { type: payload.alertType })
       );
 
-    this.route.paramMap
+    combineLatest(this.route.queryParamMap, this.route.paramMap)
       .pipe(
-        map(params => params.get('type')),
-        mergeMap(type =>
-          iif(
-            () => Object.values(VisitType).some(accType => accType === type),
-            of(type),
-            of(VisitType.CURRENT)
+        tap(() => this.store.dispatch(new ResetFilter())),
+        map(([queryParamMap, paramMap]) => ({
+          userName: queryParamMap.get('name') || '',
+          type: Object.values(VisitType).some(
+            accType => accType === paramMap.get('type')
           )
-        )
+            ? (paramMap.get('type') as VisitType)
+            : VisitType.CURRENT
+        }))
       )
-      .subscribe(type => this.onTabChanged(type));
-  }
+      .subscribe(filter => this.onFilterChanged(filter));
 
+  }
+  
   onFilterChanged(filter: VisitFilter) {
     this.store.dispatch(new SetFilter(filter));
     this.store.dispatch(new GetVisits());
-  }
-
-  onTabChanged(type) {
-    this.store.dispatch(new ResetFilter());
-    this.onFilterChanged({ type });
   }
 
   onVisitsStatusModified(visitsToUpdate: VisitsStatusUpdateDto) {

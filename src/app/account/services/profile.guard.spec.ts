@@ -63,7 +63,7 @@ describe('Profile Guard', () => {
     const serviceRes = cold('(a|)', { a: user });
     spyService.and.returnValue(serviceRes);
     
-    const currentUser = cold('(b|)', { b: { sub: '1' }});
+    const currentUser = cold('(b|)', { b: { id: '1' }});
     storePipeSpy.and.returnValue(currentUser);
 
     const expected = cold('(c|)', { c: true });
@@ -72,7 +72,7 @@ describe('Profile Guard', () => {
   });
   
   it('should return true and dispatch action if the profile service return a valid value', () => {
-    const user: any = { sub: '1' };
+    const user: any = { id: '1' };
     const action = new ProfileActions.ProfileGetSuccess(user);
     spyService.and.returnValue(of(user));
     

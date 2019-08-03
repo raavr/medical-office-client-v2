@@ -70,8 +70,8 @@ describe('Book Visit Reducer', () => {
 
   it('should return the state containing patientsByName prop when the GetPatientsByNameSuccess action is dispatched', () => {
     const patients = [
-      { name: 'Test', sub: '1' },
-      { name: 'Testowy', sub: '2' }
+      { name: 'Test', id: '1' },
+      { name: 'Testowy', id: '2' }
     ];
     const action = new GetPatientsByNameSuccess(patients);
     const expectedResult = {
@@ -95,7 +95,7 @@ describe('Book Visit Reducer', () => {
   });
 
   it('should return the state containing doctors prop when the GetDoctorsSuccess action is dispatched', () => {
-    const doctors = [{ name: 'Test', sub: '1' }, { name: 'Testowy', sub: '2' }];
+    const doctors = [{ name: 'Test', id: '1' }, { name: 'Testowy', id: '2' }];
     const action = new GetDoctorsSuccess(doctors);
     const expectedResult = {
       ...initialState,

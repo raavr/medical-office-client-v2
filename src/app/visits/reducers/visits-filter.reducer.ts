@@ -33,8 +33,10 @@ export function reducer(
       }
     }
     case VisitsFilterActions.VisitsFilterActionTypes.ResetFilter: {
+      const limit = state.limit;
       return {
         ...initialState,
+        limit
       }
       
     }

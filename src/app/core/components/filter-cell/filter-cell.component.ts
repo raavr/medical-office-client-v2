@@ -9,14 +9,18 @@ import { Component, Input, HostBinding } from '@angular/core';
 })
 export class FilterCellComponent {
   _showDoctorCell: boolean;
-  @Input() 
+  @Input()
   get showDoctorCell(): boolean {
     return this._showDoctorCell;
   }
   set showDoctorCell(showDoctorCell: boolean) {
     this._showDoctorCell = showDoctorCell;
-    this.classes = showDoctorCell;
+    this.isDoctor = showDoctorCell;
   }
-  
-  @HostBinding('class.is-doctor') classes;
+  @Input()
+  set type(type: string) {
+    this.isVisitCell = type === 'visit';
+  }
+  @HostBinding('class.is-doctor') isDoctor;
+  @HostBinding('class.is-visit-cell') isVisitCell;
 }

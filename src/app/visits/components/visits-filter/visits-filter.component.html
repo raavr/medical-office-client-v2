@@ -1,5 +1,5 @@
 <app-filter-row>
-  <app-filter-cell *ngIf="isDoctor && isCurrentTab" [showDoctorCell]="isDoctor && isCurrentTab">
+  <app-filter-cell *ngIf="isDoctor && isCurrentTab" [showDoctorCell]="isDoctor && isCurrentTab" type="visit">
     <span class="mobile-table-label mobile-table-label--filter">Zaz. wszystkie:</span>
     <mat-checkbox 
       (change)="$event ? selectAll() : null"
@@ -9,7 +9,7 @@
     >
     </mat-checkbox>
   </app-filter-cell>
-  <app-filter-cell [showDoctorCell]="isDoctor && isCurrentTab">
+  <app-filter-cell [showDoctorCell]="isDoctor && isCurrentTab" type="visit">
     <span class="mobile-table-label mobile-table-label--filter">Data:</span>
     <mat-form-field
       appearance="outline"
@@ -19,7 +19,7 @@
       <input matInput #dateBox (input)="typeText({value: dateBox.value, type: 'date'})"/>
     </mat-form-field>
   </app-filter-cell>
-  <app-filter-cell [showDoctorCell]="isDoctor && isCurrentTab">
+  <app-filter-cell [showDoctorCell]="isDoctor && isCurrentTab" type="visit">
     <span class="mobile-table-label mobile-table-label--filter">Godzina:</span>
     <mat-form-field
       appearance="outline"
@@ -29,7 +29,7 @@
       <input matInput #timeBox (input)="typeText({value: timeBox.value, type: 'time'})"/>
     </mat-form-field>
   </app-filter-cell>
-  <app-filter-cell [showDoctorCell]="isDoctor && isCurrentTab">
+  <app-filter-cell [showDoctorCell]="isDoctor && isCurrentTab" type="visit">
     <span class="mobile-table-label mobile-table-label--filter">{{ isDoctor ? 'Pacjent:' : 'Doktor:' }}</span>
     <mat-form-field
       appearance="outline"
@@ -39,7 +39,7 @@
       <input matInput #userBox (input)="typeText({value: userBox.value, type: 'userName'})"/>
     </mat-form-field>
   </app-filter-cell>
-  <app-filter-cell [showDoctorCell]="isDoctor && isCurrentTab">
+  <app-filter-cell [showDoctorCell]="isDoctor && isCurrentTab" type="visit">
     <span class="mobile-table-label mobile-table-label--filter">Status:</span>
     <mat-select
       [compareWith]="compareFn"

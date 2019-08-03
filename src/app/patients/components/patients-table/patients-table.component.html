@@ -1,0 +1,77 @@
+<div class="loading-wrapper">
+  <mat-table [dataSource]="patients" class="patients">
+    <ng-container cdkColumnDef="name">
+      <mat-header-cell *cdkHeaderCellDef>
+        Imię i nazwisko
+      </mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <span class="mobile-table-label">Imię i nazwisko:</span>
+        <img
+          [src]="row.avatar"
+          alt="{{ row.name }} {{ row.surname }}"
+          style="height: 30px; width: 30px; margin-right: 5px; min-width: 30px; min-height: 30px;"
+        />
+        <span [style.paddingRight.px]="24">
+          {{ row.name }} {{ row.surname }}</span
+        >
+      </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="email">
+      <mat-header-cell *cdkHeaderCellDef>
+        Email
+      </mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <span class="mobile-table-label">Email</span>
+        <span [style.paddingRight.px]="24"> {{ row.email }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="actions">
+      <mat-header-cell *cdkHeaderCellDef> Akcje </mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <span class="mobile-table-label">Akcje:</span>
+        <button
+          mat-flat-button
+          color="primary"
+          routerLink="/dashboard/visits/current"
+          [queryParams]="{ name: row.name + ' ' + row.surname }"
+        >
+          <mat-icon>call_made</mat-icon>
+        </button>
+        <button
+          mat-flat-button
+          color="warn"
+          (click)="removePatient(row)"
+          [style.marginLeft.px]="5"
+        >
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *cdkHeaderRowDef="displayedColumns">
+      <mat-header-row></mat-header-row>
+      <app-patients-filter
+        [filter]="filter"
+        (onFilterChanged)="filterChanged($event)"
+      ></app-patients-filter>
+    </ng-container>
+
+    <mat-row *cdkRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <div *ngIf="patients?.length === 0" class="table__row">
+    Brak pacjentów
+  </div>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    [pageSize]="filter && filter.limit"
+    [pageIndex]="filter && filter.currentPage - 1"
+    showFirstLastButtons
+    [length]="totalItems"
+    (page)="changePaginator($event)"
+  ></mat-paginator>
+  <div *ngIf="pending" class="card-loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

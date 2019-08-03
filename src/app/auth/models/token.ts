@@ -1,10 +1,12 @@
-import { User } from './user';
+import { UserRole } from './user';
 
 export interface Token {
   token: string;
 }
 
-export interface TokenData extends User {
+export interface TokenData {
+  sub: string;
+  role: UserRole;
   iat: number;
   exp: number;
 }

@@ -63,7 +63,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   onAvatarChanged(avatar: FormData) {
     this.store.dispatch(
-      new ProfileUpdateAvatar({ userId: this.user.sub, avatar })
+      new ProfileUpdateAvatar({ userId: this.user.id, avatar })
     );
   }
 

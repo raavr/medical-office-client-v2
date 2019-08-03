@@ -7,7 +7,7 @@
   >
     <app-menu *ngIf="loggedIn$ | async" [avatar]="profile?.avatar">
       <button mat-menu-item routerLink="/account">Moje konto</button>
-      <button *ngIf="isDoctor$ | async" mat-menu-item [routerLink]="['/dashboard/visits', 'current']">Dashboard</button>
+      <button mat-menu-item [routerLink]="['/dashboard/visits', 'current']">Dashboard</button>
       <button mat-menu-item (click)="logout()">Wyloguj</button>
     </app-menu>
     <button *ngIf="!(loggedIn$ | async)" mat-button color="accent" routerLink="/login" [style.marginRight.px]="5">Zaloguj</button>

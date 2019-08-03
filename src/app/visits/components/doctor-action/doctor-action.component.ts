@@ -4,7 +4,7 @@ import { VisitStatus } from '../../models/visit';
 @Component({
   selector: 'app-doctor-action',
   template: `
-    <div class="visits__row">
+    <div class="table__row">
       <button
         mat-raised-button
         color="accent"

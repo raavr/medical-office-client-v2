@@ -144,7 +144,7 @@ describe('BookVisitEffects', () => {
   it('should return the GetPatientsByNameSuccess action if getPatientsByName effect succeeds', () => {
     const users: User[] = [
       {
-        sub: '1',
+        id: '1',
         name: 'Rafal',
         role: 'patient'
       }
@@ -187,7 +187,7 @@ describe('BookVisitEffects', () => {
   it('should return the GetDoctorsSuccess action if getDoctors effect succeeds', () => {
     const doctors: User[] = [
       {
-        sub: '1',
+        id: '1',
         name: 'Rafal',
         role: 'doctor'
       }
