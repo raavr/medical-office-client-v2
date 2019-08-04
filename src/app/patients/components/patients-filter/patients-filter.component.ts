@@ -17,7 +17,7 @@ import {
   takeUntil
 } from 'rxjs/operators';
 
-enum InputType {
+export enum InputType {
   NAME = 'name',
   EMAIL = 'email'
 }

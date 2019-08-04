@@ -41,7 +41,10 @@ describe('VisitsTabComponent', () => {
         },
         {
           provide: ActivatedRoute,
-          useValue: { paramMap: of({ get: () => VisitType.PAST }) }
+          useValue: {
+            paramMap: of({ get: () => VisitType.PAST }),
+            queryParamMap: of({ get: () => 'John Doe' })
+          }
         }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -102,20 +105,12 @@ describe('VisitsTabComponent', () => {
     expect(store.dispatch).toHaveBeenCalledWith(action2);
   });
 
-  // it('should dispatch ResetFilter action and call onFilterChanged method when onTabChanged method is called', () => {
-  //   spyOn(component, 'onFilterChanged');
-  //   const type = VisitType.CURRENT;
-
-  //   const action = new ResetFilter();
-
-  //   component.onTabChanged(type);
-
-  //   expect(store.dispatch).toHaveBeenCalledWith(action);
-  //   expect(component.onFilterChanged).toHaveBeenCalledWith({ type });
-  // });
-
   it('should dispatch UpdateStatus action when onVisitsStatusModified method is called', () => {
-    const visitsToUpdate = { status: VisitStatus.ACCEPTED, visitsIds: [1], reason: '' };
+    const visitsToUpdate = {
+      status: VisitStatus.ACCEPTED,
+      visitsIds: [1],
+      reason: ''
+    };
     const action = new UpdateStatus(visitsToUpdate);
 
     component.onVisitsStatusModified(visitsToUpdate);

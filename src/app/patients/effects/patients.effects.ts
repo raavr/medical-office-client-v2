@@ -68,7 +68,7 @@ export class PatientsEffects {
   );
 
   @Effect()
-  removePatients$ = this.actions$.pipe(
+  removePatient$ = this.actions$.pipe(
     ofType<PatientsActions.RemovePatient>(
       PatientsActions.PatientsActionTypes.RemovePatient
     ),

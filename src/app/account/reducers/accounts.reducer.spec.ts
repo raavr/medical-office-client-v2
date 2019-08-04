@@ -7,6 +7,7 @@ import {
 import { GetAccountsSuccess } from '../actions/accounts.action';
 import * as fromAccounts from './accounts.reducer';
 import { User } from 'src/app/auth/models/user';
+import { ResetPatients, RemovePatientSuccess } from 'src/app/patients/actions/patients.action';
 
 describe('Accounts Reducer', () => {
   const user1: User = {
@@ -108,6 +109,34 @@ describe('Accounts Reducer', () => {
       id: user.id,
       changes: user
     });
+    const result = reducer(initialState, action);
+
+    expect(result).toEqual(expResult);
+  });
+
+  it('should remove patients except the logged in user', () => {
+    const expResult = {
+      ids: [user1.id],
+      entities: {
+        [user1.id]: user1
+      }
+    };
+
+    const action = new ResetPatients({ id: user1.id });
+    const result = reducer(initialState, action);
+
+    expect(result).toEqual(expResult);
+  });
+
+  it('should remove a patient', () => {
+    const expResult = {
+      ids: [user2.id],
+      entities: {
+        [user2.id]: user2
+      }
+    };
+
+    const action = new RemovePatientSuccess({ id: user1.id });
     const result = reducer(initialState, action);
 
     expect(result).toEqual(expResult);

@@ -11,7 +11,7 @@ import { DialogConfirmationComponent } from 'src/app/core/components/dialog-conf
   styleUrls: [
     '../../../core/styles/shared.scss',
     '../../../core/styles/card_shared.scss',
-    '../../../core/styles/table_shared.scss',
+    '../../../core/styles/table_shared.scss'
   ]
 })
 export class PatientsTableComponent {
@@ -25,7 +25,7 @@ export class PatientsTableComponent {
   constructor(public dialog: MatDialog) {}
 
   get displayedColumns(): string[] {
-    return['name', 'email',  'actions'];
+    return ['name', 'email', 'actions'];
   }
 
   changePaginator(page: PageEvent) {

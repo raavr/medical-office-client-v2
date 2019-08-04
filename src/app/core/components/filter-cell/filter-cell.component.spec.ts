@@ -36,4 +36,20 @@ describe('FilterCellComponent', () => {
     const hostEl = fixture.debugElement.nativeElement;
     expect(hostEl.getAttribute('class')).toBeNull();
   });
+
+  it('should set class is-visit-cell if type is equal "visit"', () => {
+    component.type = 'visit';
+    fixture.detectChanges();
+
+    const hostEl = fixture.debugElement.nativeElement;
+    expect(hostEl.getAttribute('class')).toEqual('is-visit-cell');
+  });
+
+  it('should not set class is-visit-cell if type is not equal "visit"', () => {
+    component.type = '';
+    fixture.detectChanges();
+
+    const hostEl = fixture.debugElement.nativeElement;
+    expect(hostEl.getAttribute('class')).toBeNull();
+  });
 });
