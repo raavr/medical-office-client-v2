@@ -12,12 +12,17 @@ import { EffectsModule } from '@ngrx/effects';
 import { PatientsComponent } from './containers/patients/patients.component';
 import { PatientsTableComponent } from './components/patients-table/patients-table.component';
 import { PatientsFilterComponent } from './components/patients-filter/patients-filter.component';
+import { CreatePatientComponent } from './components/create-patient/create-patient.component';
+import { DialogCreatePatientComponent } from './components/dialog-create-patient/dialog-create-patient.component';
+import { CreatePatientEffects } from './effects/create-patient.effects';
 
 @NgModule({
   declarations: [
     PatientsComponent,
     PatientsTableComponent,
-    PatientsFilterComponent
+    PatientsFilterComponent,
+    CreatePatientComponent,
+    DialogCreatePatientComponent
   ],
   imports: [
     CommonModule,
@@ -26,8 +31,11 @@ import { PatientsFilterComponent } from './components/patients-filter/patients-f
     ReactiveFormsModule,
     MaterialModule,
     StoreModule.forFeature('patients', fromPatients.reducers),
-    EffectsModule.forFeature([PatientsEffects]),
+    EffectsModule.forFeature([PatientsEffects, CreatePatientEffects]),
     PatientsRoutingModule
+  ],
+  entryComponents: [
+    DialogCreatePatientComponent
   ]
 })
 export class PatientsModule {}

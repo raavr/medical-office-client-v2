@@ -13,6 +13,7 @@ import {
 import { AlertShow } from 'src/app/core/actions/alert.actions';
 import { SetFilter } from '../../actions/patients-filter.action';
 import { GetPatients, RemovePatient } from '../../actions/patients.action';
+import { CreatePatient } from '../../actions/create-patient.action';
 
 describe('PatientsComponent', () => {
   let component: PatientsComponent;
@@ -97,6 +98,17 @@ describe('PatientsComponent', () => {
 
     expect(store.dispatch).toHaveBeenCalledWith(action1);
     expect(store.dispatch).toHaveBeenCalledWith(action2);
+  });
+
+  it('should dispatch CreatePatient action when createPatient method is called', () => {
+    const user = {
+      id: '1',
+      email: 'john@example.com'
+    };
+    const action = new CreatePatient(user);
+    
+    component.createPatient(user);
+    expect(store.dispatch).toHaveBeenCalledWith(action);
   });
 
   it('should dispatch RemovePatient action when onPatientRemoved method is called', () => {

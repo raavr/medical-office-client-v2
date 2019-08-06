@@ -23,7 +23,7 @@ import { User } from 'src/app/auth/models/user';
 @Component({
   selector: 'app-visits',
   templateUrl: 'visits.component.html',
-  styleUrls: ['../../../core/styles/shared.scss', './visits.component.scss']
+  styleUrls: ['../../../core/styles/shared.scss']
 })
 export class VisitsComponent implements OnDestroy {
   links = [

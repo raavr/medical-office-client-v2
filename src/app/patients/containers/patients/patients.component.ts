@@ -11,11 +11,18 @@ import { Alert } from 'src/app/core/model/alert.interface';
 import { takeUntil, filter } from 'rxjs/operators';
 import { GetPatients, RemovePatient } from '../../actions/patients.action';
 import { SetFilter } from '../../actions/patients-filter.action';
+import { CreatePatient } from '../../actions/create-patient.action';
 
 @Component({
   selector: 'app-patients',
   template: `
-    <h2 class="app-title">Lista pacjentów</h2>
+    <header class="app__header">
+      <h2 class="app-title">Lista pacjentów</h2>
+      <app-create-patient
+        [pending]="createPatientPending$ | async"
+        (createPatient)="createPatient($event)"
+      ></app-create-patient>
+    </header>
     <mat-divider [style.marginBottom.px]="20"></mat-divider>
     <div class="container">
       <app-patients-table
@@ -35,6 +42,7 @@ export class PatientsComponent implements OnInit {
   patients$: Observable<User[]>;
   totalItems$: Observable<number>;
   pending$: Observable<boolean>;
+  createPatientPending$: Observable<boolean>;
   filter$: Observable<PatientFilter>;
   private alertUnsub$ = new Subject<any>();
 
@@ -46,6 +54,9 @@ export class PatientsComponent implements OnInit {
     this.patients$ = store.pipe(select(fromAccounts.getPatients));
     this.totalItems$ = store.pipe(select(fromPatients.getTotalItems));
     this.pending$ = store.pipe(select(fromPatients.getPending));
+    this.createPatientPending$ = store.pipe(
+      select(fromPatients.getCreatePatientPending)
+    );
     this.filter$ = store.pipe(select(fromPatients.getPatientsFilter));
   }
 
@@ -56,6 +67,10 @@ export class PatientsComponent implements OnInit {
   onFilterChanged(filter: PatientFilter) {
     this.store.dispatch(new SetFilter(filter));
     this.store.dispatch(new GetPatients());
+  }
+
+  createPatient(result: User) {
+    this.store.dispatch(new CreatePatient(result));
   }
 
   ngOnInit() {

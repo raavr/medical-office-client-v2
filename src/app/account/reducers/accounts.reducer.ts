@@ -3,10 +3,15 @@ import { User } from '../../auth/models/user';
 import * as AccountsActions from '../actions/accounts.action';
 import * as ProfileActions from '../actions/profile.action';
 import * as PatientsActions from '../../patients/actions/patients.action';
+import * as CreatePatientActions from '../../patients/actions/create-patient.action';
+
+export function sortByName(a: User, b: User): number {
+  return a.name.localeCompare(b.name) || a.surname.localeCompare(b.surname);
+}
 
 export const adapter: EntityAdapter<User> = createEntityAdapter<User>({
   selectId: (user: User) => user.id,
-  sortComparer: false
+  sortComparer: sortByName
 });
 
 export interface State extends EntityState<User> {}
@@ -18,13 +23,15 @@ export function reducer(
     | AccountsActions.AccountsActionUnion
     | ProfileActions.ProfileActionUnion
     | PatientsActions.PatientsActionUnion
+    | CreatePatientActions.CreatePatientActionUnion
 ): State {
   switch (action.type) {
     case AccountsActions.AccountsActionTypes.GetAccountsSuccess: {
       return adapter.addMany(action.payload, state);
     }
 
-    case ProfileActions.ProfileActionTypes.ProfileGetSuccess: {
+    case ProfileActions.ProfileActionTypes.ProfileGetSuccess: 
+    case CreatePatientActions.CreatePatientActionTypes.CreatePatientSuccess: {
       return adapter.addOne(action.payload, state);
     }
 

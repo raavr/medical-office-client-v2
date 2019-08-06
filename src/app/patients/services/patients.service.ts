@@ -23,4 +23,10 @@ export class PatientsService {
       `${ENDPOINT}/api/patients/${patient.id}`
     ) as Observable<{ message: string }>;
   }
+
+  createPatient(patient: User) {
+    return this.http.post(`${ENDPOINT}/api/patients`, patient) as Observable<
+      User
+    >;
+  }
 }

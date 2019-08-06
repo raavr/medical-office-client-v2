@@ -13,9 +13,10 @@ describe('PatientsService', () => {
       providers: [
         {
           provide: HttpClient,
-          useValue: {            
+          useValue: {
             get: () => {},
             delete: () => {},
+            post: () => {}
           }
         }
       ]
@@ -33,15 +34,14 @@ describe('PatientsService', () => {
 
   it('should call httpClient.get with the specific URL and params', () => {
     spyOn(httpClient, 'get');
-    const filters: PatientFilter = { 
+    const filters: PatientFilter = {
       currentPage: 1
-    }
+    };
     service.getPatients(filters);
 
-    expect(httpClient.get).toHaveBeenCalledWith(
-      `${ENDPOINT}/api/patients`,
-      { params: filters }
-    );
+    expect(httpClient.get).toHaveBeenCalledWith(`${ENDPOINT}/api/patients`, {
+      params: filters
+    });
   });
 
   it('should call httpClient.delete with the specific URL and params', () => {
@@ -53,8 +53,21 @@ describe('PatientsService', () => {
     service.removePatient(user);
 
     expect(httpClient.delete).toHaveBeenCalledWith(
-      `${ENDPOINT}/api/patients/${user.id}`,
+      `${ENDPOINT}/api/patients/${user.id}`
     );
   });
 
+  it('should call httpClient.post with the specific URL and params', () => {
+    spyOn(httpClient, 'post');
+    const user = {
+      id: '124',
+      name: 'Test'
+    };
+    service.createPatient(user);
+
+    expect(httpClient.post).toHaveBeenCalledWith(
+      `${ENDPOINT}/api/patients`,
+      user
+    );
+  });
 });

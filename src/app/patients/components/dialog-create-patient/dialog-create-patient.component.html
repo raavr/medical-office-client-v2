@@ -1,0 +1,77 @@
+<h2 mat-dialog-title>
+  Utwórz konto pacjenta
+</h2>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <form [formGroup]="form" class="dialog__content">
+    <mat-form-field class="form-container">
+      <input
+        type="text"
+        placeholder="Imię"
+        aria-label="Imię"
+        matInput
+        formControlName="name"
+      />
+      <mat-error
+        *ngIf="
+          form.get('name').hasError('required') && form.get('name').touched
+        "
+      >
+        Imię jest wymagane
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-container">
+      <input
+        type="text"
+        placeholder="Nazwisko"
+        aria-label="Nazwisko"
+        matInput
+        formControlName="surname"
+      />
+      <mat-error
+        *ngIf="
+          form.get('surname').hasError('required') && form.get('surname').touched
+        "
+      >
+        Nazwisko jest wymagane
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-container">
+      <input
+        type="email"
+        matInput
+        placeholder="Email"
+        aria-label="Email"
+        formControlName="email"
+      />
+      <mat-error
+        *ngIf="
+          form.get('email').hasError('required') && form.get('email').touched
+        "
+      >
+        Email jest wymagany
+      </mat-error>
+      <mat-error
+        *ngIf="
+          form.get('email').hasError('email') && form.get('email').touched
+        "
+      >
+        Email jest niepoprawny
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions class="dialog__footer">
+  <button mat-raised-button color="accent" (click)="onCancelClick()">
+    Anuluj
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    [mat-dialog-close]="form.value"
+    cdkFocusInitial
+    [disabled]="form.invalid"
+  >
+    Zapisz
+  </button>
+</div>
