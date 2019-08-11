@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Informacja o wizycie</h2>
+<mat-divider></mat-divider>
+<div mat-dialog-content class="dialog__content">
+  <p class="dialog__info">
+    Wizyta w dniu
+    <span class="dialog__bold">{{
+      data.notification.visitDate | date: 'dd/MM/yyyy'
+    }}</span>
+    o godzinie
+    <span class="dialog__bold">{{
+      data.notification.visitDate | date: 'HH:mm'
+    }}</span>
+    została
+    <span class="dialog__bold">{{
+      data.notification.notification.type | notificationType
+    }}</span>
+    przez lek.
+    <span class="dialog__bold"
+      >{{ data.notification.doctor.name }}
+      {{ data.notification.doctor.surname }}</span
+    >.
+  </p>
+  <dl *ngIf="data.notification.rejectReason" class="dialog__desc">
+    <dt>Powód odrzucenia wizyty:</dt>
+    <dd>{{ data.notification.rejectReason }}</dd>
+  </dl>
+</div>
+<footer mat-dialog-actions class="dialog__footer">
+  <button mat-raised-button [mat-dialog-close]="'mark'" color="primary">
+    Oznacz jako przeczytane
+  </button>
+  <button mat-raised-button color="accent" (click)="onOkClick()">
+    Ok
+  </button>
+</footer>

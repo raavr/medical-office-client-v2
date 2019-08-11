@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
+import { TOKEN_NAME } from '../constants/auth.constant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
-  private TOKEN_NAME = 'access_token';
-
   constructor() { }
 
   getToken() {
-    return localStorage.getItem(this.TOKEN_NAME);
+    return localStorage.getItem(TOKEN_NAME);
   }
 
   setToken(token: string) {
-    localStorage.setItem(this.TOKEN_NAME, token);
+    localStorage.setItem(TOKEN_NAME, token);
   }
 
   removeToken() {
-    localStorage.removeItem(this.TOKEN_NAME);
+    localStorage.removeItem(TOKEN_NAME);
   }
 }

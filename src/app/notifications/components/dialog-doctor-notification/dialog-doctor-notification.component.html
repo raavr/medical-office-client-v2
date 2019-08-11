@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Informacja o wizycie</h2>
+<mat-divider></mat-divider>
+<div mat-dialog-content class="dialog__content">
+  <p class="dialog__info">
+    Pacjent
+    <span class="dialog__bold"
+      >{{ data.notification.patient.name }}
+      {{ data.notification.patient.surname }}</span
+    >
+    zapisał się na wizytę
+    <span class="dialog__bold">{{
+      data.notification.visitDate | date: 'dd/MM/yyyy'
+    }}</span>
+    o godzinie
+    <span class="dialog__bold">{{
+      data.notification.visitDate | date: 'HH:mm'
+    }}</span
+    >.
+  </p>
+  <dl *ngIf="data.notification.description" class="dialog__desc">
+    <dt>Informacja od pacjenta:</dt>
+    <dd>{{ data.notification.description }}</dd>
+  </dl>
+</div>
+<footer mat-dialog-actions class="dialog__footer">
+  <button mat-raised-button [mat-dialog-close]="'accepted'" color="primary">
+    Akceptuj wizytę
+  </button>
+  <button mat-raised-button [mat-dialog-close]="'canceled'" color="warn">
+    Odrzuć wizytę
+  </button>
+  <button mat-raised-button color="accent" (click)="onCancelClick()">
+    Anuluj
+  </button>
+</footer>

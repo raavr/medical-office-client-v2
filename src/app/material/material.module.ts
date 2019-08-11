@@ -25,6 +25,7 @@ import {
   MatChipsModule,
   MatGridListModule,
   MatSlideToggleModule,
+  MatBadgeModule,
 } from '@angular/material';
 
 @NgModule({
@@ -53,6 +54,7 @@ import {
     MatChipsModule,
     MatGridListModule,
     MatSlideToggleModule,
+    MatBadgeModule,
   ],
   exports: [
     MatInputModule,
@@ -79,6 +81,7 @@ import {
     MatChipsModule,
     MatGridListModule,
     MatSlideToggleModule,
+    MatBadgeModule,
   ]
 })
 export class MaterialModule {}

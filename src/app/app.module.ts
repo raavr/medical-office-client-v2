@@ -21,6 +21,7 @@ import { HomeModule } from './home/home.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AccountModule } from './account/account.module';
 import { MomentDateModule } from './material/moment-date.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -46,6 +47,7 @@ import { MomentDateModule } from './material/moment-date.module';
     NavbarModule,
     AccountModule,
     MomentDateModule.forRoot(),
+    NotificationsModule,
     AppRoutingModule,
   ],
   bootstrap: [AppComponent]

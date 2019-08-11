@@ -5,6 +5,7 @@
     (closeSidenav)="closeSidenav()"
     [showMenu]="(media$ | async)[XSmall]"
   >
+    <app-notification *ngIf="loggedIn$ | async"></app-notification>
     <app-menu *ngIf="loggedIn$ | async" [avatar]="profile?.avatar">
       <button mat-menu-item routerLink="/account">Moje konto</button>
       <button mat-menu-item [routerLink]="['/dashboard/visits', 'current']">Dashboard</button>

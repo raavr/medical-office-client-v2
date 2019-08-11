@@ -13,7 +13,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { VisitEffects } from './effects/visit.effects';
 import { VisitsComponent } from './containers/visits/visits.component';
 import { DoctorActionComponent } from './components/doctor-action/doctor-action.component';
-import { DoctorActionEffects } from './effects/doctor-action.effects';
 import { BookVisitBtnComponent } from './components/book-visit-btn/book-visit-btn.component';
 import { DialogBookVisitComponent } from './components/dialog-book-visit/dialog-book-visit.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -44,16 +43,9 @@ import { DialogVisitMoreComponent } from './components/dialog-visit-more/dialog-
     MaterialModule,
     MomentDateModule.forFeature(),
     StoreModule.forFeature('visits', fromVisits.reducers),
-    EffectsModule.forFeature([
-      VisitEffects,
-      DoctorActionEffects,
-      BookVisitEffects
-    ]),
+    EffectsModule.forFeature([VisitEffects, BookVisitEffects]),
     VisitsRoutingModule
   ],
-  entryComponents: [
-    DialogBookVisitComponent,
-    DialogVisitMoreComponent
-  ]
+  entryComponents: [DialogBookVisitComponent, DialogVisitMoreComponent]
 })
 export class VisitsModule {}

@@ -1,0 +1,112 @@
+@import '../../../app.variables.scss';
+
+.app__container .notifications__btn {
+  margin-right: 20px;
+}
+
+.mat-menu-panel.notifications {
+  max-width: $notf-width;
+  width: $notf-width;
+}
+
+.notifications {
+  
+  .mat-menu-content:not(:empty) {
+    padding: 0;
+  }
+  
+  .mat-menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 7px 16px;
+    white-space: unset;
+    line-height: unset;
+    height: auto;
+    padding: 10px 16px;
+    border-bottom: 1px solid if($is-dark-theme, $light-dividers, $dark-dividers);
+  }
+
+  &__item:nth-last-child(2) .mat-menu-item {
+    border-bottom: none;
+  }
+
+  &__header {
+    padding: 10px 16px;
+    color: if($is-dark-theme, $light-primary-text, $dark-primary-text);
+    background: if($is-dark-theme, $light-dividers, $dark-dividers);
+  }
+  
+  &__footer.mat-menu-item {
+    padding: 10px 16px;
+    color: $light-primary-text;
+    background: mat-color($primary);
+    border-bottom: none;
+    
+    &:hover:not([disabled]) {
+      background: mat-color($primary);
+    }
+  }
+  
+  &__avatar {
+    width: 35px;
+    min-width: 35px;
+    height: 35px;
+    min-height: 35px;
+    margin-right: 10px
+  }
+  
+  &__danger {
+    color: $warn;
+  }
+
+  &__success {
+    color: $success;
+  }
+
+  &__empty {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: $light-primary-text;
+    padding: 10px 16px;
+  }
+
+  &__spinner {
+    padding: 10px 0;
+  }
+
+  &__badge.mat-badge .mat-badge-content {
+    top: -14px;
+  }
+}
+
+.ring {
+  animation: ring 3s .4s ease-in-out infinite;
+}
+
+@keyframes ring {
+  0% { transform: rotate(0); }
+  4% { transform: rotate(30deg); }
+  8% { transform: rotate(-28deg); }
+  12% { transform: rotate(34deg); }
+  16% { transform: rotate(-32deg); }
+  20% { transform: rotate(30deg); }
+  24% { transform: rotate(-28deg); }
+  28% { transform: rotate(26deg); }
+  32% { transform: rotate(-24deg); }
+  36% { transform: rotate(22deg); }
+  40% { transform: rotate(-20deg); }
+  44% { transform: rotate(18deg); }
+  48% { transform: rotate(-16deg); }
+  52% { transform: rotate(14deg); }
+  56% { transform: rotate(-12deg); }
+  60% { transform: rotate(10deg); }
+  64% { transform: rotate(-8deg); }
+  68% { transform: rotate(6deg); }
+  72% { transform: rotate(-4deg); }
+  76% { transform: rotate(2deg); }
+  80% { transform: rotate(-1deg); }
+  84% { transform: rotate(1deg); }
+  84% { transform: rotate(0); }
+  100% { transform: rotate(0); }
+}

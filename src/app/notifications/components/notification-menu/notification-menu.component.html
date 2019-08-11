@@ -1,0 +1,41 @@
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="notfs"
+  aria-label="Notifications"
+  class="notifications__btn"
+  (click)="getNotifications.emit()"
+>
+  <mat-icon [ngClass]="{ ring: isAnimationRunning }">notifications</mat-icon>
+  <span class="cdk-visually-hidden">
+    Notification counter
+  </span>
+  <span
+    *ngIf="totalItems > 0"
+    matBadge="{{ totalItems }}"
+    matBadgeColor="warn"
+    class="notifications__badge"
+  ></span>
+</button>
+<mat-menu #notfs="matMenu" class="notifications">
+  <header class="notifications__header">
+    Powiadomienia
+  </header>
+  <div
+    *ngIf="!pending && notifications?.length === 0"
+    class="notifications__empty"
+  >
+    Brak powiadomień
+  </div>
+  <div *ngIf="pending" class="flex-center notifications__spinner">
+    <mat-spinner diameter="30"></mat-spinner>
+  </div>
+  <ng-container *ngIf="isDoctor">
+    <app-notification-item-doctor *ngFor="let notf of notifications" [notification]="notf" (onNotificationClicked)="onDoctorNotificationClicked($event)" class="notifications__item"></app-notification-item-doctor>
+  </ng-container>
+  <ng-container *ngIf="!isDoctor">
+    <app-notification-item-patient *ngFor="let notf of notifications" [notification]="notf" (onNotificationClicked)="onPatientNotificationClicked($event)" class="notifications__item"></app-notification-item-patient>
+  </ng-container>
+  <footer *ngIf="notifications?.length !== 0" mat-menu-item class="notifications__footer" (click)="onFooterBtnClicked()">
+    {{ isDoctor ? 'Zobacz wszystkie powiadomienia' : 'Oznacz wszystkie jako przeczytane' }}
+  </footer>
+</mat-menu>
