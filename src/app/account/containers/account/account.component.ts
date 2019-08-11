@@ -1,14 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/auth/models/user';
 import { Store, select } from '@ngrx/store';
 import * as fromAccount from '../../reducers';
 import * as fromRoot from '../../../core/reducers';
 import * as fromAuth from '../../../auth/reducers';
-import { AlertFactoryService } from 'src/app/core/components/alert/alert-factory.service';
 import { ProfileSave, ProfileUpdateAvatar } from '../../actions/profile.action';
-import { filter, takeUntil } from 'rxjs/operators';
-import { Alert } from 'src/app/core/model/alert.interface';
 import { Passwords } from '../../model/passwords';
 import { ChangePassword } from '../../actions/password.action';
 
@@ -35,21 +32,15 @@ import { ChangePassword } from '../../actions/password.action';
     </div>
   `
 })
-export class AccountComponent implements OnInit, OnDestroy {
+export class AccountComponent {
   profile$: Observable<User>;
-  alert$: Observable<Alert>;
   profilePending$: Observable<boolean>;
   passwordPending$: Observable<boolean>;
 
   user: User;
-  private alertUnsub$ = new Subject<any>();
 
-  constructor(
-    private store: Store<fromRoot.State>,
-    private alert: AlertFactoryService
-  ) {
+  constructor(private store: Store<fromRoot.State>) {
     this.profile$ = store.pipe(select(fromAccount.getProfile));
-    this.alert$ = store.pipe(select(fromRoot.getAlertMessageAndType));
     this.profilePending$ = store.pipe(select(fromAccount.getProfilePending));
     this.passwordPending$ = store.pipe(select(fromAccount.getPasswordPending));
     store.pipe(select(fromAuth.getUser)).subscribe(user => (this.user = user));
@@ -69,21 +60,5 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   onPasswordChanged(passwords: Passwords) {
     this.store.dispatch(new ChangePassword(passwords));
-  }
-
-  ngOnInit(): void {
-    this.alert$
-      .pipe(
-        takeUntil(this.alertUnsub$),
-        filter(payload => !!payload && !!payload.message)
-      )
-      .subscribe(payload =>
-        this.alert.create(payload.message, { type: payload.alertType })
-      );
-  }
-
-  ngOnDestroy() {
-    this.alertUnsub$.next();
-    this.alertUnsub$.complete();
   }
 }

@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subject, combineLatest } from 'rxjs';
-import { filter, takeUntil, map, tap } from 'rxjs/operators';
+import { takeUntil, map, tap } from 'rxjs/operators';
 import * as fromRoot from '../../../core/reducers';
 import * as fromVisits from '../../reducers';
 import * as fromAuth from '../../../auth/reducers';
-import { AlertFactoryService } from '../../../core/components/alert/alert-factory.service';
-import { Alert } from 'src/app/core/model/alert.interface';
 import { Visit, VisitType, VisitsStatusUpdateDto } from '../../models/visit';
 import { VisitFilter } from '../../models/visit-filter';
 import { GetVisits, CancelVisit } from '../../actions/visits.action';
@@ -33,20 +31,17 @@ import { UpdateStatus } from '../../actions/visits-status.action';
   styles: []
 })
 export class VisitsTabComponent implements OnInit {
-  alert$: Observable<Alert>;
   visits$: Observable<Visit[]>;
   totalItems$: Observable<number>;
   isDoctor$: Observable<boolean>;
   pending$: Observable<boolean>;
   filter$: Observable<VisitFilter>;
-  private alertUnsub$ = new Subject<any>();
+  private unsub$ = new Subject<any>();
 
   constructor(
     private store: Store<fromRoot.State>,
-    private alert: AlertFactoryService,
     private route: ActivatedRoute
   ) {
-    this.alert$ = store.pipe(select(fromRoot.getAlertMessageAndType));
     this.visits$ = store.pipe(select(fromVisits.getVisits));
     this.totalItems$ = store.pipe(select(fromVisits.getTotalItems));
     this.isDoctor$ = store.pipe(select(fromAuth.isDoctor));
@@ -55,17 +50,9 @@ export class VisitsTabComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.alert$
-      .pipe(
-        takeUntil(this.alertUnsub$),
-        filter(payload => !!payload && !!payload.message)
-      )
-      .subscribe(payload =>
-        this.alert.create(payload.message, { type: payload.alertType })
-      );
-
     combineLatest(this.route.queryParamMap, this.route.paramMap)
       .pipe(
+        takeUntil(this.unsub$),
         tap(() => this.store.dispatch(new ResetFilter())),
         map(([queryParamMap, paramMap]) => ({
           userName: queryParamMap.get('name') || '',
@@ -77,7 +64,6 @@ export class VisitsTabComponent implements OnInit {
         }))
       )
       .subscribe(filter => this.onFilterChanged(filter));
-
   }
   
   onFilterChanged(filter: VisitFilter) {
@@ -94,7 +80,7 @@ export class VisitsTabComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.alertUnsub$.next();
-    this.alertUnsub$.complete();
+    this.unsub$.next();
+    this.unsub$.complete();
   }
 }

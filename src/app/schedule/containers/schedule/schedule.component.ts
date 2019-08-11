@@ -3,9 +3,6 @@ import * as fromRoot from "../../../core/reducers";
 import * as fromSchedule from "../../reducers";
 import { select, Store } from "@ngrx/store";
 import { Observable, Subject, of } from "rxjs";
-import { AlertFactoryService } from "src/app/core/components/alert/alert-factory.service";
-import { takeUntil, filter } from "rxjs/operators";
-import { Alert } from "src/app/core/model/alert.interface";
 import {
   GetFullSchedule,
   UpdateVisitTimes,
@@ -52,22 +49,18 @@ import { DirtyComponent } from "../../services/dirty-check.guard";
   styleUrls: ["../../../core/styles/shared.scss"]
 })
 export class ScheduleComponent implements OnInit, DirtyComponent {
-  alert$: Observable<Alert>;
   times$: Observable<string[]>;
   timesPending$: Observable<boolean>;
   disabledDates$: Observable<string[]>;
   disabledDatesPending$: Observable<boolean>;
   weeklyTimes$: Observable<VisitTimeOfDay[]>;
   weeklyTimesPending$: Observable<boolean>;
-  private alertUnsub$ = new Subject<any>();
 
   isDirty$: Array<Observable<boolean>> = [];
 
   constructor(
     private store: Store<fromRoot.State>,
-    private alert: AlertFactoryService
   ) {
-    this.alert$ = store.pipe(select(fromRoot.getAlertMessageAndType));
     this.times$ = store.pipe(select(fromSchedule.getVisitTimes));
     this.timesPending$ = store.pipe(select(fromSchedule.getPendingVisitTimes));
     this.disabledDates$ = store.pipe(select(fromSchedule.getDisabledDates));
@@ -107,13 +100,5 @@ export class ScheduleComponent implements OnInit, DirtyComponent {
 
   ngOnInit() {
     this.store.dispatch(new GetFullSchedule());
-    this.alert$
-      .pipe(
-        takeUntil(this.alertUnsub$),
-        filter(payload => !!payload && !!payload.message)
-      )
-      .subscribe(payload =>
-        this.alert.create(payload.message, { type: payload.alertType })
-      );
   }
 }

@@ -9,8 +9,10 @@ import * as fromAuth from './auth/reducers';
 import { User } from './auth/models/user';
 import * as AuthAction from './auth/actions/auth.actions';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, filter } from 'rxjs/operators';
 import { MediaActions } from './core/actions/';
+import { AlertFactoryService } from './core/components/alert/alert-factory.service';
+import { Alert } from './core/model/alert.interface';
 
 @Component({
   selector: 'app-root',
@@ -23,13 +25,15 @@ export class AppComponent {
   media$: Observable<any>;
   loggedIn$: Observable<boolean>;
   isDoctor$: Observable<boolean>;
+  alert$: Observable<Alert>;
 
   XSmall = Breakpoints.XSmall;
-  private mediaUnsub$: Subject<void> = new Subject();
+  private unsub$: Subject<void> = new Subject();
 
   constructor(
     private store: Store<fromRoot.State>,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private alert: AlertFactoryService,
   ) {
     this.showSidenav$ = this.store.pipe(select(fromNavbar.getShowSidenav));
     this.loggedIn$ = this.store.pipe(select(fromAuth.getLoggedIn));
@@ -38,6 +42,7 @@ export class AppComponent {
     this.store
       .pipe(select(fromProfile.getProfile))
       .subscribe(profile => (this.profile = profile));
+    this.alert$ = store.pipe(select(fromRoot.getAlertMessageAndType));
   }
 
   closeSidenav() {
@@ -61,7 +66,7 @@ export class AppComponent {
         Breakpoints.Medium,
         Breakpoints.Large
       ])
-      .pipe(takeUntil(this.mediaUnsub$))
+      .pipe(takeUntil(this.unsub$))
       .subscribe(result => {
         if (result.matches) {
           this.store.dispatch(
@@ -71,13 +76,25 @@ export class AppComponent {
       });
   }
 
+  private initAlert() {
+    this.alert$
+      .pipe(
+        takeUntil(this.unsub$),
+        filter(payload => !!payload && !!payload.message)
+      )
+      .subscribe(payload =>
+        this.alert.create(payload.message, { type: payload.alertType })
+      );
+  }
+
   ngOnInit() {
     this.store.dispatch(new AuthAction.AutoLogin());
     this._observeMedia();
+    this.initAlert();
   }
 
   ngOnDestroy(): void {
-    this.mediaUnsub$.next();
-    this.mediaUnsub$.complete();
+    this.unsub$.next();
+    this.unsub$.complete();
   }
 }
