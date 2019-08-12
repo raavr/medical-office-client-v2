@@ -17,6 +17,7 @@ import { PageEvent, MatDialog } from '@angular/material';
 import { DialogConfirmationComponent } from '../../../core/components/dialog-confirmation/dialog-confirmation.component';
 import { filter } from 'rxjs/operators';
 import { DialogVisitMoreComponent } from '../dialog-visit-more/dialog-visit-more.component';
+import { DialogVisitRejectionComponent } from 'src/app/core/components/dialog-visit-rejection/dialog-visit-rejection.component';
 
 @Component({
   selector: 'app-visits-table',
@@ -85,8 +86,32 @@ export class VisitsTableComponent {
   }
 
   modifyVisitsStatus(status: VisitStatus) {
+    return status === VisitStatus.CANCELED
+      ? this.openRejectionDialog()
+      : this.emitVisitsStatusChanges({
+          status: VisitStatus.ACCEPTED
+        });
+  }
+
+  private openRejectionDialog() {
+    const dialogRef = this.dialog.open(DialogVisitRejectionComponent, {
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe(({ reason }) =>
+      this.emitVisitsStatusChanges({
+        status: VisitStatus.CANCELED,
+        reason
+      })
+    );
+  }
+
+  private emitVisitsStatusChanges(changes: {
+    status: VisitStatus;
+    reason?: string;
+  }) {
     this.onVisitsStatusModified.emit({
-      status,
+      ...changes,
       visitsIds: this.selection.selected.map(v => v.id)
     });
   }

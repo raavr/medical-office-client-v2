@@ -42,8 +42,7 @@
   <app-filter-cell [showDoctorCell]="isDoctor && isCurrentTab" type="visit">
     <span class="mobile-table-label mobile-table-label--filter">Status:</span>
     <mat-select
-      [compareWith]="compareFn"
-      [(value)]="filter && filter.status"
+      [value]="filter && filter.status"
       (selectionChange)="selectionChange($event)"
       style="max-width: 140px"
     >

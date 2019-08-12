@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>
+  Podaj powód odwołania wizyty
+</h2>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <form [formGroup]="form" class="dialog__content">
+    <mat-form-field class="form-container">
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="4"
+        cdkAutosizeMaxRows="6"
+        placeholder="Wprowadź powód odwołania"
+        formControlName="reason"
+      ></textarea>
+      <mat-error
+        *ngIf="
+          form.get('reason').hasError('required') && form.get('reason').touched
+        "
+      >
+        Powód odwołania jest wymagany
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions class="dialog__footer">
+  <button mat-raised-button color="accent" (click)="onCancelClick()">
+    Anuluj
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    [mat-dialog-close]="form.value"
+    cdkFocusInitial
+    [disabled]="form.invalid"
+  >
+    Odwołaj wizytę
+  </button>
+</div>

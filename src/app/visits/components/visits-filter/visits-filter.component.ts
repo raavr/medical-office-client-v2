@@ -71,10 +71,6 @@ export class VisitsFilterComponent implements OnInit {
     this.onSelectBtnClicked.emit();
   }
 
-  compareFn(c1: VisitStatusView, c2: VisitStatusView): boolean {
-    return c1 && c2 ? c1.value === c2.value : c1 === c2;
-  }
-
   typeText(input: InputFilter) {
     this.input$.next(input);
   }
@@ -87,9 +83,6 @@ export class VisitsFilterComponent implements OnInit {
   constructor(private renderer: Renderer2) {}
 
   ngOnInit() {
-    if(this.filter) {
-      this.filter.status = VisitStatus.ALL;
-    }
     this.input$
       .pipe(
         debounceTime(300),

@@ -25,6 +25,10 @@
         data.visit.status | visitStatus
       }}</app-visits-status>
     </dd>
+    <ng-container *ngIf="data.visit.status === 'canceled' && data.visit.rejectReason">
+      <dt>Powód odrzucenia:</dt>
+      <dd>{{ data.visit.rejectReason }}</dd>
+    </ng-container>
   </dl>
   <img
     *ngIf="data.isDoctor; else doctorAvatar"

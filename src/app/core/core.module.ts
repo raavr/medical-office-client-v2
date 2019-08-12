@@ -8,6 +8,8 @@ import { DisableControlDirective } from './directives/disable-control.directive'
 import { DialogConfirmationComponent } from './components/dialog-confirmation/dialog-confirmation.component';
 import { FilterRowComponent } from './components/filter-row/filter-row.component';
 import { FilterCellComponent } from './components/filter-cell/filter-cell.component';
+import { DialogVisitRejectionComponent } from './components/dialog-visit-rejection/dialog-visit-rejection.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,9 +18,10 @@ import { FilterCellComponent } from './components/filter-cell/filter-cell.compon
     DisableControlDirective,
     DialogConfirmationComponent,
     FilterRowComponent,
-    FilterCellComponent
+    FilterCellComponent,
+    DialogVisitRejectionComponent
   ],
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   providers: [AlertFactoryService],
   exports: [
     NotFoundComponent,
@@ -26,6 +29,10 @@ import { FilterCellComponent } from './components/filter-cell/filter-cell.compon
     FilterRowComponent,
     FilterCellComponent
   ],
-  entryComponents: [AlertComponent, DialogConfirmationComponent]
+  entryComponents: [
+    AlertComponent,
+    DialogConfirmationComponent,
+    DialogVisitRejectionComponent
+  ]
 })
 export class CoreModule {}

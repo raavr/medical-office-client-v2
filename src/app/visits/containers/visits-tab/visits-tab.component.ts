@@ -5,7 +5,12 @@ import { takeUntil, map, tap } from 'rxjs/operators';
 import * as fromRoot from '../../../core/reducers';
 import * as fromVisits from '../../reducers';
 import * as fromAuth from '../../../auth/reducers';
-import { Visit, VisitType, VisitsStatusUpdateDto } from '../../models/visit';
+import {
+  Visit,
+  VisitType,
+  VisitsStatusUpdateDto,
+  VisitStatus
+} from '../../models/visit';
 import { VisitFilter } from '../../models/visit-filter';
 import { GetVisits, CancelVisit } from '../../actions/visits.action';
 import { SetFilter, ResetFilter } from '../../actions/visits-filter.action';
@@ -56,6 +61,11 @@ export class VisitsTabComponent implements OnInit {
         tap(() => this.store.dispatch(new ResetFilter())),
         map(([queryParamMap, paramMap]) => ({
           userName: queryParamMap.get('name') || '',
+          status: Object.values(VisitStatus).some(
+            status => status === queryParamMap.get('status')
+          )
+            ? (queryParamMap.get('status') as VisitStatus)
+            : VisitStatus.ALL,
           type: Object.values(VisitType).some(
             accType => accType === paramMap.get('type')
           )
@@ -65,7 +75,7 @@ export class VisitsTabComponent implements OnInit {
       )
       .subscribe(filter => this.onFilterChanged(filter));
   }
-  
+
   onFilterChanged(filter: VisitFilter) {
     this.store.dispatch(new SetFilter(filter));
     this.store.dispatch(new GetVisits());
