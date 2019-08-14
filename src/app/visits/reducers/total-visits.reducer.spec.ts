@@ -8,6 +8,10 @@ import {
 } from '../actions/visits.action';
 import { VisitStatus } from '../models/visit';
 import { GetVisitsFailure } from '../actions/visits.action';
+import {
+  UpdateStatus,
+  UpdateStatusSuccess
+} from '../actions/visits-status.action';
 
 describe('Total Visits Reducer', () => {
   it('should return the default state', () => {
@@ -44,6 +48,40 @@ describe('Total Visits Reducer', () => {
     const action = new GetVisits();
 
     const expResult = { totalItems: 0, pending: true } as State;
+    const result = reducer(state, action);
+    expect(result).toEqual(expResult);
+  });
+
+  it('should return the state containing pending prop equals true when the UpdateStatus action is dispatch', () => {
+    const state = {
+      pending: false,
+      totalItems: 0
+    };
+    const action = new UpdateStatus({
+      status: VisitStatus.ACCEPTED,
+      visitsIds: [0]
+    });
+
+    const expResult = { totalItems: 0, pending: true } as State;
+    const result = reducer(state, action);
+    expect(result).toEqual(expResult);
+  });
+
+  it('should return the state containing pending prop equals false when the UpdateStatusSuccess action is dispatch', () => {
+    const state = {
+      pending: true,
+      totalItems: 0
+    };
+    const action = new UpdateStatusSuccess([
+      {
+        id: 0,
+        changes: {
+          status: VisitStatus.ACCEPTED
+        }
+      }
+    ]);
+
+    const expResult = { totalItems: 0, pending: false } as State;
     const result = reducer(state, action);
     expect(result).toEqual(expResult);
   });

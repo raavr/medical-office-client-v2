@@ -5,15 +5,10 @@ import * as fromVisits from '../../reducers';
 import * as fromAuth from '../../../auth/reducers';
 import * as fromRoot from '../../../core/reducers';
 import { StoreModule, combineReducers, Store } from '@ngrx/store';
-import {
-  AlertFactoryService,
-  ALERT_TYPE
-} from 'src/app/core/components/alert/alert-factory.service';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { AlertShow } from 'src/app/core/actions/alert.actions';
 import { VisitType, VisitStatus } from '../../models/visit';
-import { SetFilter, ResetFilter } from '../../actions/visits-filter.action';
+import { SetFilter } from '../../actions/visits-filter.action';
 import { GetVisits, CancelVisit } from '../../actions/visits.action';
 import { UpdateStatus } from '../../actions/visits-status.action';
 
@@ -21,7 +16,6 @@ describe('VisitsTabComponent', () => {
   let component: VisitsTabComponent;
   let fixture: ComponentFixture<VisitsTabComponent>;
   let store: Store<fromRoot.State>;
-  let alertFactory: AlertFactoryService;
   let activatedRoute: ActivatedRoute;
 
   beforeEach(async(() => {
@@ -35,10 +29,6 @@ describe('VisitsTabComponent', () => {
       ],
       declarations: [VisitsTabComponent],
       providers: [
-        {
-          provide: AlertFactoryService,
-          useValue: { create: () => {} }
-        },
         {
           provide: ActivatedRoute,
           useValue: {
@@ -57,39 +47,12 @@ describe('VisitsTabComponent', () => {
     fixture.detectChanges();
 
     store = TestBed.get(Store);
-    alertFactory = TestBed.get(AlertFactoryService);
     activatedRoute = TestBed.get(ActivatedRoute);
     spyOn(store, 'dispatch').and.callThrough();
-    spyOn(alertFactory, 'create');
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should call alertService.create when alert action is called', () => {
-    const payload = { message: 'Testowa', alertType: ALERT_TYPE.SUCCESS };
-    const action = new AlertShow(payload);
-
-    store.dispatch(action);
-
-    component.alert$.subscribe(error => {
-      expect(error.message).toEqual(payload.message);
-      expect(alertFactory.create).toHaveBeenCalledWith(error.message, {
-        type: ALERT_TYPE.SUCCESS
-      });
-    });
-  });
-
-  it('should not call alertService.create when alert action is called and payload.message is empty', () => {
-    const payload = { message: '', alertType: ALERT_TYPE.WARN };
-    const action = new AlertShow(payload);
-
-    store.dispatch(action);
-
-    component.alert$.subscribe(error => {
-      expect(alertFactory.create).not.toHaveBeenCalled();
-    });
   });
 
   it('should dispatch SetFilter action and GetVisits action when onFilterChanged method is called', () => {

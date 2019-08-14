@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { VisitsTableComponent } from './visits-table.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { VisitStatusPipe } from '../../pipes/visit-status.pipe';
@@ -50,7 +49,7 @@ describe('VisitsTableComponent', () => {
           provide: MatDialog,
           useValue: {
             open: () => ({
-              afterClosed: () => of(null)
+              afterClosed: () => of({ reason: 'Brak' })
             })
           }
         }
@@ -167,7 +166,8 @@ describe('VisitsTableComponent', () => {
     const status = VisitStatus.CANCELED;
     const expected = {
       status,
-      visitsIds: [visits[0].id]
+      visitsIds: [visits[0].id],
+      reason: 'Brak'
     };
     spyOn(component.onVisitsStatusModified, 'emit');
 

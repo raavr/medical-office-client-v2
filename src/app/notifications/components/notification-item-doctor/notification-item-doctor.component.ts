@@ -16,8 +16,7 @@ import { Visit } from 'src/app/visits/models/visit';
         {{ notification?.visitDate | date: 'HH:mm' }}</span
       >
     </div>
-  `,
-  styles: []
+  `
 })
 export class NotificationItemDoctorComponent {
   @Input() notification: Visit;

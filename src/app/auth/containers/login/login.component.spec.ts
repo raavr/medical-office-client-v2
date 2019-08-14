@@ -1,13 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { StoreModule, combineReducers, Store } from '@ngrx/store';
 import * as fromAuth from '../../reducers';
 import * as fromRoot from '../../../core/reducers';
 import { LoginComponent } from './login.component';
 import { Login } from '../../actions/auth.actions';
-import { AlertFactoryService, ALERT_TYPE } from 'src/app/core/components/alert/alert-factory.service';
-import { AlertShow } from 'src/app/core/actions/alert.actions';
+import { AlertFactoryService } from 'src/app/core/components/alert/alert-factory.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -60,34 +58,5 @@ describe('LoginComponent', () => {
     component.onSubmit(credentials);
 
     expect(store.dispatch).toHaveBeenCalledWith(action);
-  });
-
-  it('should dispatch an alertShow action and call alertFactoryService', () => {
-    const message = 'Wrong email or password';
-    const action = new AlertShow({
-      message,
-      alertType: ALERT_TYPE.WARN
-    });
-
-    store.dispatch(action);
-
-    component.alert$.subscribe(error => {
-      expect(error.message).toEqual(message);
-      expect(alertFactory.create).toHaveBeenCalledWith(message, { type: ALERT_TYPE.WARN });
-    });
-  });
-
-  it('should dispatch an alertShow action and not call alertFactoryService', () => {
-    const message = '';
-    const action = new AlertShow({
-      message,
-      alertType: ALERT_TYPE.WARN
-    });
-
-    store.dispatch(action);
-
-    component.alert$.subscribe(_ => {
-      expect(alertFactory.create).not.toHaveBeenCalled();
-    });
   });
 });

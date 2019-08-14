@@ -8,7 +8,8 @@ import {
   filter,
   delay,
   tap,
-  pairwise
+  pairwise,
+  startWith
 } from 'rxjs/operators';
 import * as AuthActions from '../../auth/actions/auth.actions';
 import * as NotificationActions from '../actions/notification.actions';
@@ -37,7 +38,7 @@ export class NotificationEffects {
           new NotificationActions.ResetNotifications(),
           new NotificationActions.GetNotificationsSuccess(notifications)
         ]),
-        catchError(({ error: { message }, status }) =>
+        catchError(({ status }) =>
           withUnauthorizeErrorAction(
             [new NotificationActions.GetNotificationsFailure()],
             status
@@ -53,6 +54,7 @@ export class NotificationEffects {
       NotificationActions.NotificationActionTypes.SetNotificationsCounter
     ),
     map(action => action.payload),
+    startWith(0),
     pairwise(),
     filter(payload => Number(payload[0]) < Number(payload[1])),
     map(() => new NotificationActions.RunNotificationAnimation())
