@@ -12,7 +12,7 @@ import { ChangePassword } from '../../actions/password.action';
 @Component({
   selector: 'app-account',
   template: `
-    <h2>Moje konto</h2>
+    <h2 class="app-title">Moje konto</h2>
     <mat-divider></mat-divider>
     <div class="container">
       <div class="flex flex-md-wrap flex-justify" [style.marginTop.px]="20">
@@ -30,7 +30,8 @@ import { ChangePassword } from '../../actions/password.action';
         ></app-change-password>
       </div>
     </div>
-  `
+  `,
+  styleUrls: ["../../../core/styles/shared.scss"]
 })
 export class AccountComponent {
   profile$: Observable<User>;
