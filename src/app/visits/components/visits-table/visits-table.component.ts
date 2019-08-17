@@ -98,12 +98,15 @@ export class VisitsTableComponent {
       width: '400px'
     });
 
-    dialogRef.afterClosed().subscribe(({ reason }) =>
-      this.emitVisitsStatusChanges({
-        status: VisitStatus.CANCELED,
-        reason
-      })
-    );
+    dialogRef
+      .afterClosed()
+      .pipe(filter(result => !!result))
+      .subscribe(({ reason }) =>
+        this.emitVisitsStatusChanges({
+          status: VisitStatus.CANCELED,
+          reason
+        })
+      );
   }
 
   private emitVisitsStatusChanges(changes: {

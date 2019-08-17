@@ -78,13 +78,16 @@ export class NotificationMenuComponent implements OnInit {
       width: '400px'
     });
 
-    dialogRef.afterClosed().subscribe(({ reason }) =>
-      this.modifyVisitStatus.emit({
-        status,
-        visitsIds: [notification.id],
-        reason
-      })
-    );
+    dialogRef
+      .afterClosed()
+      .pipe(filter(result => !!result))
+      .subscribe(({ reason }) =>
+        this.modifyVisitStatus.emit({
+          status,
+          visitsIds: [notification.id],
+          reason
+        })
+      );
   }
 
   onFooterBtnClicked() {
