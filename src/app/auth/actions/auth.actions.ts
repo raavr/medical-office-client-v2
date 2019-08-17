@@ -7,11 +7,9 @@ export enum AuthActionTypes {
   LoginSuccess = '[Auth] Login Success',
   LoginFailure = '[Auth] Login Failure',
   LoginRedirect = '[Auth] Login Redirect',
-  AutoLogin = '[Auth] Auto Login',
   Logout = '[Auth] Logout',
-  DecodeToken = '[Auth] Decode Token',
   DecodeTokenSuccess = '[Auth] Decode Token Success',
-  TokenInvalid = '[Auth] Token Invalid'
+  TokenValid = '[Auth] Access Token Valid'
 }
 
 export class Login implements Action {
@@ -34,18 +32,8 @@ export class LoginRedirect implements Action {
   readonly type = AuthActionTypes.LoginRedirect;
 }
 
-export class AutoLogin implements Action {
-  readonly type = AuthActionTypes.AutoLogin;
-}
-
 export class Logout implements Action {
   readonly type = AuthActionTypes.Logout;
-}
-
-export class DecodeToken implements Action {
-  readonly type = AuthActionTypes.DecodeToken;
-
-  constructor(public payload: Token) { }
 }
 
 export class DecodeTokenSuccess implements Action {
@@ -54,8 +42,10 @@ export class DecodeTokenSuccess implements Action {
   constructor(public payload: User) { }
 }
 
-export class TokenInvalid implements Action {
-  readonly type = AuthActionTypes.TokenInvalid;
+export class TokenValid implements Action {
+  readonly type = AuthActionTypes.TokenValid;
+
+  constructor(public payload: Token) { }
 }
 
 export type AuthActionUnion =
@@ -63,8 +53,5 @@ export type AuthActionUnion =
   | LoginSuccess
   | LoginFailure
   | LoginRedirect
-  | AutoLogin
   | Logout
-  | DecodeToken
-  | DecodeTokenSuccess
-  | TokenInvalid;
+  | DecodeTokenSuccess;

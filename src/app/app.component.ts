@@ -88,7 +88,6 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.store.dispatch(new AuthAction.AutoLogin());
     this._observeMedia();
     this.initAlert();
   }

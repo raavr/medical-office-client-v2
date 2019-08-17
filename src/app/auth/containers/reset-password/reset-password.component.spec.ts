@@ -1,23 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import * as fromAuth from '../../reducers';
 import * as fromRoot from '../../../core/reducers';
-import { SignupComponent } from './signup.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ResetPasswordComponent } from './reset-password.component';
 import { StoreModule, combineReducers, Store } from '@ngrx/store';
-import { Signup } from '../../actions/signup.actions';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ResetPasswordRequest } from '../../actions/reset-password.actions';
 
-describe('SignupComponent', () => {
-  let component: SignupComponent;
-  let fixture: ComponentFixture<SignupComponent>;
+describe('ResetPasswordComponent', () => {
+  let component: ResetPasswordComponent;
+  let fixture: ComponentFixture<ResetPasswordComponent>;
   let store: Store<fromAuth.State>;
-  const signupData = {
-    name: 'John',
-    surname: 'Doe',
-    email: 'john@example.com',
-    password: 'test123',
-    confirmPassword: 'test123'
-  };
-
+  
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -26,19 +19,17 @@ describe('SignupComponent', () => {
           auth: combineReducers(fromAuth.reducers),
         }),
       ],
-      declarations: [
-        SignupComponent,
-      ],
+      declarations: [ ResetPasswordComponent ],
       schemas: [ NO_ERRORS_SCHEMA ]
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SignupComponent);
+    fixture = TestBed.createComponent(ResetPasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
+ 
     store = TestBed.get(Store);
     spyOn(store, 'dispatch').and.callThrough();
   });
@@ -47,10 +38,11 @@ describe('SignupComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should dispatch a signup action on submit', () => {
-    const action = new Signup(signupData);
+  it('should dispatch a resetPasswordRequest action on submit', () => {
+    const email = 'test@example.com';
+    const action = new ResetPasswordRequest(email);
 
-    component.onSubmit(signupData);
+    component.onSubmit(email);
 
     expect(store.dispatch).toHaveBeenCalledWith(action);
   });

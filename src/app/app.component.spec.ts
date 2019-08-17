@@ -7,7 +7,6 @@ import * as fromNavbar from './navbar/reducers';
 import * as fromRoot from './core/reducers';
 import * as fromAuth from './auth/reducers';
 import * as fromAccounts from './account/reducers';
-import { AutoLogin } from './auth/actions/auth.actions';
 import {
   AlertFactoryService,
   ALERT_TYPE
@@ -59,12 +58,6 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('router-outlet')).toBeDefined();
-  });
-
-  it('should dispatch an AutoLogin action on init', () => {
-    expect(store.dispatch).not.toHaveBeenCalled();
-    fixture.detectChanges();
-    expect(store.dispatch).toHaveBeenCalledWith(new AutoLogin());
   });
 
   it('should call alertService.create when alert action is called', () => {

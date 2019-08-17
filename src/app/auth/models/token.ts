@@ -10,3 +10,8 @@ export interface TokenData {
   iat: number;
   exp: number;
 }
+
+export interface PasswordToken {
+  passwordToken: string;
+  password: string;
+}

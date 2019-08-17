@@ -13,10 +13,8 @@ import {
   LoginFailure,
   Logout,
   LoginRedirect,
-  DecodeToken,
   DecodeTokenSuccess,
-  AutoLogin,
-  TokenInvalid
+  TokenValid
 } from '../actions/auth.actions';
 import { Token, TokenData } from '../models/token';
 import { TokenService } from '../services/token.service';
@@ -110,25 +108,25 @@ describe('AuthEffects', () => {
     expect(effects.login$).toBeObservable(expected);
   });
 
-  it('should return the DecodeToken action with token object if login succeeds', done => {
+  it('should return the TokenValid action with token object if login succeeds', done => {
     const token = { token: 'some_token' } as Token;
     const action = new LoginSuccess(token);
-    const completion = new DecodeToken(token);
+    const completion = new TokenValid(token);
 
     actions$ = of(action);
 
     effects.loginSuccess$.subscribe(result => {
       expect(result).toEqual(completion);
       expect(tokenService.setToken).toHaveBeenCalledWith(token.token);
+      expect(routerService.navigate).toHaveBeenCalledWith(['/']);
       done();
     });
   });
 
-  it('should return the DecodeTokenSuccess action and ProfileGet action when decodeToken$ effect is called and the token is not expired', () => {
+  it('should return the DecodeTokenSuccess action and ProfileGet action when tokenValid$ effect is called and the token is not expired', () => {
     const tokenData: TokenData = { iat: 1, exp: 2, sub: '1', role: 'doctor' };
     spyOn(jwtHelperService, 'decodeToken').and.returnValue(tokenData);
-    spyTokenExpired.and.returnValue(false);
-    const action = new DecodeToken({ token: 'some_token' });
+    const action = new TokenValid({ token: 'some_token' });
 
     const completion = [
       new DecodeTokenSuccess({ id: '1', role: 'doctor' }),
@@ -138,30 +136,7 @@ describe('AuthEffects', () => {
     actions$ = hot('-a---', { a: action });
     const expected = cold('-(bc)', { b: completion[0], c: completion[1] });
 
-    expect(effects.decodeToken$).toBeObservable(expected);
-  });
-
-  it('should return the TokenInvalid action when decodeToken$ effect is called and the token is expired', done => {
-    spyTokenExpired.and.returnValue(true);
-    const action = new DecodeToken({ token: 'some_token' });
-
-    actions$ = of(action);
-
-    effects.decodeToken$.subscribe(result => {
-      expect(result).toEqual(new TokenInvalid());
-      done();
-    });
-  });
-
-  it('should return the DecodeToken action when autoLogin$ effect is called with a valid token', done => {
-    const action = new AutoLogin();
-
-    actions$ = of(action);
-
-    effects.autoLogin$.subscribe(result => {
-      expect(result).toEqual(new DecodeToken({ token: 'some_token' }));
-      done();
-    });
+    expect(effects.tokenValid$).toBeObservable(expected);
   });
 
   it('should navigate to "/" when loginSuccess$ effect is called', done => {
@@ -202,15 +177,6 @@ describe('AuthEffects', () => {
 
   it('should navigate to "/login" when loginRedirect$ effect is called', done => {
     const action = new SignupSuccess();
-    actions$ = of(action);
-    effects.loginRedirect$.subscribe(() => {
-      expect(routerService.navigate).toHaveBeenCalledWith(['/login']);
-      done();
-    });
-  });
-
-  it('should navigate to "/login" when TokenInvalid$ effect is called', done => {
-    const action = new TokenInvalid();
     actions$ = of(action);
     effects.loginRedirect$.subscribe(() => {
       expect(routerService.navigate).toHaveBeenCalledWith(['/login']);

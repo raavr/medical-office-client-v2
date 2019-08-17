@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
+import { AccessTokenGuard } from '../auth/services/access-token.guard';
 
 const routes: Routes = [{
-  path: '', component: HomeComponent
+  path: '', component: HomeComponent, canActivate: [ AccessTokenGuard ]
 }];
 
 @NgModule({

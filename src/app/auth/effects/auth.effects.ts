@@ -7,9 +7,7 @@ import {
   LoginFailure,
   Logout,
   DecodeTokenSuccess,
-  DecodeToken,
-  AutoLogin,
-  TokenInvalid
+  TokenValid
 } from '../actions/auth.actions';
 import {
   SignupActionTypes,
@@ -17,13 +15,11 @@ import {
   SignupSuccess,
   SignupFailure
 } from '../actions/signup.actions';
-import { of, iif } from 'rxjs';
 import {
   catchError,
   exhaustMap,
   map,
   tap,
-  mergeMap,
   switchMap
 } from 'rxjs/operators';
 import { Credentials } from '../models/user';
@@ -62,36 +58,19 @@ export class AuthEffects {
     ofType<LoginSuccess>(AuthActionTypes.LoginSuccess),
     map(action => action.payload),
     tap(({ token }: Token) => this.tokenService.setToken(token)),
-    map((token: Token) => new DecodeToken(token)),
+    map((token: Token) => new TokenValid(token)),
     tap(() => this.router.navigate(['/']))
   );
 
   @Effect()
-  decodeToken$ = this.actions$.pipe(
-    ofType<DecodeToken>(AuthActionTypes.DecodeToken),
+  tokenValid$ = this.actions$.pipe(
+    ofType<TokenValid>(AuthActionTypes.TokenValid),
     map(action => action.payload),
-    mergeMap(({ token }) =>
-      iif(
-        () => this.jwtHelper.isTokenExpired(token),
-        of(new TokenInvalid()),
-        of(token).pipe(
-          map(
-            (token: string) => this.jwtHelper.decodeToken(token) as TokenData
-          ),
-          switchMap(({ sub, role }) => [
-            new DecodeTokenSuccess({ id: sub, role }),
-            new ProfileGet(sub)
-          ])
-        )
-      )
-    )
-  );
-
-  @Effect()
-  autoLogin$ = this.actions$.pipe(
-    ofType<AutoLogin>(AuthActionTypes.AutoLogin),
-    map(() => this.tokenService.getToken()),
-    map((token: string) => new DecodeToken({ token }))
+    map(({ token }) => this.jwtHelper.decodeToken(token) as TokenData),
+    switchMap(({ sub, role }) => [
+      new DecodeTokenSuccess({ id: sub, role }),
+      new ProfileGet(sub)
+    ])
   );
 
   @Effect({ dispatch: false })
@@ -105,7 +84,6 @@ export class AuthEffects {
     ofType(
       AuthActionTypes.LoginRedirect,
       AuthActionTypes.Logout,
-      AuthActionTypes.TokenInvalid,
       SignupActionTypes.SignupSuccess
     ),
     tap(() => this.router.navigate(['/login']))
