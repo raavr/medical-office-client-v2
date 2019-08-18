@@ -1,0 +1,28 @@
+@import '../../../app.variables.scss';
+
+:host {
+  width: 100%;
+  padding: $dashboard-gap;
+
+  @media ($small-width) {
+    & {
+      width: calc(50% - 2 * #{$dashboard-gap});
+    }
+  }
+
+  @media ($large-width) {
+    & {
+      width: calc(25% - 2 * #{$dashboard-gap});
+    }
+  }
+}
+
+.dashboard__grid-item .mat-card-content {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  font-size: 2rem;
+}

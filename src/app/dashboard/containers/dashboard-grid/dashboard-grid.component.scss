@@ -1,0 +1,15 @@
+@import '../../../app.variables.scss';
+
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 -#{$dashboard-gap};
+  padding: $dashboard-gap 0;
+
+  & .mat-icon {
+    font-size: 5rem;
+    height: 50px;
+    width: 50px;
+  }
+}

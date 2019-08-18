@@ -2,12 +2,18 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
 import { DoctorGuard } from '../auth/services/doctor.guard';
+import { DashboardGridComponent } from './containers/dashboard-grid/dashboard-grid.component';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
     children: [
+      {
+        path: '',
+        component: DashboardGridComponent,
+        pathMatch: 'full'
+      },
       {
         path: 'visits',
         loadChildren: '../visits/visits.module#VisitsModule',

@@ -1,0 +1,16 @@
+<app-dashboard-grid-item link="/dashboard/visits/current">
+  <mat-icon>event_note</mat-icon>
+  <p>Zobacz wizyty</p>
+</app-dashboard-grid-item>
+<app-dashboard-grid-item *ngIf="isDoctor" link="/dashboard/schedule">
+  <mat-icon>schedule</mat-icon>
+  <p>Zobacz grafik</p>
+</app-dashboard-grid-item>
+<app-dashboard-grid-item *ngIf="isDoctor" link="/dashboard/patients">
+  <mat-icon>group</mat-icon>
+  <p>Zobacz listę pacjentów</p>
+</app-dashboard-grid-item>
+<app-dashboard-grid-item link="/account">
+  <mat-icon>account_circle</mat-icon>
+  <p>Zobacz moje konto</p>
+</app-dashboard-grid-item>
