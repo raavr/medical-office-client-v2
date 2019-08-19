@@ -14,7 +14,7 @@ import { CreatePatient } from '../../actions/create-patient.action';
   selector: 'app-patients',
   template: `
     <header class="app__header">
-      <h2 class="app-title">Lista pacjentów</h2>
+      <h2>Lista pacjentów</h2>
       <app-create-patient
         [pending]="createPatientPending$ | async"
         (createPatient)="createPatient($event)"

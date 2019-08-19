@@ -24,3 +24,10 @@
   max-height: 200px;
 }
 
+.mat-card {
+  @media ($middle-width) {
+    & {
+      margin-bottom: 0px;
+    }
+  }
+}

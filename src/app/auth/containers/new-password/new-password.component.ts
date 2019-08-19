@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
       [pending]="pending$ | async"
       (submitForm)="onSubmit($event)"
       class="flex-center"
-      [style.marginTop.px]="72"
+      [style.marginTop.px]="20"
     >
     </app-new-password-form>
   `,

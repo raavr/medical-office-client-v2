@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
       [pending]="pending$ | async"
       (submitForm)="onSubmit($event)"
       class="flex-center"
-      [style.marginTop.px]="72"
+      [style.marginTop.px]="20"
     >
     </app-reset-password-form>
   `,
