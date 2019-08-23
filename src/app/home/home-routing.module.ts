@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home.component';
+import { HomeComponent } from './containers/home/home.component';
 import { AccessTokenGuard } from '../auth/services/access-token.guard';
 
 const routes: Routes = [{

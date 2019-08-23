@@ -3,8 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { StoreModule, combineReducers, Store } from '@ngrx/store';
-import * as fromAuth from '../auth/reducers';
-import { DecodeTokenSuccess } from '../auth/actions/auth.actions';
+import * as fromAuth from '../../../auth/reducers';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -31,9 +30,13 @@ describe('HomeComponent', () => {
   });
   
   it('should create', () => {
-    store.dispatch(new DecodeTokenSuccess({ name: 'Test', id: '1'}));
-    fixture.detectChanges();
-
     expect(component).toBeTruthy();
+  });
+
+  it('should render <app-welcome>', () => {
+    const appWelcome = fixture.nativeElement.querySelector(
+      'app-welcome'
+    );
+    expect(appWelcome).not.toBeNull();
   });
 });

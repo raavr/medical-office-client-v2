@@ -43,11 +43,11 @@ import { NotificationsModule } from './notifications/notifications.module';
     MaterialModule,
     CoreModule,
     AuthModule,
+    NotificationsModule,
     HomeModule,
     NavbarModule,
     AccountModule,
     MomentDateModule.forRoot(),
-    NotificationsModule,
     AppRoutingModule,
   ],
   bootstrap: [AppComponent]

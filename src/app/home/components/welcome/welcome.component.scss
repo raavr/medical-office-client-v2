@@ -1,0 +1,27 @@
+@import '../../../app.variables.scss';
+
+.home {
+  & {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 100px;
+  }
+
+  &__title {
+    margin-bottom: 10px;
+    font-size: 4rem;
+    text-align: center;
+  }
+  
+  &__title--highlight {
+    color: mat-color($accent);
+  }
+  
+  &__subtitle {
+    margin-bottom: 30px;
+    font-size: 2rem;
+    text-align: center;
+  }
+}

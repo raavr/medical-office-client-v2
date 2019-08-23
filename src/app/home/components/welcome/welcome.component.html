@@ -1,0 +1,19 @@
+<div class="home">
+  <h2 class="home__title">
+    Witaj,
+    <span *ngIf="authUser; else welcome" class="home__title--highlight">
+      {{ authUser.name }} {{ authUser.surname }}
+    </span>
+    <ng-template #welcome>
+      <span class="home__title--highlight">...</span>
+    </ng-template>
+  </h2>
+  <p class="home__subtitle">
+    Masz
+    <span class="home__title--highlight">{{ notificationCounter }}</span>
+    {{ notificationCounter | i18nPlural: counterTextMapping }}
+  </p>
+  <button mat-raised-button color="primary" routerLink="/dashboard">
+    Przejdź do panelu
+  </button>
+</div>
