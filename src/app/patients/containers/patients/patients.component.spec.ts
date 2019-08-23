@@ -83,7 +83,7 @@ describe('PatientsComponent', () => {
   });
 
   it('should component have a title "Lista pacjentów"', () => {
-    const title = fixture.nativeElement.querySelector('.app-title');
+    const title = fixture.nativeElement.querySelector('h2');
     expect(title.textContent.trim()).toEqual('Lista pacjentów');
   });
 });
