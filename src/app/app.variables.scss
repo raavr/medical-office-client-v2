@@ -12,12 +12,14 @@ $amber: mat-color(mat-palette($mat-amber, A700));
 
 $sizes: (
   "xsmall": "500px",
+  "presmall": "600px",
   "small": "768px",
   "middle": "960px",
   "large": "1200px"
 );
 
 $xsmall-width: 'min-width: #{map-get($sizes, "xsmall")}';
+$presmall-width: 'min-width: #{map-get($sizes, "presmall")}';
 $small-width: 'min-width: #{map-get($sizes, "small")}';
 $middle-width: 'min-width: #{map-get($sizes, "middle")}';
 $large-width: 'min-width: #{map-get($sizes, "large")}';

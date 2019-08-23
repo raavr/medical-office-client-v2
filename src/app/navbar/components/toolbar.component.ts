@@ -3,7 +3,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-toolbar',
   template: `
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" class="app__toolbar">
       <mat-toolbar-row>
         <button *ngIf="showMenu" mat-icon-button (click)="toggleSidenav()">
           <mat-icon>menu</mat-icon>
@@ -14,7 +14,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       </mat-toolbar-row>
     </mat-toolbar>
   `,
-  styles: []
+  styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent {
   @Input() opened: Boolean;

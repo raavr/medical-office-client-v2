@@ -21,24 +21,8 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-
-    @media ($small-width) {
-      & {
-        width: 80%;
-      }
-    }
-
-    @media ($middle-width) {
-      & {
-        width: 60%;
-      }
-    }
-
-    @media ($large-width) {
-      & {
-        width: 50%;
-      }
-    }
+    min-width: 320px;
+    max-width: 380px;
   }
 
   &-title--center {

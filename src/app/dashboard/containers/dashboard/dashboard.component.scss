@@ -1,5 +1,9 @@
 @import '../../../app.variables.scss';
 
+:host {
+  width: 100%;
+}
+
 .dashboard__router {
   margin-top: $dash-menu-width;
 

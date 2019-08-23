@@ -1,17 +1,33 @@
+@import './app.variables.scss';
+
 .app__container {
   display: flex;
   flex-direction: column;
   position: absolute;
+  top: 0px;
+  bottom: 0;
   left: 0;
   right: 0;
-  top: 0;
-  bottom: 0;
 }
 
 .sidenav__container {
   flex: 1;
+  margin-top: 56px;
+
+  @media ($presmall-width) {
+    margin-top: 64px;
+  }
 }
 
-.main-content {
-  padding: 30px 50px 30px 50px;
+.sidenav-content-inner {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.router-content {
+  padding: 30px 50px 100px;
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: center;
 }

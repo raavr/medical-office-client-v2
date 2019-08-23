@@ -5,7 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: calc(100% - 16px);
+    width: 100%;
     height: $dash-menu-width;
     background: if(
       $is-dark-theme,

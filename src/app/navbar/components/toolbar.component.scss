@@ -1,0 +1,10 @@
+@import '../../app.variables.scss';
+
+.app__toolbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  @include mat-elevation(5);
+}

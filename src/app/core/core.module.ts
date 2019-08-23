@@ -10,6 +10,7 @@ import { FilterRowComponent } from './components/filter-row/filter-row.component
 import { FilterCellComponent } from './components/filter-cell/filter-cell.component';
 import { DialogVisitRejectionComponent } from './components/dialog-visit-rejection/dialog-visit-rejection.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     DialogConfirmationComponent,
     FilterRowComponent,
     FilterCellComponent,
-    DialogVisitRejectionComponent
+    DialogVisitRejectionComponent,
+    FooterComponent
   ],
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   providers: [AlertFactoryService],
@@ -27,7 +29,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     NotFoundComponent,
     DisableControlDirective,
     FilterRowComponent,
-    FilterCellComponent
+    FilterCellComponent,
+    FooterComponent
   ],
   entryComponents: [
     AlertComponent,

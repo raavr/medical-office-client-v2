@@ -1,0 +1,22 @@
+@import '../../../app.variables.scss';
+
+.app__footer {
+  background-color: if(
+    $is-dark-theme,
+    map-get($mat-grey, 900),
+    mat-color($primary)
+  );
+  padding: 30px;
+  position: relative;
+  z-index: 3;
+  color: $light-primary-text;
+  font-size: 1.4rem;
+
+  p {
+    text-align: center;
+  }
+
+  p:first-child {
+    margin-bottom: 3px;
+  }
+}

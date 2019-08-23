@@ -11,8 +11,23 @@
       <button mat-menu-item routerLink="/dashboard">Dashboard</button>
       <button mat-menu-item (click)="logout()">Wyloguj</button>
     </app-menu>
-    <button *ngIf="!(loggedIn$ | async)" mat-button color="accent" routerLink="/login" [style.marginRight.px]="5">Zaloguj</button>
-    <button *ngIf="!(loggedIn$ | async)" mat-raised-button color="accent" routerLink="/signup">Zarejestruj się</button>
+    <button
+      *ngIf="!(loggedIn$ | async)"
+      mat-button
+      color="accent"
+      routerLink="/login"
+      [style.marginRight.px]="5"
+    >
+      Zaloguj
+    </button>
+    <button
+      *ngIf="!(loggedIn$ | async)"
+      mat-raised-button
+      color="accent"
+      routerLink="/signup"
+    >
+      Zarejestruj się
+    </button>
   </app-toolbar>
   <mat-sidenav-container
     (backdropClick)="closeSidenav()"
@@ -44,7 +59,12 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="main-content">
-      <router-outlet></router-outlet>
+      <div class="sidenav-content-inner">
+        <div class="router-content">
+          <router-outlet></router-outlet>
+        </div>
+        <app-footer></app-footer>
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
