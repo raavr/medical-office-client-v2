@@ -22,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AccountModule } from './account/account.module';
 import { MomentDateModule } from './material/moment-date.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { MaterialPaginatorIntlModule } from './material/material-paginator-intl.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -48,6 +49,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     NavbarModule,
     AccountModule,
     MomentDateModule.forRoot(),
+    MaterialPaginatorIntlModule.forRoot(),
     AppRoutingModule,
   ],
   bootstrap: [AppComponent]
