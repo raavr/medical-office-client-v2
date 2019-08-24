@@ -4,6 +4,8 @@
   &__avatar {
     width: 150px;
     height: 150px;
+    min-width: 150px;
+    min-height: 150px;
     margin-bottom: 20px;
 
     @media ($small-width) {

@@ -40,7 +40,13 @@ dl {
 
 dd {
   margin-left: 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  
+  @media ($small-width) {
+    & {
+      margin-bottom: 20px;
+    }
+  }
 }
 
 dt {
