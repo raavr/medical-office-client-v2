@@ -10,7 +10,7 @@ import { hot, cold } from 'jasmine-marbles';
 import { AlertShow } from 'src/app/core/actions/alert.actions';
 import { ALERT_TYPE } from 'src/app/core/components/alert/alert-factory.service';
 import * as utilFun from '../../core/utils/utils';
-import { StoreModule, combineReducers, Store } from '@ngrx/store';
+import { StoreModule, combineReducers } from '@ngrx/store';
 import {
   GetUnavailableDates,
   GetUnavailableDatesSuccess,
@@ -26,11 +26,14 @@ import {
 } from '../actions/book-visit.action';
 import { User } from 'src/app/auth/models/user';
 import { GetVisits } from '../actions/visits.action';
+import { PatientsService } from 'src/app/patients/services/patients.service';
+import { PatientsApi } from 'src/app/patients/models/patient';
 
 describe('BookVisitEffects', () => {
   let actions$: Observable<any>;
   let effects: BookVisitEffects;
   let service: BookVisitService;
+  let patientsService: PatientsService;
   let status: number;
 
   beforeEach(() => {
@@ -49,9 +52,14 @@ describe('BookVisitEffects', () => {
           useValue: {
             getUnavailableDates: () => {},
             getAvailableTimes: () => {},
-            getPatientsByName: () => {},
             getDoctors: () => {},
             bookVisit: () => {}
+          }
+        },
+        {
+          provide: PatientsService,
+          useValue: {
+            getPatients: () => {}
           }
         }
       ]
@@ -59,6 +67,7 @@ describe('BookVisitEffects', () => {
 
     effects = TestBed.get(BookVisitEffects);
     service = TestBed.get(BookVisitService);
+    patientsService = TestBed.get(PatientsService);
     status = 401;
   });
 
@@ -142,20 +151,23 @@ describe('BookVisitEffects', () => {
   });
 
   it('should return the GetPatientsByNameSuccess action if getPatientsByName effect succeeds', () => {
-    const users: User[] = [
-      {
-        id: '1',
-        name: 'Rafal',
-        role: 'patient'
-      }
-    ];
+    const patientsApi: PatientsApi = {
+      patients: [
+        {
+          id: '1',
+          name: 'Rafal',
+          role: 'patient'
+        }
+      ],
+      totalItems: 1
+    };
     const action = new GetPatientsByName('Ra');
-    const completion = new GetPatientsByNameSuccess(users);
+    const completion = new GetPatientsByNameSuccess(patientsApi.patients);
 
     actions$ = hot('-a---', { a: action });
-    const response = cold('-a|', { a: users });
+    const response = cold('-a|', { a: patientsApi });
     const expected = cold('--b', { b: completion });
-    service.getPatientsByName = () => response;
+    patientsService.getPatients = () => response;
 
     expect(effects.getPatientsByName$).toBeObservable(expected);
   });
@@ -179,7 +191,7 @@ describe('BookVisitEffects', () => {
     const expected = cold('--b', {
       b: completion
     });
-    service.getPatientsByName = () => response;
+    patientsService.getPatients = () => response;
 
     expect(effects.getPatientsByName$).toBeObservable(expected);
   });
@@ -241,7 +253,7 @@ describe('BookVisitEffects', () => {
     const message = 'OK';
 
     actions$ = hot('-a---', { a: action });
-    const response = cold('-a|', { a: { message }});
+    const response = cold('-a|', { a: { message } });
     const expected = cold('--(bcd)', {
       b: completion[0],
       c: completion[1],

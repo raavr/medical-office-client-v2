@@ -14,12 +14,14 @@ import {
   DoctorsDateDto
 } from '../models/visit-booking';
 import { User } from 'src/app/auth/models/user';
+import { PatientsService } from 'src/app/patients/services/patients.service';
 
 @Injectable()
 export class BookVisitEffects {
   constructor(
     private actions$: Actions,
-    private bookVisitService: BookVisitService
+    private bookVisitService: BookVisitService,
+    private patientsService: PatientsService
   ) {}
 
   @Effect()
@@ -83,7 +85,8 @@ export class BookVisitEffects {
     ),
     map(action => action.payload),
     exhaustMap((payload: string) =>
-      this.bookVisitService.getPatientsByName(payload).pipe(
+      this.patientsService.getPatients({ name: payload }).pipe(
+        map(patientsApi => patientsApi.patients),
         map(
           (patients: User[]) =>
             new BookVisitActions.GetPatientsByNameSuccess(patients)

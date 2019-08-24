@@ -28,12 +28,6 @@ export class BookVisitService {
     }) as Observable<VisitTime[]>;
   }
 
-  getPatientsByName(name: string) {
-    return this.http.get(ENDPOINT + '/api/patients', {
-      params: { name }
-    }) as Observable<User[]>;
-  }
-
   getDoctors() {
     return this.http.get(ENDPOINT + '/api/doctors') as Observable<User[]>;
   }

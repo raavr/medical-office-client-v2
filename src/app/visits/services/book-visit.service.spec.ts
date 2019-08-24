@@ -71,15 +71,6 @@ describe('BookVisitService', () => {
     );
   });
 
-  it('should call httpClient.get with the specific URL and request params when getPatientsByName method is called', () => {
-    const name = 'Test';
-    service.getPatientsByName(name);
-
-    expect(httpClient.get).toHaveBeenCalledWith(`${ENDPOINT}/api/patients`, {
-      params: { name }
-    });
-  });
-
   it('should call httpClient.get with the specific URL when getDoctors method is called', () => {
     service.getDoctors();
 
