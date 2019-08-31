@@ -10,8 +10,14 @@
   border-color: if($is-dark-theme, $light-dividers, $dark-dividers);
   flex-direction: column;
   min-height: auto;
-  padding: 20px 24px;
+  padding: 15px;
 
+  @media($xsmall-width) {
+    & {
+      padding: 20px 24px;
+    }
+  }
+  
   @media($small-width) {
     & {
       min-height: inherit;

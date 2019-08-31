@@ -1,34 +1,34 @@
-<div class="app__container">
-  <app-toolbar
-    [opened]="showSidenav$ | async"
-    (openSidenav)="openSidenav()"
-    (closeSidenav)="closeSidenav()"
-    [showMenu]="(media$ | async)[XSmall]"
+<app-toolbar
+  [opened]="showSidenav$ | async"
+  (openSidenav)="openSidenav()"
+  (closeSidenav)="closeSidenav()"
+  [showMenu]="(media$ | async)[XSmall]"
+>
+  <app-notification *ngIf="loggedIn$ | async"></app-notification>
+  <app-menu *ngIf="loggedIn$ | async" [avatar]="profile?.avatar">
+    <button mat-menu-item routerLink="/account">Moje konto</button>
+    <button mat-menu-item routerLink="/dashboard">Dashboard</button>
+    <button mat-menu-item (click)="logout()">Wyloguj</button>
+  </app-menu>
+  <button
+    *ngIf="!(loggedIn$ | async)"
+    mat-button
+    color="accent"
+    routerLink="/login"
+    [style.marginRight.px]="5"
   >
-    <app-notification *ngIf="loggedIn$ | async"></app-notification>
-    <app-menu *ngIf="loggedIn$ | async" [avatar]="profile?.avatar">
-      <button mat-menu-item routerLink="/account">Moje konto</button>
-      <button mat-menu-item routerLink="/dashboard">Dashboard</button>
-      <button mat-menu-item (click)="logout()">Wyloguj</button>
-    </app-menu>
-    <button
-      *ngIf="!(loggedIn$ | async)"
-      mat-button
-      color="accent"
-      routerLink="/login"
-      [style.marginRight.px]="5"
-    >
-      Zaloguj
-    </button>
-    <button
-      *ngIf="!(loggedIn$ | async)"
-      mat-raised-button
-      color="accent"
-      routerLink="/signup"
-    >
-      Zarejestruj się
-    </button>
-  </app-toolbar>
+    Zaloguj
+  </button>
+  <button
+    *ngIf="!(loggedIn$ | async)"
+    mat-raised-button
+    color="accent"
+    routerLink="/signup"
+  >
+    Zarejestruj się
+  </button>
+</app-toolbar>
+<div class="sidenav__wrapper">
   <mat-sidenav-container
     (backdropClick)="closeSidenav()"
     class="sidenav__container"
@@ -38,6 +38,7 @@
       [opened]="showSidenav$ | async"
       [position]="'start'"
       (keydown.escape)="sidenav.close(); closeSidenav()"
+      class="sidenav"
     >
       <mat-nav-list>
         <app-nav-item

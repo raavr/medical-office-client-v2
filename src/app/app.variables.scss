@@ -32,5 +32,8 @@ $filter-table-width: (
 );
 
 $dash-menu-width: 60px;
-$notf-width: 320px;
+$notf-width: (
+  "xsmall": 300px,
+  "small": 320px
+);
 $dashboard-gap: 15px;

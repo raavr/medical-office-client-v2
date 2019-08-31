@@ -1,12 +1,19 @@
 @import '../../../app.variables.scss';
 
-.app__container .notifications__btn {
+.notifications__btn {
   margin-right: 20px;
 }
 
 .mat-menu-panel.notifications {
-  max-width: $notf-width;
-  width: $notf-width;
+  max-width: map-get($notf-width, "xsmall");
+  width: map-get($notf-width, "xsmall");
+
+  @media($xsmall-width) {
+    & {
+      max-width: map-get($notf-width, "small");
+      width: map-get($notf-width, "small");
+    }
+  }
 }
 
 .notifications {

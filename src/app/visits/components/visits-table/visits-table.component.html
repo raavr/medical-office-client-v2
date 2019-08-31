@@ -70,8 +70,9 @@
           alt="{{ row.patient?.name }} {{ row.patient?.surname }}"
           style="height: 30px; width: 30px; margin-right: 5px; min-width: 30px; min-height: 30px;"
         />
-        <span [style.paddingRight.px]="24">
-          {{ row.patient?.name }} {{ row.patient?.surname }}</span
+        <span class="table__cell" title="{{ row.patient?.name }} {{ row.patient?.surname }}">
+          <span class="word-ellipsis" [style.marginRight.px]="3">{{ row.patient?.name }}  </span>
+          <span class="word-ellipsis">{{ row.patient?.surname }}</span></span
         >
       </mat-cell>
     </ng-container>
@@ -94,8 +95,9 @@
             alt="{{ row.doctor?.name }} {{ row.doctor?.surname }}"
             style="height: 30px; width: 30px; margin-right: 5px; min-width: 30px; min-height: 30px;"
           />
-          <span [style.paddingRight.px]="24">
-            {{ row.doctor?.name }} {{ row.doctor?.surname }}</span
+          <span class="table__cell">
+            <span class="word-ellipsis">{{ row.doctor?.name }} </span>
+            <span class="word-ellipsis">{{ row.doctor?.surname }}</span></span
           >
         </mat-cell>
       </ng-container>

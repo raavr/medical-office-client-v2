@@ -2,17 +2,20 @@
   <mat-table [dataSource]="patients" class="patients">
     <ng-container cdkColumnDef="name">
       <mat-header-cell *cdkHeaderCellDef>
-        Imię i nazwisko
+        Pacjent
       </mat-header-cell>
       <mat-cell *cdkCellDef="let row">
-        <span class="mobile-table-label">Imię i nazwisko:</span>
+        <span class="mobile-table-label">Pacjent:</span>
         <img
           [src]="row.avatar"
           alt="{{ row.name }} {{ row.surname }}"
           style="height: 30px; width: 30px; margin-right: 5px; min-width: 30px; min-height: 30px;"
         />
-        <span [style.paddingRight.px]="24">
-          {{ row.name }} {{ row.surname }}</span
+        <span class="table__cell" title="{{ row.name }} {{ row.surname }}">
+          <span class="word-ellipsis" [style.marginRight.px]="3"
+            >{{ row.name }}
+          </span>
+          <span class="word-ellipsis">{{ row.surname }}</span></span
         >
       </mat-cell>
     </ng-container>
@@ -23,7 +26,9 @@
       </mat-header-cell>
       <mat-cell *cdkCellDef="let row">
         <span class="mobile-table-label">Email</span>
-        <span [style.paddingRight.px]="24"> {{ row.email }}</span>
+        <span class="table__cell" title="{{ row.email }}"
+          ><span class="word-ellipsis">{{ row.email }}</span></span
+        >
       </mat-cell>
     </ng-container>
 
