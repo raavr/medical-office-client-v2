@@ -14,13 +14,13 @@
     );
     position: fixed;
     left: 0;
-    top: 56px;
+    top: map-get($toolbar-height, 'xsmall');;
     z-index: 2;
     @include mat-elevation(2);
 
     @media ($small-width) {
       & {
-        height: calc(100% - 56px);
+        height: calc(100% - #{map-get($toolbar-height, 'small')});
         width: $dash-menu-width;
         flex-direction: column;
         justify-content: flex-start;
@@ -30,7 +30,7 @@
 
     @media (min-width: '599px') {
       & {
-        top: 64px;
+        top: map-get($toolbar-height, 'small');;
       }
     }
   }

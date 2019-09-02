@@ -10,62 +10,10 @@
     <button mat-menu-item routerLink="/dashboard">Dashboard</button>
     <button mat-menu-item (click)="logout()">Wyloguj</button>
   </app-menu>
-  <button
-    *ngIf="!(loggedIn$ | async)"
-    mat-button
-    color="accent"
-    routerLink="/login"
-    [style.marginRight.px]="5"
-  >
-    Zaloguj
-  </button>
-  <button
-    *ngIf="!(loggedIn$ | async)"
-    mat-raised-button
-    color="accent"
-    routerLink="/signup"
-  >
-    Zarejestruj się
-  </button>
+  <app-sign-menu [loggedIn]="loggedIn$ | async"></app-sign-menu>
 </app-toolbar>
-<div class="sidenav__wrapper">
-  <mat-sidenav-container
-    (backdropClick)="closeSidenav()"
-    class="sidenav__container"
-  >
-    <mat-sidenav
-      #sidenav
-      [opened]="showSidenav$ | async"
-      [position]="'start'"
-      (keydown.escape)="sidenav.close(); closeSidenav()"
-      class="sidenav"
-    >
-      <mat-nav-list>
-        <app-nav-item
-          (navigate)="closeSidenav()"
-          routerLink="/"
-          icon="home"
-          desc="Przejdź do strony głównej"
-        >
-          Strona główna
-        </app-nav-item>
-        <app-nav-item
-          (navigate)="closeSidenav()"
-          routerLink="/dashboard"
-          icon="dashboard"
-          desc="Przejdź do panelu"
-        >
-          Mój panel
-        </app-nav-item>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content class="main-content">
-      <div class="sidenav-content-inner">
-        <div class="router-content">
-          <router-outlet></router-outlet>
-        </div>
-        <app-footer></app-footer>
-      </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+<app-sidenav-container
+  [showSidenav]="showSidenav$ | async"
+  [loggedIn]="loggedIn$ | async"
+  (closeSidenav)="closeSidenav()"
+></app-sidenav-container>

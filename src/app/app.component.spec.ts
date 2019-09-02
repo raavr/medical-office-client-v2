@@ -54,12 +54,6 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render a router-outlet', () => {
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('router-outlet')).toBeDefined();
-  });
-
   it('should call alertService.create when alert action is called', () => {
     const payload = { message: 'Testowa', alertType: ALERT_TYPE.SUCCESS };
     const action = new AlertShow(payload);

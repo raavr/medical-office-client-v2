@@ -23,9 +23,19 @@ import { AccountModule } from './account/account.module';
 import { MomentDateModule } from './material/moment-date.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { MaterialPaginatorIntlModule } from './material/material-paginator-intl.module';
+import { FooterComponent } from './root/components/footer/footer.component';
+import { SidenavContainerComponent } from './root/components/sidenav-container/sidenav-container.component';
+import { SignMenuComponent } from './root/components/sign-menu/sign-menu.component';
+import { NotFoundComponent } from './root/components/not-found/not-found.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    FooterComponent,
+    SidenavContainerComponent,
+    SignMenuComponent,
+    NotFoundComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -50,7 +60,7 @@ import { MaterialPaginatorIntlModule } from './material/material-paginator-intl.
     AccountModule,
     MomentDateModule.forRoot(),
     MaterialPaginatorIntlModule.forRoot(),
-    AppRoutingModule,
+    AppRoutingModule
   ],
   bootstrap: [AppComponent]
 })

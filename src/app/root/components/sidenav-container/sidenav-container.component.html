@@ -1,0 +1,39 @@
+<mat-sidenav-container
+  (backdropClick)="closeSidenav.emit()"
+  class="sidenav__container"
+>
+  <mat-sidenav
+    #sidenav
+    [opened]="showSidenav"
+    [position]="'start'"
+    (keydown.escape)="sidenav.close(); closeSidenav.emit()"
+    class="sidenav"
+  >
+    <mat-nav-list>
+      <app-nav-item
+        (navigate)="closeSidenav.emit()"
+        routerLink="/"
+        icon="home"
+        desc="Przejdź do strony głównej"
+      >
+        Strona główna
+      </app-nav-item>
+      <app-nav-item *ngIf="loggedIn"
+        (navigate)="closeSidenav.emit()"
+        routerLink="/dashboard"
+        icon="dashboard"
+        desc="Przejdź do panelu"
+      >
+        Mój panel
+      </app-nav-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="main-content">
+    <div class="sidenav-content-inner">
+      <div class="router-content">
+        <router-outlet></router-outlet>
+      </div>
+      <app-footer></app-footer>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

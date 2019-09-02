@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NotFoundComponent } from './core/components/not-found.component';
 import { AccountComponent } from './account/containers/account/account.component';
 import { ProfileGuard } from './account/services/profile.guard';
 import { AccessTokenGuard } from './auth/services/access-token.guard';
+import { NotFoundComponent } from './root/components/not-found/not-found.component';
 
 const routes: Routes = [
   {
