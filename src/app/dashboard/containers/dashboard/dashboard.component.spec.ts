@@ -13,7 +13,8 @@ describe('DashboardComponent', () => {
   let fixture: ComponentFixture<DashboardComponent>;
   let store: Store<fromRoot.State>;
   const initialState = {
-    auth: { session: { user: { role: 'doctor' } } }
+    auth: { session: { user: { role: 'doctor' } } },
+    media: { 'max-width: 768px': true }
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({

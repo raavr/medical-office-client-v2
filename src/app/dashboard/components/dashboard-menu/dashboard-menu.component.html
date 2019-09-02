@@ -4,6 +4,8 @@
   >
     <a
       routerLink="/dashboard/visits/current"
+      matTooltip="Zobacz wizyty"
+      [matTooltipPosition]="isMobile ? 'below' : 'after'"
       class="dashboard__link link link--light-primary"
     >
       <mat-icon>event_note</mat-icon>
@@ -19,6 +21,8 @@
   <a
     routerLink="/dashboard/schedule"
     routerLinkActive="dashboard__link--active"
+    matTooltip="Zobacz grafik"
+    [matTooltipPosition]="isMobile ? 'below' : 'after'"
     class="dashboard__link link link--light-primary"
   >
     <mat-icon>schedule</mat-icon>
@@ -26,6 +30,8 @@
   <a
     routerLink="/dashboard/patients"
     routerLinkActive="dashboard__link--active"
+    matTooltip="Zobacz pacjentów"
+    [matTooltipPosition]="isMobile ? 'below' : 'after'"
     class="dashboard__link link link--light-primary"
   >
     <mat-icon>group</mat-icon>

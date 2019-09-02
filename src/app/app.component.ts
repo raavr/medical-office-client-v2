@@ -13,6 +13,7 @@ import { takeUntil, filter } from 'rxjs/operators';
 import { MediaActions } from './core/actions/';
 import { AlertFactoryService } from './core/components/alert/alert-factory.service';
 import { Alert } from './core/model/alert.interface';
+import { APP_BREAKPOINTS } from './core/constants/breakpoints.constant';
 
 @Component({
   selector: 'app-root',
@@ -64,7 +65,8 @@ export class AppComponent {
         Breakpoints.XSmall,
         Breakpoints.Small,
         Breakpoints.Medium,
-        Breakpoints.Large
+        Breakpoints.Large,
+        APP_BREAKPOINTS.Mobile
       ])
       .pipe(takeUntil(this.unsub$))
       .subscribe(result => {

@@ -40,6 +40,7 @@
           mat-flat-button
           color="primary"
           routerLink="/dashboard/visits/current"
+          matTooltip="Zobacz wizyty"
           [queryParams]="{ name: row.name + ' ' + row.surname }"
         >
           <mat-icon>call_made</mat-icon>
@@ -47,6 +48,7 @@
         <button
           mat-flat-button
           color="warn"
+          matTooltip="Usuń konto pacjenta"
           (click)="removePatient(row)"
           [style.marginLeft.px]="5"
         >

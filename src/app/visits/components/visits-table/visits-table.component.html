@@ -125,13 +125,14 @@
       <mat-header-cell *cdkHeaderCellDef> Akcje </mat-header-cell>
       <mat-cell *cdkCellDef="let row">
         <span class="mobile-table-label">Akcje:</span>
-        <button mat-flat-button color="primary" (click)="showMore(row)">
+        <button mat-flat-button color="primary" (click)="showMore(row)" matTooltip="Zobacz więcej">
           <mat-icon>more_horiz</mat-icon>
         </button>
         <button
           *ngIf="!isDoctor && row.status === 'reserved'"
           mat-flat-button
           color="warn"
+          matTooltip="Usuń rezerwację"
           (click)="cancelVisit(row)"
           [style.marginLeft.px]="5"
         >
