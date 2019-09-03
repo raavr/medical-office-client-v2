@@ -173,7 +173,5 @@
     [length]="totalItems"
     (page)="changePaginator($event)"
   ></mat-paginator>
-  <div *ngIf="pending" class="card-loading">
-    <mat-spinner></mat-spinner>
-  </div>
+  <app-loading-spinner *ngIf="pending"></app-loading-spinner>
 </div>

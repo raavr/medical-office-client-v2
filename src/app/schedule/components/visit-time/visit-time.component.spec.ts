@@ -106,13 +106,13 @@ describe("VisitTimeComponent", () => {
       expect(matIcon).not.toBeNull();
     });
 
-    it("should dispay mat-spinner if pending property equals true", () => {
-      let matSpinner = host.querySelector("mat-spinner");
-      expect(matSpinner).toBeNull();
+    it("should dispay app-loading-spinner if pending property equals true", () => {
+      let loading = host.querySelector("app-loading-spinner");
+      expect(loading).toBeNull();
       component.pending = true;
       fixture.detectChanges();
-      matSpinner = host.querySelector("mat-spinner");
-      expect(matSpinner).not.toBeNull();
+      loading = host.querySelector("app-loading-spinner");
+      expect(loading).not.toBeNull();
     });
 
     it("should emit times object when save btn is clicked", () => {

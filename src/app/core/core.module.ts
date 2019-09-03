@@ -10,6 +10,7 @@ import { FilterCellComponent } from './components/filter-cell/filter-cell.compon
 import { DialogVisitRejectionComponent } from './components/dialog-visit-rejection/dialog-visit-rejection.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AvatarImgComponent } from './components/avatar-img/avatar-img.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AvatarImgComponent } from './components/avatar-img/avatar-img.component
     FilterRowComponent,
     FilterCellComponent,
     DialogVisitRejectionComponent,
-    AvatarImgComponent
+    AvatarImgComponent,
+    LoadingSpinnerComponent
   ],
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   providers: [AlertFactoryService],
@@ -27,7 +29,8 @@ import { AvatarImgComponent } from './components/avatar-img/avatar-img.component
     DisableControlDirective,
     FilterRowComponent,
     FilterCellComponent,
-    AvatarImgComponent
+    AvatarImgComponent,
+    LoadingSpinnerComponent
   ],
   entryComponents: [
     AlertComponent,
