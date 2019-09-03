@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers';
 import { RouterModule } from '@angular/router';
 import { MenuComponent } from './components/menu.component';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { MenuComponent } from './components/menu.component';
   imports: [
     CommonModule,
     MaterialModule,
+    CoreModule,
     RouterModule,
     StoreModule.forFeature('navbar', reducers),
   ],

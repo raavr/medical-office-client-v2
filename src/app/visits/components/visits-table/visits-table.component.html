@@ -65,11 +65,12 @@
         [class.is-doctor]="isDoctor && isCurrentTab"
       >
         <span class="mobile-table-label">Pacjent:</span>
-        <img
+        <app-avatar-img
           [src]="row.patient?.avatar"
+          [size]="30"
+          [style.marginRight.px]="5"
           alt="{{ row.patient?.name }} {{ row.patient?.surname }}"
-          style="height: 30px; width: 30px; margin-right: 5px; min-width: 30px; min-height: 30px;"
-        />
+        ></app-avatar-img>
         <span class="table__cell" title="{{ row.patient?.name }} {{ row.patient?.surname }}">
           <span class="word-ellipsis" [style.marginRight.px]="3">{{ row.patient?.name }}  </span>
           <span class="word-ellipsis">{{ row.patient?.surname }}</span></span
@@ -90,13 +91,14 @@
           [class.is-doctor]="isDoctor && isCurrentTab"
         >
           <span class="mobile-table-label">Doktor:</span>
-          <img
+          <app-avatar-img
             [src]="row.doctor?.avatar"
+            [size]="30"
+            [style.marginRight.px]="5"
             alt="{{ row.doctor?.name }} {{ row.doctor?.surname }}"
-            style="height: 30px; width: 30px; margin-right: 5px; min-width: 30px; min-height: 30px;"
-          />
+          ></app-avatar-img>
           <span class="table__cell">
-            <span class="word-ellipsis">{{ row.doctor?.name }} </span>
+            <span class="word-ellipsis" [style.marginRight.px]="3">{{ row.doctor?.name }} </span>
             <span class="word-ellipsis">{{ row.doctor?.surname }}</span></span
           >
         </mat-cell>

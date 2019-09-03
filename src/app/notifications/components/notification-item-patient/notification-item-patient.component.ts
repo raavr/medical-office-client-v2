@@ -5,7 +5,12 @@ import { PatientNotification } from '../../models/patient-notification.interface
   selector: 'app-notification-item-patient',
   template: `
     <div mat-menu-item (click)="onNotificationClicked.emit(notification)">
-      <img [src]="notification?.doctor?.avatar" class="notifications__avatar" />
+      <app-avatar-img
+        [src]="notification?.doctor?.avatar"
+        [size]="35"
+        [style.marginRight.px]="10"
+        alt="{{ notification?.doctor?.name }} {{ notification?.doctor?.surname }}"
+      ></app-avatar-img>
       <span
         >Wizyta w dniu
         <span

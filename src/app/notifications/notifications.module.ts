@@ -13,6 +13,7 @@ import { NotificationItemPatientComponent } from './components/notification-item
 import { DialogPatientNotificationComponent } from './components/dialog-patient-notification/dialog-patient-notification.component';
 import { DialogDoctorNotificationComponent } from './components/dialog-doctor-notification/dialog-doctor-notification.component';
 import { DoctorActionEffects } from '../visits/effects/doctor-action.effects';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { DoctorActionEffects } from '../visits/effects/doctor-action.effects';
   imports: [
     CommonModule,
     MaterialModule,
+    CoreModule,
     StoreModule.forFeature('notification', fromNotification.reducers),
     EffectsModule.forFeature([NotificationEffects, DoctorActionEffects])
   ],

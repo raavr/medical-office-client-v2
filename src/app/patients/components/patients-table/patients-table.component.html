@@ -6,11 +6,12 @@
       </mat-header-cell>
       <mat-cell *cdkCellDef="let row">
         <span class="mobile-table-label">Pacjent:</span>
-        <img
+        <app-avatar-img
           [src]="row.avatar"
+          [size]="30"
+          [style.marginRight.px]="5"
           alt="{{ row.name }} {{ row.surname }}"
-          style="height: 30px; width: 30px; margin-right: 5px; min-width: 30px; min-height: 30px;"
-        />
+        ></app-avatar-img>
         <span class="table__cell" title="{{ row.name }} {{ row.surname }}">
           <span class="word-ellipsis" [style.marginRight.px]="3"
             >{{ row.name }}

@@ -5,29 +5,18 @@ import { User } from 'src/app/auth/models/user';
   selector: 'app-menu',
   template: `
     <button mat-button [matMenuTriggerFor]="menu" class="menu__button">
-      <img
+      <app-avatar-img
         *ngIf="avatar"
         [src]="avatar"
-        class="menu__avatar"
-      />
+        [size]="40"
+      ></app-avatar-img>
       <mat-icon>arrow_drop_down</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <ng-content></ng-content>
     </mat-menu>
   `,
-  styles: [
-    `
-      .menu__button {
-        padding: 0;
-      }
-
-      .menu__avatar {
-        width: 40px;
-        height: 40px;
-      }
-    `
-  ]
+  styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
   @Input() avatar: string;

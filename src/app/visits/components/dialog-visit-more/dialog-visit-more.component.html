@@ -30,13 +30,22 @@
       <dd>{{ data.visit.rejectReason }}</dd>
     </ng-container>
   </dl>
-  <img
-    *ngIf="data.isDoctor; else doctorAvatar"
-    src="{{ data.visit.patient.avatar }}"
-    class="dialog__avatar"
-  />
+    <app-avatar-img
+      *ngIf="data.isDoctor; else doctorAvatar"
+      [src]="data.visit.patient.avatar"
+      [size]="150"
+      [radius]="5"
+      alt="{{ data.visit.patient.name }} {{ data.visit.patient.surname }}"
+      class="dialog__avatar"
+  ></app-avatar-img>
   <ng-template #doctorAvatar>
-    <img src="{{ data.visit.doctor.avatar }}" class="dialog__avatar" />
+    <app-avatar-img
+      [src]="data.visit.doctor.avatar"
+      [size]="150"
+      [radius]="5"
+      alt="{{ data.visit.doctor.name }} {{ data.visit.doctor.surname }}"
+      class="dialog__avatar"
+  ></app-avatar-img>
   </ng-template>
 </div>
 <footer mat-dialog-actions class="dialog__footer">

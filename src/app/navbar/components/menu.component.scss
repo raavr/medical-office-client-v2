@@ -1,0 +1,9 @@
+.menu__button {
+  padding: 0;
+}
+
+:host, :host ::ng-deep .mat-button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

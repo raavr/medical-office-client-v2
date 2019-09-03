@@ -5,10 +5,12 @@ import { Visit } from 'src/app/visits/models/visit';
   selector: 'app-notification-item-doctor',
   template: `
     <div mat-menu-item (click)="onNotificationClicked.emit(notification)">
-      <img
+      <app-avatar-img
         [src]="notification?.patient?.avatar"
-        class="notifications__avatar"
-      />
+        [size]="35"
+        [style.marginRight.px]="10"
+        alt="{{ notification?.patient?.name }} {{ notification?.patient?.surname }}"
+      ></app-avatar-img>
       <span
         >{{ notification?.patient?.name }}
         {{ notification?.patient?.surname }} zapisał się na wizytę

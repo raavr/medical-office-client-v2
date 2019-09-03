@@ -9,6 +9,7 @@ import { FilterRowComponent } from './components/filter-row/filter-row.component
 import { FilterCellComponent } from './components/filter-cell/filter-cell.component';
 import { DialogVisitRejectionComponent } from './components/dialog-visit-rejection/dialog-visit-rejection.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AvatarImgComponent } from './components/avatar-img/avatar-img.component';
 
 @NgModule({
   declarations: [
@@ -17,11 +18,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     DialogConfirmationComponent,
     FilterRowComponent,
     FilterCellComponent,
-    DialogVisitRejectionComponent
+    DialogVisitRejectionComponent,
+    AvatarImgComponent
   ],
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   providers: [AlertFactoryService],
-  exports: [DisableControlDirective, FilterRowComponent, FilterCellComponent],
+  exports: [
+    DisableControlDirective,
+    FilterRowComponent,
+    FilterCellComponent,
+    AvatarImgComponent
+  ],
   entryComponents: [
     AlertComponent,
     DialogConfirmationComponent,
