@@ -26,7 +26,7 @@ import { UpdateStatus } from 'src/app/visits/actions/visits-status.action';
       [totalItems]="totalItems$ | async"
       [isAnimationRunning]="animationPending$ | async"
       [isDoctor]="isDoctor$ | async"
-      (getNotifications)="getNotifications($event)"
+      (getNotifications)="getNotifications()"
       (markAsRead)="markAsRead($event)"
       (markAllAsRead)="markAllAsRead()"
       (modifyVisitStatus)="onVisitsStatusModified($event)"

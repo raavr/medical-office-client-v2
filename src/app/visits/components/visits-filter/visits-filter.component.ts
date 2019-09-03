@@ -19,11 +19,7 @@ import {
 } from 'rxjs/operators';
 import { MatSelectChange } from '@angular/material';
 
-enum InputType {
-  DATE = 'date',
-  TIME = 'time',
-  USERNAME = 'userName'
-}
+type InputType = 'date' | 'time' | 'userName';
 
 interface InputFilter {
   value: string;
@@ -90,15 +86,15 @@ export class VisitsFilterComponent implements OnInit {
         takeUntil(this.unsub$),
         map((input: InputFilter) => {
           switch (input.type) {
-            case InputType.DATE: {
+            case 'date': {
               this.filter.date = input.value;
               break;
             }
-            case InputType.TIME: {
+            case 'time': {
               this.filter.time = input.value;
               break;
             }
-            case InputType.USERNAME: {
+            case 'userName': {
               this.filter.userName = input.value;
               break;
             }

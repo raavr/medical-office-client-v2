@@ -7,7 +7,7 @@ import { Validators, FormBuilder } from '@angular/forms';
   styleUrls: ['../../../core/styles/card_shared.scss']
 })
 export class ResetPasswordFormComponent {
-  private _pending: boolean;
+  _pending: boolean;
   @Input() set pending(isPending) {
     isPending ? this.form.disable() : this.form.enable();
     this._pending = isPending;

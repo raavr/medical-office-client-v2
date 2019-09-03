@@ -2,7 +2,7 @@ import { MatPaginatorIntl } from '@angular/material';
 import { NgModule, ModuleWithProviders, Injectable } from '@angular/core';
 
 @Injectable()
-class CustomMatPaginatorIntl extends MatPaginatorIntl {
+export class CustomMatPaginatorIntl extends MatPaginatorIntl {
   constructor() {
     super();
     this.initTranslation();

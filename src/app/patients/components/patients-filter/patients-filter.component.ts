@@ -17,10 +17,7 @@ import {
   takeUntil
 } from 'rxjs/operators';
 
-export enum InputType {
-  NAME = 'name',
-  EMAIL = 'email'
-}
+type InputType = 'name' | 'email';
 
 interface InputFilter {
   value: string;
@@ -58,11 +55,11 @@ export class PatientsFilterComponent implements OnInit {
         takeUntil(this.unsub$),
         map((input: InputFilter) => {
           switch (input.type) {
-            case InputType.NAME: {
+            case 'name': {
               this.filter.name = input.value;
               break;
             }
-            case InputType.EMAIL: {
+            case 'email': {
               this.filter.email = input.value;
               break;
             }

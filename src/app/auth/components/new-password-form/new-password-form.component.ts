@@ -8,7 +8,7 @@ import { ValidatorsService } from 'src/app/core/services/validator.service';
   styleUrls: ['../../../core/styles/card_shared.scss'],
 })
 export class NewPasswordFormComponent {
-  private _pending: boolean;
+  _pending: boolean;
   @Input() set pending(isPending) {
     isPending ? this.form.disable() : this.form.enable();
     this._pending = isPending;

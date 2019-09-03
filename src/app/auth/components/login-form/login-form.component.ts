@@ -8,7 +8,7 @@ import { Credentials } from '../../models/user';
   styleUrls: ['../../../core/styles/card_shared.scss']
 })
 export class LoginFormComponent {
-  private _pending: boolean;
+  _pending: boolean;
   @Input() set pending(isPending) {
     isPending ? this.form.disable() : this.form.enable();
     this._pending = isPending;
