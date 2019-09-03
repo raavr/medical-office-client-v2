@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
-import { PatientsFilterComponent, InputType } from './patients-filter.component';
+import { PatientsFilterComponent } from './patients-filter.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('PatientsFilterComponent', () => {
@@ -37,7 +37,7 @@ describe('PatientsFilterComponent', () => {
     spyOn(component.onFilterChanged, 'emit');
     
     expect(component.filter.name).toEqual('');
-    component.typeText({ value: 'John', type: InputType.NAME });
+    component.typeText({ value: 'John', type: 'name' });
     
     tick(500);
     
@@ -50,7 +50,7 @@ describe('PatientsFilterComponent', () => {
     spyOn(component.onFilterChanged, 'emit');
     
     expect(component.filter.email).toEqual('');
-    component.typeText({ value: 'john@example.com', type: InputType.EMAIL });
+    component.typeText({ value: 'john@example.com', type: 'email' });
     
     tick(500);
     
