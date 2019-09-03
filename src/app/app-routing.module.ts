@@ -9,23 +9,20 @@ const routes: Routes = [
   {
     path: 'account',
     component: AccountComponent,
-    canActivate: [
-      AccessTokenGuard, 
-      ProfileGuard
-    ],
+    canActivate: [AccessTokenGuard, ProfileGuard]
   },
   {
     path: 'dashboard',
     loadChildren: './dashboard/dashboard.module#DashboardModule',
-    canActivate: [
-      AccessTokenGuard,
-    ]
+    canActivate: [AccessTokenGuard]
   },
   { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })
+  ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
