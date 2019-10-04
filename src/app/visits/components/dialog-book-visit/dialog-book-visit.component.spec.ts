@@ -149,6 +149,15 @@ describe('DialogBookVisitComponent', () => {
     expect(component.data.visitTimes).toEqual([]);
   });
 
+  it('should reset the date input when resetDateForm method is called', () => {
+    spyOn(component.form, 'get').and.callThrough();
+    spyOn(component.form.get('date'), 'reset');
+
+    component.resetDateForm();
+    expect(component.form.get).toHaveBeenCalledWith('date');
+    expect(component.form.get('date').reset).toHaveBeenCalled();
+  });
+
   it('should set data.patients to empty list when resetPatientsData method is called', () => {
     const patients = [{ id: '1', name: 'Test', surname: 'New' }];
     component.data.patients = patients;
