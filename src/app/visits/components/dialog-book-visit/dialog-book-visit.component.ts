@@ -74,6 +74,10 @@ export class DialogBookVisitComponent implements OnInit {
     this.data.patients = [];
   }
 
+  resetDateForm() {
+    this.form.get('date').reset();
+  }
+
   ngOnInit() {
     this.form
       .get('date')
@@ -101,6 +105,8 @@ export class DialogBookVisitComponent implements OnInit {
           this.resetPatientsData();
         } else {
           this.onDoctorSelected.emit(user.id);
+          this.resetDateForm();
+          this.resetTimeFormAndData();
         }
       });
   }
