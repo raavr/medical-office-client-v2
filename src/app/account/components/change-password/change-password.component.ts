@@ -12,10 +12,7 @@ import { Passwords } from '../../model/passwords';
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrls: [
-    '../../../core/styles/card_shared.scss',
-    './change-password.component.scss'
-  ]
+  styleUrls: ['../../../core/styles/card_shared.scss']
 })
 export class ChangePasswordComponent {
   @Input() pending: boolean;
